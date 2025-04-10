@@ -1,0 +1,11 @@
+petId^|^username^|^firstName^|^lastName^|^email^|^password^|^phone^|^name^|^category^|^status^|^orderId^|^quantity^|^shipDate^|^orderStatus^|^statusCode^|^scenario
+1^|^user1^|^John^|^Doe^|^john.doe@example.com^|^pass123^|^1234567890^|^Milo^|^Dog^|^available^|^1^|^2^|^2022-10-01^|^delivered^|^200^|^happy_path
+2^|^user2^|^Jane^|^Smith^|^jane.smith@example.com^|^password^|^0987654321^|^Bella^|^Cat^|^pending^|^2^|^1^|^2022-10-02^|^placed^|^201^|^happy_path
+3^|^user3^|^Robert^|^Johnson^|^robert.johnson@example.com^|^robert123^|^1122334455^|^Lucy^|^Dog^|^sold^|^3^|^3^|^2022-10-03^|^approved^|^202^|^negative_scenario
+4^|^user4^|^Michael^|^Jackson^|^michael.jackson@example.com^|^michael^|^2233445566^|^Max^|^Cat^|^available^|^4^|^4^|^2022-10-04^|^delivered^|^203^|^happy_path
+5^|^user5^|^Sarah^|^Connor^|^sarah.connor@example.com^|^sarah123^|^3344556677^|^Charlie^|^Dog^|^pending^|^5^|^5^|^2022-10-05^|^placed^|^204^|^negative_scenario
+6^|^user6^|^James^|^Bond^|^james.bond@example.com^|^bond007^|^4455667788^|^Lola^|^Cat^|^sold^|^6^|^2^|^2022-10-06^|^approved^|^205^|^happy_path
+7^|^user7^|^Emma^|^Watson^|^emma.watson@example.com^|^emma123^|^5566778899^|^Rocky^|^Dog^|^available^|^7^|^1^|^2022-10-07^|^delivered^|^206^|^negative_scenario
+8^|^user8^|^David^|^Bowie^|^david.bowie@example.com^|^bowie^|^6677889900^|^Buddy^|^Cat^|^pending^|^8^|^3^|^2022-10-08^|^placed^|^207^|^happy_path
+9^|^user9^|^Julia^|^Roberts^|^julia.roberts@example.com^|^julia^|^7788990011^|^Daisy^|^Dog^|^sold^|^9^|^4^|^2022-10-09^|^approved^|^208^|^negative_scenario
+10^|^user10^|^Elvis^|^Presley^|^elvis.presley@example.com^|^elvis^|^8899001122^|^Lily^|^Cat^|^available^|^10^|^5^|^2022-10-10^|^delivered^|^209^|^happy_path
