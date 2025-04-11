@@ -1,0 +1,11 @@
+username^|^email^|^firstName^|^lastName^|^password^|^phone^|^name^|^category^|^status^|^quantity^|^shipDate^|^orderStatus^|^statusCode^|^scenario
+user1^|^user1@mail.com^|^John^|^Doe^|^secret1^|^1234567890^|^johnDoe^|^regular^|^active^|^5^|^2022-12-01^|^processed^|^200^|^scenario1
+user2^|^user2@mail.com^|^Jane^|^Doe^|^secret2^|^0987654321^|^janeDoe^|^premium^|^inactive^|^7^|^2022-12-02^|^shipped^|^201^|^scenario2
+user3^|^user3@mail.com^|^James^|^Bond^|^secret3^|^1122334455^|^jamesBond^|^regular^|^pending^|^3^|^2022-12-03^|^completed^|^202^|^scenario3
+user4^|^user4@mail.com^|^Jessica^|^Alba^|^secret4^|^5566778899^|^jessicaAlba^|^premium^|^active^|^6^|^2022-12-04^|^in-progress^|^203^|^scenario4
+user5^|^user5@mail.com^|^Jennifer^|^Lopez^|^secret5^|^9988776655^|^jenniferLopez^|^regular^|^inactive^|^4^|^2022-12-05^|^cancelled^|^204^|^scenario5
+user6^|^user6@mail.com^|^Jack^|^Nicholson^|^secret6^|^8877665544^|^jackNicholson^|^premium^|^pending^|^2^|^2022-12-06^|^returned^|^205^|^scenario6
+user7^|^user7@mail.com^|^Julia^|^Roberts^|^secret7^|^7766554433^|^juliaRoberts^|^regular^|^active^|^1^|^2022-12-07^|^pending^|^206^|^scenario7
+user8^|^user8@mail.com^|^Johnny^|^Depp^|^secret8^|^6655443322^|^johnnyDepp^|^premium^|^inactive^|^10^|^2022-12-08^|^processing^|^207^|^scenario8
+user9^|^user9@mail.com^|^Jodie^|^Foster^|^secret9^|^5544332211^|^jodieFoster^|^regular^|^pending^|^9^|^2022-12-09^|^ refunded^|^208^|^scenario9
+user10^|^user10@mail.com^|^Jared^|^Leto^|^secret10^|^4433221100^|^jaredLeto^|^premium^|^active^|^8^|^2022-12-10^|^dispatched^|^209^|^scenario10
