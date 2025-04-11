@@ -1,0 +1,11 @@
+username^|^email^|^firstName^|^lastName^|^password^|^phone^|^name^|^category^|^status^|^quantity^|^shipDate^|^tags^|^statusCode^|^scenario
+john_doe^|^john.doe@example.com^|^John^|^Doe^|^password123^|^1234567890^|^JohnDoeProfile^|^standard^|^active^|^1^|^2022-01-01^|^tag1^|^200^|^scenario1
+jane_doe^|^jane.doe@example.com^|^Jane^|^Doe^|^password123^|^0987654321^|^JaneDoeProfile^|^premium^|^inactive^|^2^|^2022-02-02^|^tag2^|^400^|^scenario2
+mike_smith^|^mike.smith@example.com^|^Mike^|^Smith^|^password123^|^1234567890^|^MikeSmithProfile^|^standard^|^active^|^3^|^2022-03-03^|^tag3^|^200^|^scenario3
+emma_jones^|^emma.jones@example.com^|^Emma^|^Jones^|^password123^|^0987654321^|^EmmaJonesProfile^|^premium^|^inactive^|^4^|^2022-04-04^|^tag4^|^400^|^scenario4
+tom_brown^|^tom.brown@example.com^|^Tom^|^Brown^|^password123^|^1234567890^|^TomBrownProfile^|^standard^|^active^|^5^|^2022-05-05^|^tag5^|^200^|^scenario5
+lucy_white^|^lucy.white@example.com^|^Lucy^|^White^|^password123^|^0987654321^|^LucyWhiteProfile^|^premium^|^inactive^|^6^|^2022-06-06^|^tag6^|^400^|^scenario6
+chris_green^|^chris.green@example.com^|^Chris^|^Green^|^password123^|^1234567890^|^ChrisGreenProfile^|^standard^|^active^|^7^|^2022-07-07^|^tag7^|^200^|^scenario7
+anna_black^|^anna.black@example.com^|^Anna^|^Black^|^password123^|^0987654321^|^AnnaBlackProfile^|^premium^|^inactive^|^8^|^2022-08-08^|^tag8^|^400^|^scenario8
+james_wilson^|^james.wilson@example.com^|^James^|^Wilson^|^password123^|^1234567890^|^JamesWilsonProfile^|^standard^|^active^|^9^|^2022-09-09^|^tag9^|^200^|^scenario9
+sarah_taylor^|^sarah.taylor@example.com^|^Sarah^|^Taylor^|^password123^|^0987654321^|^SarahTaylorProfile^|^premium^|^inactive^|^10^|^2022-10-10^|^tag10^|^400^|^scenario10

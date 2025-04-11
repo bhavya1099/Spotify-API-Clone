@@ -1,0 +1,11 @@
+username^|^password^|^statusCode^|^scenario
+user1^|^pass123^|^200^|^scenarioA
+user2^|^pass456^|^404^|^scenarioB
+user3^|^pass789^|^400^|^scenarioC
+user4^|^pass321^|^500^|^scenarioD
+user5^|^pass654^|^300^|^scenarioE
+user6^|^pass987^|^200^|^scenarioF
+user7^|^pass234^|^404^|^scenarioG
+user8^|^pass567^|^400^|^scenarioH
+user9^|^pass890^|^500^|^scenarioI
+user10^|^pass123^|^300^|^scenarioJ
