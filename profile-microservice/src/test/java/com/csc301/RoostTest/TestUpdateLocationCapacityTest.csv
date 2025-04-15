@@ -1,0 +1,11 @@
+METHOD^|^URL^|^REQ_HEADERS^|^REQ_BODY^|^RESPONSE_CODE^|^RESPONSE_BODY  
+POST^|^/pet/{petId}/uploadImage^|^{"Content-Type":"multipart/form-data", "security": {"oauth2": ["write:pets", "read:pets"]}}^|^{"petId":1234, "additionalMetadata":"Additional Data", "file":"Image file data"}^|^200^|^{"code":200, "type":"ok", "message":"Upload Image Successful"}  
+POST^|^/pet^|^{"Content-Type":"application/json", "security": {"oauth2": ["write:pets", "read:pets"]}}^|^{"id":5656, "name":"Fluffy", "photoUrls":["www.xyz.com"],"status":"available", "tags":[{"id":1, "name":"cute"}]}^|^405^|^{"description":"Invalid input"}  
+PUT^|^/pet^|^{"Content-Type":"application/json", "security": {"oauth2": ["write:pets", "read:pets"]}}^|^{"id":7890, "name":"Fluffy", "photoUrls":["www.abc.com"],"status":"sold", "tags":[{"id":1, "name":"cute"}]}^|^400^|^{"description":"Invalid ID supplied"}  
+GET^|^/pet/findByStatus?status=available^|^{"security": {"oauth2": ["write:pets", "read:pets"]}}^|^{}^|^200^|^{"type": "array", "items": "[{\"id\":7890, \"name\":\"Fluffy\", \"photoUrls\":[\"www.abc.com\"],\"status\":\"available\", \"tags\":[{\"id\":1, \"name\":\"cute\"}]}]"}  
+GET^|^/pet/findByTags?tags=cute^|^{"security": {"oauth2": ["write:pets", "read:pets"]}}^|^{}^|^200^|^{"type": "array", "items": "[{\"id\":7890, \"name\":\"Fluffy\", \"photoUrls\":[\"www.abc.com\"],\"status\":\"available\", \"tags\":[{\"id\":1, \"name\":\"cute\"}]}]"}  
+GET^|^/pet/{petId}^|^{"api_key":"your_api_key"}^|^{"petId":1234}^|^200^|^{"id":7890, "name":"Fluffy", "status":"available" "tags":[{"id":1, "name":"cute"}]}  
+POST^|^/pet/{petId}^|^{"security": {"oauth2": ["write:pets", "read:pets"]}}^|^{"petId":1234, "name":"Fluffy", "status":"available"}^|^405^|^{"description":"Invalid input"}  
+DELETE^|^/pet/{petId}^|^{"api_key":"your_api_key", "security": {"oauth2": ["write:pets", "read:pets"]}}^|^{"petId":1234}^|^400^|^{"description":"Invalid ID supplied"}  
+GET^|^/store/inventory^|^{"api_key":"your_api_key", "security": {"apiKey": ["read:pets"]}}^|^{}^|^{}^|^{}  
+POST^|^/store/order^|^{"Content-Type":"application/json"}^|^{"id":1112, "petId":1234, "quantity":10, "shipDate":"2022-01-01", "status":"placed", "complete":true}^|^200^|^{"id":1112, "petId":1234, "quantity":10, "status":"placed", "complete":true}

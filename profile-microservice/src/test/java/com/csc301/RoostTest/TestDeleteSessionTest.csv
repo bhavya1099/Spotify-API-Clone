@@ -1,0 +1,3 @@
+METHOD^|^URL^|^REQ_HEADERS^|^REQ_BODY^|^RESPONSE_CODE^|^RESPONSE_BODY
+delete^|^/v2/pet/{R64EKX5RG32U}^|^{"api_key":" "}^|^{}^|^400^|^{"description":"Invalid ID supplied","headers":"No response headers"}
+delete^|^/v2/pet/{R64EKX5RG32U}^|^{"api_key":" "}^|^{}^|^404^|^{"description":"Pet not found","headers":"No response headers"}

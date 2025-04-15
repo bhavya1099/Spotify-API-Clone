@@ -1,0 +1,20 @@
+METHOD^|^URL^|^REQ_HEADERS^|^REQ_BODY^|^RESPONSE_CODE^|^RESPONSE_BODY
+post^|^/pet/{petId}/uploadImage^|^{"api_key": "api_key"}^|^{"petId": 0,"additionalMetadata": "string","file": "file"}^|^200^|^{"code": 0,"type": "string","message": "string"}
+post^|^/pet^|^{"api_key": "api_key"}^|^{"id": 0,"name": "string","photoUrls": ["string"],"tags": [{"id": 0, "name": "string"}],"status": "available"}^|^405^|^{"description": "Invalid input"}
+put^|^/pet^|^{"api_key": "api_key"}^|^{"id": 0,"name": "string","photoUrls": ["string"],"tags": [{"id": 0, "name": "string"}],"status": "available"}^|^404^|^{"description": "Pet not found"}
+get^|^/pet/findByStatus^|^{"api_key": "api_key"}^|^{"status": ["available"]}}^|^400^|^{"description": "Invalid status value"}
+get^|^/pet/findByTags^|^{"api_key": "api_key"}^|^{"tags": ["string"]}}^|^400^|^{"description": "Invalid tag value"}
+get^|^/pet/{petId}^|^{"api_key": "api_key"}^|^{"petId": 0}^|^404^|^{"description": "Pet not found"}
+post^|^/pet/{petId}^|^{"api_key": "api_key"}^|^{"petId": 0, "name": "string", "status": "string"}^|^405^|^{"description": "Invalid input"}
+delete^|^/pet/{petId}^|^{"api_key": "api_key"}^|^{"petId": 0}^|^404^|^{"description": "Pet not found"}
+get^|^/store/inventory^|^{"api_key": "api_key"}^|^{ }^|^{}^|^{}
+post^|^/store/order^|^{"api_key": "api_key"}^|^{"id": 0,"petId": 0,"quantity": 0,"shipDate": "2020-07-26T03:15:45.236Z","status": "placed","complete": false}^|^400^|^{"description": "Invalid Order"}
+get^|^/store/order/{orderId}^|^{"api_key": "api_key"}^|^{"orderId": 0 }^|^400^|^{"description": "Invalid ID supplied"}
+delete^|^/store/order/{orderId}^|^{"api_key": "api_key"}^|^{"orderId": 0 }^|^404^|^{"description": "Order not found"}
+post^|^/user/createWithList^|^{"api_key": "api_key"}^|^{"id": 0,"username": "string","firstName": "string","lastName": "string","email": "string","password": "string","phone": "string","userStatus": 0}^|^{}^|^{"description": "successful operation"}
+get^|^/user/{username}^|^{"api_key": "api_key"}^|^{"username": "string"}^|^404^|^{"description": "User not found"}
+put^|^/user/{username}^|^{"api_key": "api_key"}^|^{"username": "string"}^|^404^|^{"description": "User not found"}
+delete^|^/user/{username}^|^{"api_key": "api_key"}^|^{"username": "string"}^|^404^|^{"description": "User not found"}
+get^|^/user/login^|^{"api_key": "api_key"}^|^{"username": "string"}^|^404^|^{"description": "User not found"}
+get^|^/user/logout^|^{"api_key": "api_key"}^|^{}^|^{}^|^{}
+post^|^/user^|^{"api_key": "api_key"}^|^{"id": 0,"username": "string","firstName": "string","lastName": "string","email": "string","password": "string","phone": "string","userStatus": 0}^|^{}^|^{"description": "successful operation"}

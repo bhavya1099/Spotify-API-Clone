@@ -1,0 +1,21 @@
+METHOD^|^URL^|^REQ_HEADERS^|^REQ_BODY^|^RESPONSE_CODE^|^RESPONSE_BODY
+post^|^/pet/{petId}/uploadImage^|^{"api_key": "OAuth2"}^|^{"petId": 123, "additionalMetadata": "test", "file": "test.jpg"}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+post^|^/pet^|^{"api_key": "OAuth2"}^|^{"id": 123, "name": "Lucy", "photoUrls": ["url1", "url2"], "tags": [{"id": 1, "name": "tag1"}], "status": "available"}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+put^|^/pet^|^{"api_key": "OAuth2"}^|^{"id": 123, "name": "Lucy", "photoUrls": ["url1", "url2"], "tags": [{"id": 1, "name": "tag1"}], "status": "available"}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+get^|^/pet/findByStatus?status=available^|^{"api_key": "OAuth2"}^|^{}^|^200^|^{"items": [{"id": 123, "name": "Lucy", "photoUrls": ["url1", "url2"], "tags": [{"id": 1, "name": "tag1"}], "status": "available"}]}
+get^|^/pet/findByTags?tags=tag1^|^{"api_key": "OAuth2"}^|^{}^|^200^|^{"items": [{"id": 123, "name": "Lucy", "photoUrls": ["url1", "url2"], "tags": [{"id": 1, "name": "tag1"}], "status": "available"}]}
+get^|^/pet/{petId}^|^{"api_key": "OAuth2"}^|^{"petId": 123}^|^200^|^{"id": 123, "name": "Lucy", "photoUrls": ["url1", "url2"], "tags": [{"id": 1, "name": "tag1"}], "status": "available"}
+post^|^/pet/{petId}^|^{"api_key": "OAuth2"}^|^{"petId": 123, "name": "Lucy", "status": "available"}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+delete^|^/pet/{petId}^|^{"api_key": "OAuth2"}^|^{"petId": 123}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+get^|^/store/inventory^|^{"api_key": "OAuth2"}^|^{}^|^200^|^{"inventory": {"available": 10, "pending": 5, "sold": 2}}
+post^|^/store/order^|^{}^|^{"id": 123, "petId": 123, "quantity": 2, "shipDate": "2021-09-21T10:00:00Z", "status": "placed", "complete": true }^|^200^|^{"id": 123,  "petId": 123, "quantity": 2, "shipDate": "2021-09-21T10:00:00Z", "status": "placed", "complete": true}
+get^|^/store/order/{orderId}^|^{}^|^{"orderId": 123}^|^200^|^{"id": 123, "petId": 123, "quantity": 2, "shipDate": "2021-09-21T10:00:00Z", "status": "placed", "complete": true}
+delete^|^/store/order/{orderId}^|^{}^|^{"orderId": 123}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+post^|^/user/createWithList^|^{"api_key": "OAuth2"}^|^{}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+get^|^/user/{username}^|^{}^|^{"username": "testuser"}^|^200^|^{"id": 123, "username": "testuser", "firstName": "test", "lastName": "user", "email": "testuser@test.com", "password": "test123", "phone": "1234567890", "userStatus": 1}
+put^|^/user/{username}^|^{}^|^{"username": "testuser","id": 123, "firstName": "test", "lastName": "user", "email": "testuser@test.com", "password": "test123", "phone": "1234567890", "userStatus": 1}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+delete^|^/user/{username}^|^{}^|^{"username": "testuser"}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+get^|^/user/login^|^{}^|^{"username": "testuser", "password": "test123"}^|^200^|^{"id": 123, "username": "testuser", "firstName": "test", "lastName": "user", "email": "testuser@test.com", "password": "test123", "phone": "1234567890", "userStatus": 1}
+get^|^/user/logout^|^{}^|^{}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+post^|^/user/createWithArray^|^{"api_key": "OAuth2"}^|^{}^|^200^|^{"code": 200, "type": "string", "message": "success"}
+post^|^/user^|^{}^|^{"id": 123, "username": "testuser", "firstName": "test", "lastName": "user", "email": "testuser@test.com", "password": "test123", "phone": "1234567890", "userStatus": 1}^|^200^|^{"code": 200, "type": "string", "message": "success"}
