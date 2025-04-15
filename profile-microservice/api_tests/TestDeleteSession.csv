@@ -1,0 +1,11 @@
+username^|^statusCode^|^scenario
+user1^|^200^|^ScenarioA
+user2^|^404^|^ScenarioB
+user3^|^400^|^ScenarioC
+user4^|^200^|^ScenarioD
+user5^|^404^|^ScenarioA
+user6^|^200^|^ScenarioB
+user7^|^400^|^ScenarioC
+user8^|^200^|^ScenarioD
+user9^|^404^|^ScenarioA
+user10^|^400^|^ScenarioB
