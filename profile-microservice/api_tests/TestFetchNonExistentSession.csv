@@ -1,0 +1,11 @@
+petId^|^statusCode^|^scenario
+12345^|^200^|^invalid_pet_info
+54321^|^404^|^pet_not_found
+43215^|^400^|^bad_request
+15234^|^500^|^server_error
+53241^|^200^|^invalid_pet_info
+34512^|^404^|^pet_not_found
+45123^|^400^|^bad_request
+31425^|^500^|^server_error
+24135^|^200^|^invalid_pet_info
+13524^|^404^|^pet_not_found

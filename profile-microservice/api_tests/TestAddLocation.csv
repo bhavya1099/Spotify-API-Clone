@@ -1,0 +1,11 @@
+id^|^username^|^firstName^|^lastName^|^email^|^password^|^phone^|^userStatus^|^statusCode^|^scenario
+1^|^johndoe^|^John^|^Doe^|^johndoe@email.com^|^password123^|^1234567890^|^1^|^200^|^scenario1
+2^|^janedoe^|^Jane^|^Doe^|^janedoe@email.com^|^password456^|^0987654321^|^0^|^404^|^scenario2
+3^|^bobsmith^|^Bob^|^Smith^|^bobsmith@email.com^|^password789^|^2345678901^|^1^|^200^|^scenario3
+4^|^alicesmith^|^Alice^|^Smith^|^alicesmith@email.com^|^password012^|^5678901234^|^0^|^404^|^scenario4
+5^|^charliebrown^|^Charlie^|^Brown^|^charliebrown@email.com^|^password345^|^8901234567^|^1^|^200^|^scenario5
+6^|^lucyvanpelt^|^Lucy^|^Van Pelt^|^lucyvanpelt@email.com^|^password678^|^1234567890^|^0^|^404^|^scenario6
+7^|^tomsawyer^|^Tom^|^Sawyer^|^tomsawyer@email.com^|^password901^|^7654321098^|^1^|^200^|^scenario7
+8^|^harrypotter^|^Harry^|^Potter^|^harrypotter@email.com^|^password234^|^1357924680^|^0^|^404^|^scenario8
+9^|^hermionegranger^|^Hermione^|^Granger^|^hermionegranger@email.com^|^password567^|^2468135790^|^1^|^200^|^scenario9
+10^|^ronweasley^|^Ron^|^Weasley^|^ronweasley@email.com^|^password890^|^9876543210^|^0^|^404^|^scenario10
