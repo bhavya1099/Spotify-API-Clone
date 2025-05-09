@@ -1,0 +1,11 @@
+username^|^email^|^firstName^|^lastName^|^password^|^phone^|^name^|^category^|^status^|^quantity^|^shipDate^|^statusCode^|^scenario
+user1^|^user1@email.com^|^John^|^Doe^|^pass123^|^1234567890^|^Puppy^|^PET^|^available^|^2^|^2021-09-15^|^200^|^scenario1
+user2^|^user2@email.com^|^Jane^|^Doe^|^wordpass234^|^0987654321^|^Kitty^|^PET^|^pending^|^1^|^2021-09-20^|^200^|^scenario2
+user3^|^user3@email.com^|^Jim^|^Beam^|^secret789^|^1231231231^|^Fishy^|^PET^|^sold^|^5^|^2021-09-25^|^200^|^scenario3
+user4^|^user4@email.com^|^Jack^|^Daniels^|^qwerty123^|^3213213213^|^Bulldog^|^PET^|^available^|^3^|^2021-09-30^|^200^|^scenario4
+user5^|^user5@email.com^|^Jerry^|^Mouse^|^mousecat123^|^987654321^|^PersianCat^|^PET^|^pending^|^2^|^2021-10-05^|^200^|^scenario5
+user6^|^user6@email.com^|^Jessica^|^Alba^|^alba123^|^123456789^|^GoldFish^|^PET^|^sold^|^7^|^2021-10-10^|^200^|^scenario6
+user7^|^user7@email.com^|^Jennifer^|^Lawrence^|^jenlaw123^|^789456123^|^Bunny^|^PET^|^available^|^1^|^2021-10-15^|^200^|^scenario7
+user8^|^user8@email.com^|^Jordan^|^Belfort^|^wolf123^|^321654987^|^SiberianHusky^|^PET^|^pending^|^4^|^2021-10-20^|^200^|^scenario8
+user9^|^user9@email.com^|^Jill^|^Valentine^|^resident123^|^987321654^|^Parrot^|^PET^|^sold^|^3^|^2021-10-25^|^200^|^scenario9
+user10^|^user10@email.com^|^Jason^|^Statham^|^actor123^|^789123456^|^Beagle^|^PET^|^available^|^2^|^2021-10-30^|^200^|^scenario10
