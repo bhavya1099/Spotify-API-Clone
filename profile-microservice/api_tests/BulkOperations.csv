@@ -1,0 +1,11 @@
+username^|^email^|^firstName^|^lastName^|^name^|^category^|^status^|^statusCode^|^scenario
+user1^|^user1@example.com^|^John^|^Doe^|^John Doe^|^A^|^Active^|^200^|^Scenario1
+user2^|^user2@example.com^|^Jane^|^Doe^|^Jane Doe^|^B^|^Inactive^|^404^|^Scenario2
+user3^|^user3@example.com^|^Jim^|^Beam^|^Jim Beam^|^C^|^Active^|^200^|^Scenario3
+user4^|^user4@example.com^|^Jack^|^Daniels^|^Jack Daniels^|^D^|^Inactive^|^404^|^Scenario4
+user5^|^user5@example.com^|^Johnny^|^Walker^|^Johnny Walker^|^A^|^Active^|^200^|^Scenario5
+user6^|^user6@example.com^|^Jill^|^Bean^|^Jill Bean^|^B^|^Inactive^|^404^|^Scenario6
+user7^|^user7@example.com^|^Jerry^|^Springer^|^Jerry Springer^|^C^|^Active^|^200^|^Scenario7
+user8^|^user8@example.com^|^Jennifer^|^Aniston^|^Jennifer Aniston^|^D^|^Inactive^|^404^|^Scenario8
+user9^|^user9@example.com^|^Jeremy^|^Clarkson^|^Jeremy Clarkson^|^A^|^Active^|^200^|^Scenario9
+user10^|^user10@example.com^|^Jessica^|^Alba^|^Jessica Alba^|^B^|^Inactive^|^404^|^Scenario10
