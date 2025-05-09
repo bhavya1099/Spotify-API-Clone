@@ -1,0 +1,11 @@
+id^|^username^|^firstName^|^lastName^|^email^|^password^|^phone^|^userStatus^|^petId^|^quantity^|^shipDate^|^status^|^complete^|^statusCode^|^scenario
+1001^|^user1^|^John^|^Doe^|^johndoe1@example.com^|^pass1^|^1234567890^|^1^|^101^|^2^|^2021-10-10^|^placed^|^true^|^200^|^scenario1
+1002^|^user2^|^Jane^|^Doe^|^janedoe2@example.com^|^pass2^|^1234567891^|^0^|^102^|^1^|^2021-09-10^|^approved^|^false^|^404^|^scenario2
+1003^|^user3^|^James^|^Smith^|^jamessmith3@example.com^|^pass3^|^1234567892^|^1^|^103^|^3^|^2021-08-10^|^delivered^|^true^|^200^|^scenario3
+1004^|^user4^|^Jennifer^|^Smith^|^jennifersmith4@example.com^|^pass4^|^1234567893^|^0^|^104^|^4^|^2021-07-10^|^pending^|^false^|^405^|^scenario4
+1005^|^user5^|^Jessica^|^Johnson^|^jessicajohnson5@example.com^|^pass5^|^1234567894^|^1^|^105^|^5^|^2021-06-10^|^available^|^true^|^200^|^scenario5
+1006^|^user6^|^Jack^|^Johnson^|^jackjohnson6@example.com^|^pass6^|^1234567895^|^0^|^106^|^6^|^2021-05-10^|^sold^|^false^|^404^|^scenario6
+1007^|^user7^|^Julia^|^Brown^|^juliabrown7@example.com^|^pass7^|^1234567896^|^1^|^107^|^7^|^2021-04-10^|^placed^|^true^|^200^|^scenario7
+1008^|^user8^|^Joseph^|^Brown^|^josephbrown8@example.com^|^pass8^|^1234567897^|^0^|^108^|^8^|^2021-03-10^|^approved^|^false^|^405^|^scenario8
+1009^|^user9^|^Jenny^|^Davis^|^jennydavis9@example.com^|^pass9^|^1234567898^|^1^|^109^|^9^|^2021-02-10^|^delivered^|^true^|^200^|^scenario9
+1010^|^user10^|^Jacob^|^Davis^|^jacobdavis10@example.com^|^pass10^|^1234567899^|^0^|^110^|^10^|^2021-01-10^|^pending^|^false^|^404^|^scenario10
