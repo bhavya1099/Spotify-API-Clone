@@ -50,65 +50,65 @@
 #       'When I approve the order\r\n' +
 #       'Then the order status should change to "approved"\r\n' +
 #       'When the order is delivered\r\n' +
-#       'Then the order status should change to "delivered"\r\n' +
-#       '\r\n' +
-#       '        # Cleanup\r\n' +
-#       'When I delete the order\r\n' +
-#       'Then the order should be removed successfully\r\n' +
-#       'When I delete the pet\r\n' +
-#       'Then the pet should be removed successfully\r\n' +
-#       'When I delete the user account\r\n' +
-#       'Then the user should be removed successfully\r\n' +
-#       'When I attempt to log out\r\n' +
-#       'Then I should be successfully logged out',
+#       'Then the order status should change to "delivered"',
 #     examples: ''
 #   }
 # }
 # 
 
 # ********RoostGPT********
-@ignore
 Feature: Petstore E2E Flow
-    As a user of the Petstore API
-    I want to manage pets, orders, and user accounts
-    So that I can run a successful pet store business
+  As a user of the Petstore API
+  I want to manage pets, orders, and user accounts
+  So that I can run a successful pet store business
 
   Background:
     * def SWAGGER_184F1D2B61_URL = karate.properties['SWAGGER_184F1D2B61_URL'] || karate.get('SWAGGER_184F1D2B61_URL', 'http://localhost:4010')
     * def SWAGGER_184F1D2B61_AUTH_TOKEN = karate.properties['SWAGGER_184F1D2B61_AUTH_TOKEN'] || karate.get('SWAGGER_184F1D2B61_AUTH_TOKEN', 'Bearer_Dummy_Token')
+
+  Scenario: User Management
     * url SWAGGER_184F1D2B61_URL
     * configure headers = { Authorization: '#(SWAGGER_184F1D2B61_AUTH_TOKEN)' }
-
-  Scenario: Create User
-    Given path 'user'
-    And request {username: 'testuser1', email: 'test@email.com', firstName: 'Test', lastName: 'User', password: 'pass123', phone: '1234567890'}
+    Given path '/user'
+    And request { username: 'testuser1', email: 'test@email.com', firstName: 'Test', lastName: 'User', password: 'pass123', phone: '1234567890' }
     When method post
     Then status 200
+    And match response == {username: 'testuser1'}
 
-  Scenario: Login User
-    Given path 'user/login'
-    And params {username: 'testuser1', password: 'pass123'}
+  Scenario: Pet Management
+    * url SWAGGER_184F1D2B61_URL
+    And path '/pet'
+    And request { name: 'Fluffy', category: 'Cat', status: 'available' }
+    When method post
+    Then status 200
+    And match response == {name: 'Fluffy'}
+
+  Scenario: Store Operations
+    * url SWAGGER_184F1D2B61_URL
+    And path '/store/inventory'
     When method get
     Then status 200
+    And match response != null
 
-  Scenario: Create Pet
-    Given path 'pet'
-    And request {name: 'Fluffy', status: 'available', photoUrls: ['Cat']}
+  Scenario: Order Management
+    * url SWAGGER_184F1D2B61_URL
+    And path '/store/order'
+    And request { quantity: 1, shipDate: 'tomorrow', status: 'placed' }
     When method post
     Then status 200
+    And match response == {status: 'placed'}
 
-  Scenario: Check Inventory
-    Given path 'store/inventory'
-    When method get
+  Scenario: Order Completion
+    * url SWAGGER_184F1D2B61_URL
+    And path '/store/order/{orderId}'
+    * def orderId = response.orderId
+    * path orderId
+    And request { status: 'approved' }
+    When method put
     Then status 200
-
-  Scenario: Place Order
-    Given path 'store/order'
-    And request {petId: '#(response.id)', quantity: 1, shipDate: 'tomorrow', status: 'placed'}
-    When method post
+    And match response.status == 'approved'
+    * path orderId
+    And request { status: 'delivered' }
+    When method put
     Then status 200
-
-  Scenario: Delete User
-    Given path 'user/testuser1'
-    When method delete
-    Then status 200
+    And match response.status == 'delivered'
