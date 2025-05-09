@@ -1,0 +1,11 @@
+username^|^email^|^firstName^|^lastName^|^password^|^phone^|^name^|^category^|^status^|^quantity^|^shipDate^|^petId^|^statusCode^|^scenario
+user1^|^user1@example.com^|^John^|^Doe^|^password1^|^1234567890^|^Fluffy^|^mammal^|^available^|^5^|^2022-01-01^|^1^|^200^|^Scenario1
+user2^|^user2@example.com^|^Jane^|^Doe^|^password2^|^0987654321^|^Buddy^|^bird^|^pending^|^2^|^2022-02-01^|^2^|^200^|^Scenario2
+user3^|^user3@example.com^|^Joe^|^Smith^|^password3^|^6789012345^|^Snowy^|^reptile^|^sold^|^1^|^2022-03-01^|^3^|^200^|^Scenario3
+user4^|^user4@example.com^|^Jill^|^Johnson^|^password4^|^5432109876^|^Furry^|^amphibian^|^available^|^3^|^2022-04-01^|^4^|^200^|^Scenario4
+user5^|^user5@example.com^|^Jack^|^Jackson^|^password5^|^2109876543^|^Woofy^|^insect^|^pending^|^4^|^2022-05-01^|^5^|^200^|^Scenario5
+user6^|^user6@example.com^|^Jeff^|^Jefferson^|^password6^|^8765432109^|^Mewo^|^mammal^|^sold^|^2^|^2022-06-01^|^6^|^200^|^Scenario6
+user7^|^user7@example.com^|^Jenny^|^Jennings^|^password7^|^7654321098^|^Feathers^|^bird^|^available^|^1^|^2022-07-01^|^7^|^200^|^Scenario7
+user8^|^user8@example.com^|^Jerry^|^Jerkins^|^password8^|^6543210987^|^Whiskers^|^reptile^|^pending^|^3^|^2022-08-01^|^8^|^200^|^Scenario8
+user9^|^user9@example.com^|^Jess^|^Jessen^|^password9^|^3210987654^|^Scales^|^amphibian^|^sold^|^4^|^2022-09-01^|^9^|^200^|^Scenario9
+user10^|^user10@example.com^|^Jim^|^Jameson^|^password10^|^9876543210^|^Cuddles^|^insect^|^available^|^5^|^2022-10-01^|^10^|^200^|^Scenario10
