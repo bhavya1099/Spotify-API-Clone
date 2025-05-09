@@ -1,0 +1,11 @@
+petId^|^status^|^tags^|^additionalMetadata^|^name^|^orderId^|^username^|^password^|^statusCode^|^scenario
+1^|^available^|^tag1,tag2^|^meta1:val1,meta2:val2^|^Bella^|^111^|^user1^|^passwd1^|^200^|^scenario1
+2^|^pending^|^tag3,tag4^|^meta3:val3,meta4:val4^|^Luna^|^112^|^user2^|^passwd2^|^404^|^scenario2
+3^|^sold^|^tag5,tag6^|^meta5:val5,meta6:val6^|^Max^|^113^|^user3^|^passwd3^|^200^|^scenario3
+4^|^available^|^tag7,tag8^|^meta7:val7,meta8:val8^|^Daisy^|^114^|^user4^|^passwd4^|^200^|^scenario4
+5^|^pending^|^tag9,tag10^|^meta9:val9,meta10:val10^|^Charlie^|^115^|^user5^|^passwd5^|^200^|^scenario5
+6^|^sold^|^tag11,tag12^|^meta11:val11,meta12:val12^|^Lucy^|^116^|^user6^|^passwd6^|^404^|^scenario6
+7^|^available^|^tag13,tag14^|^meta13:val13,meta14:val14^|^Cooper^|^117^|^user7^|^passwd7^|^200^|^scenario7
+8^|^pending^|^tag15,tag16^|^meta15:val15,meta16:val16^|^Molly^|^118^|^user8^|^passwd8^|^200^|^scenario8
+9^|^sold^|^tag17,tag18^|^meta17:val17,meta18:val18^|^Bailey^|^119^|^user9^|^passwd9^|^404^|^scenario9
+10^|^available^|^tag19,tag20^|^meta19:val19,meta20:val20^|^Sadie^|^120^|^user10^|^passwd10^|^200^|^scenario10
