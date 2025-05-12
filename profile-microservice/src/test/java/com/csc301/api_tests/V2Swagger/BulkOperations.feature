@@ -38,67 +38,29 @@
 
 # ********RoostGPT********
 Feature: Petstore E2E Flow
-  As a user of the Petstore API
-  I want to manage pets, orders, and user accounts
-  So that I can run a successful pet store business
 
   Background:
     * def SWAGGER_184F1D2B61_URL = karate.properties['SWAGGER_184F1D2B61_URL'] || karate.get('SWAGGER_184F1D2B61_URL', 'http://localhost:4010')
-    * def AUTH_TOKEN = karate.properties['SWAGGER_184F1D2B61_AUTH_TOKEN'] || karate.get('SWAGGER_184F1D2B61_AUTH_TOKEN', 'Bearer_Dummy_Token')
-    * configure headers = { Authorization: '#(AUTH_TOKEN)' }
+    * def SWAGGER_184F1D2B61_AUTH_TOKEN = karate.properties['SWAGGER_184F1D2B61_AUTH_TOKEN'] || karate.get('SWAGGER_184F1D2B61_AUTH_TOKEN', 'Bearer_Dummy_Token')
 
-  Scenario: Bulk operations
-    Given I have multiple users to create
-    And def payload =
-      """
-      [
-        {
-          "id": 1,
-          "username": "bulkuser1",
-          "firstName": "Bulk",
-          "lastName": "User1",
-          "email": "bulk1@test.com",
-          "password": "password1",
-          "phone": "1234567890",
-          "userStatus": 1
-        },
-        {
-          "id": 2,
-          "username": "bulkuser2",
-          "firstName": "Bulk",
-          "lastName": "User2",
-          "email": "bulk2@test.com",
-          "password": "password2",
-          "phone": "0987654321",
-          "userStatus": 2
-        }
-      ]
-      """
-    And url SWAGGER_184F1D2B61_URL
-    And path '/v2/user/createWithList'
+  Scenario Outline: Bulk operations
+    * url '<SWAGGER_184F1D2B61_URL>'
+    Given path '/v2/user/createWithList'
+    And request [{ "username": "bulk user1", "email": "bulk1@test.com", "firstName": "Bulk", "lastName": "User1"},
+    { "username": "bulk user2", "email": "bulk2@test.com", "firstName": "Bulk", "lastName": "User2" }]
     When method post
     Then status 200
-    And match $ == '#array'
-    Given I have multiple pets to add
-    And def payload =
-      """
-      {
-          "id": 1,
-          "name": "Max",
-          "photoUrls": [],
-          "tags": [
-            {
-              "id": 1,
-              "name": "Dog"
-            }
-          ],
-          "status": "available"
-      }
-      """
-    And url SWAGGER_184F1D2B61_URL
-    And path '/v2/pet'
+    And match $ == "#[2]"
+
+    * url '<SWAGGER_184F1D2B61_URL>'
+    * configure headers = { Authorization: '<SWAGGER_184F1D2B61_AUTH_TOKEN>' }
+    Given path '/v2/pet'
+    And request [{ "name": "Max", "category": "Dog", "photoUrls": [], "tags": [], "status": "available"},
+    { "name": "Charlie", "category": "Dog", "photoUrls": [], "tags": [], "status": "available"}]
     When method post
-    Then status 405
-    And match $responseHeaders['Content-Type'][0] == 'application/json'
-    And match $responseBody.path == '/v2/pet'
-    And match $responseBody.error == '#string'
+    Then status 200
+    And match $ == "#[2]"
+
+  Examples: 
+    | SWAGGER_184F1D2B61_URL   | SWAGGER_184F1D2B61_AUTH_TOKEN |
+    | http://localhost:4010   | Bearer_Dummy_Token           |

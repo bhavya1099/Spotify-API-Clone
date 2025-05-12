@@ -36,41 +36,37 @@
 
 # ********RoostGPT********
 Feature: Petstore E2E Flow
-  As a user of the Petstore API
-  I want to manage pets, orders, and user accounts
-  So that I can run a successful pet store business
+As a user of the Petstore API
+I want to manage pets, orders, and user accounts
+So that I can run a successful pet store business
 
   Background:
-    * def SWAGGER_184F1D2B61_URL = karate.properties['SWAGGER_184F1D2B61_URL'] || karate.get('SWAGGER_184F1D2B61_URL', 'http://localhost:4010')
-    * def SWAGGER_184F1D2B61_AUTH_TOKEN = karate.properties['SWAGGER_184F1D2B61_AUTH_TOKEN'] || karate.get('SWAGGER_184F1D2B61_AUTH_TOKEN', 'Bearer_Dummy_Token')
-    * configure headers = { Authorization: '#(SWAGGER_184F1D2B61_AUTH_TOKEN)' }
+    * url 'https://petstore.swagger.io/v2'
+    And def authHeader = { Authorization: '#(karate.properties['AUTH_TOKEN'])' }
+    And configure headers = authHeader
 
-  @error_handling_and_validation
-  Scenario: Error handling and validation for pet APIs
-    * url SWAGGER_184F1D2B61_URL
+  Scenario: Error handling and validation for creating a pet without required fields
     Given path '/pet'
+    And def body = { id: 100, status: 'available' }
+    And request body
     When method post
     Then status 405
 
-  @error_handling_and_validation
-  Scenario: Error handling and validation for invalid pet ID get request
-    * url SWAGGER_184F1D2B61_URL
-    Given path '/pet/{petId}'
-    * path '0' #assuming invalid ID = 0
+  Scenario: Error handling for finding a pet with invalid ID
+    Given path '/pet/9999999'
     When method get
     Then status 404
 
-  @error_handling_and_validation
-  Scenario: Error handling and validation for user APIs
-    * url SWAGGER_184F1D2B61_URL
+  Scenario: Error handling for creating a user without required fields
     Given path '/user'
+    And def body = { id: 100, username: 'test_user' }
+    And request body
     When method post
-    Then match response.status contains 'error' #assuming error response contains status:error
+    Then match response.status == 400
 
-  @error_handling_and_validation
-  Scenario: Error handling and validation for invalid username get request
-    * url SWAGGER_184F1D2B61_URL
-    Given path '/user/{username}'
-    * path 'invalid' #assuming invalid username is 'invalid'
-    When method get
-    Then status 400
+  Scenario: Error handling for login with invalid credentials
+    Given path '/user/login'
+    And def body = { username: 'invalid_username', password: 'invalid_password' }
+    And request body
+    When method post
+    Then match response.status == 400
