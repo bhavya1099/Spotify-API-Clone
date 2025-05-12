@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ProfileController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">profile-microservice</a> &gt; <a href="index.source.html" class="el_package">com.csc301.profilemicroservice</a> &gt; <span class="el_source">ProfileController.java</span></div><h1>ProfileController.java</h1><pre class="source lang-java linenums">package com.csc301.profilemicroservice;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+
+@RestController
+@RequestMapping(&quot;/&quot;)
+public class ProfileController {
+
+	public static final String KEY_USER_NAME = &quot;userName&quot;;
+
+	public static final String KEY_USER_FULLNAME = &quot;fullName&quot;;
+
+	public static final String KEY_USER_PASSWORD = &quot;password&quot;;
+
+	@Autowired
+	private final ProfileDriverImpl profileDriver;
+
+	@Autowired
+	private final PlaylistDriverImpl playlistDriver;
+
+<span class="fc" id="L39">	OkHttpClient client = new OkHttpClient();</span>
+
+<span class="fc" id="L41">	public ProfileController(ProfileDriverImpl profileDriver, PlaylistDriverImpl playlistDriver) {</span>
+<span class="fc" id="L42">		this.profileDriver = profileDriver;</span>
+<span class="fc" id="L43">		this.playlistDriver = playlistDriver;</span>
+<span class="fc" id="L44">	}</span>
+
+	/**
+	 * POST /profile. Adds a profile to the Neo4j database
+	 * @param params username, full name, and password
+	 * @param request HTTP Request
+	 * @return Response body
+	 */
+	@RequestMapping(value = &quot;/profile&quot;, method = RequestMethod.POST)
+	public @ResponseBody Map&lt;String, Object&gt; addProfile(@RequestParam Map&lt;String, String&gt; params,
+			HttpServletRequest request) {
+
+<span class="fc" id="L56">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L57">		response.put(&quot;path&quot;, String.format(&quot;POST %s&quot;, Utils.getUrl(request)));</span>
+
+<span class="nc" id="L59">		DbQueryStatus dbQueryStatus = profileDriver.createUserProfile(params.get(KEY_USER_NAME),</span>
+<span class="nc" id="L60">				params.get(KEY_USER_FULLNAME), params.get(KEY_USER_PASSWORD));</span>
+
+<span class="nc" id="L62">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L63">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L65">		return response;</span>
+	}
+
+	/**
+	 * PUT /followFriend/{userName}/{friendUserName}. Allows a Profile to follow another
+	 * Profile and become a friend
+	 * @param userName the user who will be doing the following
+	 * @param friendUserName the user who will be followed
+	 * @param request HTTP Request
+	 * @return Response Body
+	 */
+	@RequestMapping(value = &quot;/followFriend/{userName}/{friendUserName}&quot;, method = RequestMethod.PUT)
+	public @ResponseBody Map&lt;String, Object&gt; followFriend(@PathVariable(&quot;userName&quot;) String userName,
+			@PathVariable(&quot;friendUserName&quot;) String friendUserName, HttpServletRequest request) {
+
+<span class="nc" id="L80">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L81">		response.put(&quot;path&quot;, String.format(&quot;PUT %s&quot;, Utils.getUrl(request)));</span>
+
+<span class="nc" id="L83">		DbQueryStatus dbQueryStatus = profileDriver.followFriend(userName, friendUserName);</span>
+
+<span class="nc" id="L85">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L86">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L88">		return response;</span>
+	}
+
+	/**
+	 * GET /getAllFriendFavouriteSongTitles/{userName}. Returns the Song names of all of
+	 * the Songs that the User’s friends have liked
+	 * @param userName username of user
+	 * @param request HTTP Request
+	 * @return Response body
+	 *
+	 */
+	@RequestMapping(value = &quot;/getAllFriendFavouriteSongTitles/{userName}&quot;, method = RequestMethod.GET)
+	public @ResponseBody Map&lt;String, Object&gt; getAllFriendFavouriteSongTitles(@PathVariable(&quot;userName&quot;) String userName,
+			HttpServletRequest request) {
+
+<span class="fc" id="L103">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L104">		response.put(&quot;path&quot;, String.format(&quot;GET %s&quot;, Utils.getUrl(request)));</span>
+
+<span class="nc" id="L106">		DbQueryStatus dbQueryStatus = profileDriver.getAllSongFriendsLike(userName);</span>
+
+<span class="nc" id="L108">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L109">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L111">		return response;</span>
+	}
+
+	/**
+	 * PUT /unfollowFriend/{userName}/{friendUserName}. Allows a Profile to unfollow
+	 * another Profile and no longer be “friends” with them
+	 * @param userName the user who will be doing the un-following
+	 * @param friendUserName the user who will be un-followed
+	 * @param request HTTP Request
+	 * @return Response Body
+	 *
+	 */
+	@RequestMapping(value = &quot;/unfollowFriend/{userName}/{friendUserName}&quot;, method = RequestMethod.PUT)
+	public @ResponseBody Map&lt;String, Object&gt; unfollowFriend(@PathVariable(&quot;userName&quot;) String userName,
+			@PathVariable(&quot;friendUserName&quot;) String friendUserName, HttpServletRequest request) {
+
+<span class="nc" id="L127">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L128">		response.put(&quot;path&quot;, String.format(&quot;PUT %s&quot;, Utils.getUrl(request)));</span>
+
+<span class="nc" id="L130">		DbQueryStatus dbQueryStatus = profileDriver.unfollowFriend(userName, friendUserName);</span>
+
+<span class="nc" id="L132">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L133">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L135">		return response;</span>
+	}
+
+	/**
+	 * PUT /likeSong/{userName}/{songId}. Allows a Profile to like a song and add it to
+	 * their favourites. You can like the same song twice
+	 * @param userName username of the liker
+	 * @param songId id of the to-be-liked song
+	 * @param request HTTP Request
+	 * @return Response body
+	 */
+	@RequestMapping(value = &quot;/likeSong/{userName}/{songId}&quot;, method = RequestMethod.PUT)
+	public @ResponseBody Map&lt;String, Object&gt; likeSong(@PathVariable(&quot;userName&quot;) String userName,
+			@PathVariable(&quot;songId&quot;) String songId, HttpServletRequest request) {
+
+<span class="nc" id="L150">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L151">		response.put(&quot;path&quot;, String.format(&quot;PUT %s&quot;, Utils.getUrl(request)));</span>
+
+		// Endpoint from song microservice
+<span class="nc" id="L154">		String url = &quot;http://localhost:3001/updateSongFavouritesCount/&quot; + songId + &quot;?shouldDecrement=false&quot;;</span>
+<span class="nc" id="L155">		RequestBody formBody = new FormBody.Builder().build();</span>
+<span class="nc" id="L156">		Request req = new Request.Builder().url(url).put(formBody).build();</span>
+
+<span class="nc" id="L158">		DbQueryStatus dbQueryStatus = playlistDriver.likeSong(userName, songId);</span>
+
+		try {
+<span class="nc bnc" id="L161" title="All 2 branches missed.">			if (dbQueryStatus.getdbQueryExecResult().equals(DbQueryExecResult.QUERY_OK)) {</span>
+<span class="nc" id="L162">				Response res = client.newCall(req).execute();</span>
+<span class="nc" id="L163">				JSONObject body = new JSONObject(res.body().string());</span>
+<span class="nc bnc" id="L164" title="All 2 branches missed.">				if (!body.get(&quot;status&quot;).toString().equals(&quot;OK&quot;))</span>
+<span class="nc" id="L165">					dbQueryStatus.setdbQueryExecResult(DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc" id="L166">			}</span>
+<span class="nc bnc" id="L167" title="All 2 branches missed.">			else if (dbQueryStatus.getdbQueryExecResult().equals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND))</span>
+<span class="nc" id="L168">				dbQueryStatus.setdbQueryExecResult(DbQueryExecResult.QUERY_OK); // CASE:</span>
+																				// dup.
+																				// like
+																				// song
+																				// Piazza
+																				// @447
+		}
+<span class="nc" id="L175">		catch (Exception e) {</span>
+<span class="nc" id="L176">			dbQueryStatus.setdbQueryExecResult(DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc" id="L177">			e.printStackTrace();</span>
+<span class="nc" id="L178">		}</span>
+
+<span class="nc" id="L180">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L181">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L183">		return response;</span>
+	}
+
+	/**
+	 * PUT /unlikeSong/{userName}/{songId}. : Allows a Profile to unlike a song and remove
+	 * it from their favourites. You cannot unlike the same song twice.
+	 * @param userName username of the un-liker
+	 * @param songId id of the to-be-unliked song
+	 * @param request HTTP Request
+	 * @return Response Body
+	 */
+	@RequestMapping(value = &quot;/unlikeSong/{userName}/{songId}&quot;, method = RequestMethod.PUT)
+	public @ResponseBody Map&lt;String, Object&gt; unlikeSong(@PathVariable(&quot;userName&quot;) String userName,
+			@PathVariable(&quot;songId&quot;) String songId, HttpServletRequest request) {
+
+<span class="nc" id="L198">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L199">		response.put(&quot;path&quot;, String.format(&quot;PUT %s&quot;, Utils.getUrl(request)));</span>
+
+		// Endpoint from song microservice
+<span class="nc" id="L202">		String url = &quot;http://localhost:3001/updateSongFavouritesCount/&quot; + songId + &quot;?shouldDecrement=true&quot;;</span>
+<span class="nc" id="L203">		RequestBody formBody = new FormBody.Builder().build();</span>
+<span class="nc" id="L204">		Request req = new Request.Builder().url(url).put(formBody).build();</span>
+
+<span class="nc" id="L206">		DbQueryStatus dbQueryStatus = playlistDriver.unlikeSong(userName, songId);</span>
+
+		try {
+<span class="nc bnc" id="L209" title="All 2 branches missed.">			if (dbQueryStatus.getdbQueryExecResult().equals(DbQueryExecResult.QUERY_OK)) {</span>
+<span class="nc" id="L210">				Response res = client.newCall(req).execute();</span>
+<span class="nc" id="L211">				JSONObject body = new JSONObject(res.body().string());</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">				if (!body.get(&quot;status&quot;).toString().equals(&quot;OK&quot;))</span>
+<span class="nc" id="L213">					dbQueryStatus.setdbQueryExecResult(DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+			}
+		}
+<span class="nc" id="L216">		catch (Exception e) {</span>
+<span class="nc" id="L217">			dbQueryStatus.setdbQueryExecResult(DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc" id="L218">			e.printStackTrace();</span>
+<span class="nc" id="L219">		}</span>
+
+<span class="nc" id="L221">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L222">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L224">		return response;</span>
+	}
+
+	/**
+	 * Delete song node given songId (INTERNAL) - From our implementation, there is only
+	 * one node for each valid song stored in mongo
+	 * @param songId id of the song to be deleted
+	 * @param request HTTP Request
+	 * @return Response body
+	 */
+	@RequestMapping(value = &quot;/deleteAllSongsFromDb/{songId}&quot;, method = RequestMethod.PUT)
+	public @ResponseBody Map&lt;String, Object&gt; deleteAllSongsFromDb(@PathVariable(&quot;songId&quot;) String songId,
+			HttpServletRequest request) {
+
+<span class="nc" id="L238">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L239">		response.put(&quot;path&quot;, String.format(&quot;PUT %s&quot;, Utils.getUrl(request)));</span>
+
+<span class="nc" id="L241">		DbQueryStatus dbQueryStatus = playlistDriver.deleteSongFromDb(songId);</span>
+
+<span class="nc" id="L243">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L244">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L246">		return response;</span>
+	}
+
+	/**
+	 * Add new song node (INTERNAL) - From our implementation, every time a new song is
+	 * created in mongo, it is then created here
+	 * @param songId id of song (from mongo)
+	 * @param songName name of song
+	 * @param request HTTP Request
+	 * @return Response Body
+	 */
+	@RequestMapping(value = &quot;/addSong/{songId}/{songName}&quot;, method = RequestMethod.POST)
+	public @ResponseBody Map&lt;String, Object&gt; addProfile(@PathVariable(&quot;songId&quot;) String songId,
+			@PathVariable(&quot;songName&quot;) String songName, HttpServletRequest request) {
+<span class="fc" id="L260">		Map&lt;String, Object&gt; response = new HashMap&lt;String, Object&gt;();</span>
+<span class="nc" id="L261">		response.put(&quot;path&quot;, String.format(&quot;POST %s&quot;, Utils.getUrl(request)));</span>
+
+<span class="nc" id="L263">		DbQueryStatus dbQueryStatus = playlistDriver.addSong(songId, songName);</span>
+
+<span class="nc" id="L265">		response.put(&quot;message&quot;, dbQueryStatus.getMessage());</span>
+<span class="nc" id="L266">		response = Utils.setResponseStatus(response, dbQueryStatus.getdbQueryExecResult(), dbQueryStatus.getData());</span>
+
+<span class="nc" id="L268">		return response;</span>
+	}
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

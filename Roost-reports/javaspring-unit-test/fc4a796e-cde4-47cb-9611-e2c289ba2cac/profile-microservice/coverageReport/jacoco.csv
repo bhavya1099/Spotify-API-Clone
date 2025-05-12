@@ -1,0 +1,8 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+profile-microservice,com.csc301.profilemicroservice,DbQueryExecResult,0,21,0,0,0,2,0,1,0,1
+profile-microservice,com.csc301.profilemicroservice,ProfileMicroserviceApplication,20,2,0,0,7,1,2,1,2,1
+profile-microservice,com.csc301.profilemicroservice,ProfileDriverImpl,529,0,70,0,120,0,42,0,7,0
+profile-microservice,com.csc301.profilemicroservice,Utils,34,27,6,2,9,6,6,3,2,2
+profile-microservice,com.csc301.profilemicroservice,PlaylistDriverImpl,418,0,48,0,90,0,32,0,8,0
+profile-microservice,com.csc301.profilemicroservice,DbQueryStatus,10,23,0,0,4,10,3,4,3,4
+profile-microservice,com.csc301.profilemicroservice,ProfileController,429,26,10,0,73,8,10,4,5,4
