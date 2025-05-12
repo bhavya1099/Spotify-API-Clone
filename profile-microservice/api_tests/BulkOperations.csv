@@ -1,0 +1,11 @@
+username^|^email^|^firstName^|^lastName^|^name^|^category^|^status^|^statusCode^|^scenario
+user1^|^user1@example.com^|^John^|^Smith^|^JohnSmith^|^A^|^Active^|^200^|^Scenario1
+user2^|^user2@example.com^|^Jane^|^Doe^|^JaneDoe^|^B^|^Inactive^|^404^|^Scenario2
+user3^|^user3@example.com^|^Peter^|^Parker^|^PeterParker^|^A^|^Active^|^200^|^Scenario3
+user4^|^user4@example.com^|^Clark^|^Kent^|^ClarkKent^|^A^|^Inactive^|^403^|^Scenario4
+user5^|^user5@example.com^|^Tony^|^Stark^|^TonyStark^|^B^|^Active^|^200^|^Scenario5
+user6^|^user6@example.com^|^Bruce^|^Wayne^|^BruceWayne^|^B^|^Inactive^|^404^|^Scenario6
+user7^|^user7@example.com^|^Officer^|^Gordon^|^OfficerGordon^|^A^|^Active^|^200^|^Scenario7
+user8^|^user8@example.com^|^Natasha^|^Romanoff^|^NatashaRomanoff^|^B^|^Inactive^|^403^|^Scenario8
+user9^|^user9@example.com^|^Steve^|^Rogers^|^SteveRogers^|^A^|^Active^|^200^|^Scenario9
+user10^|^user10@example.com^|^Bruce^|^Banner^|^BruceBanner^|^B^|^Inactive^|^404^|^Scenario10
