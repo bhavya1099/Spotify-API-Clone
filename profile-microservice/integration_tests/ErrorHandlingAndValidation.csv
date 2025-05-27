@@ -1,0 +1,11 @@
+petId^|^username^|^password^|^statusCode^|^scenario
+123^|^user1^|^pass1^|^200^|^Scenario1
+124^|^user2^|^pass2^|^404^|^Scenario2
+125^|^user3^|^pass3^|^200^|^Scenario3
+126^|^user4^|^pass4^|^405^|^Scenario4
+127^|^user5^|^pass5^|^200^|^Scenario5
+128^|^user6^|^pass6^|^404^|^Scenario6
+129^|^user7^|^pass7^|^200^|^Scenario7
+130^|^user8^|^pass8^|^200^|^Scenario8
+131^|^user9^|^pass9^|^400^|^Scenario9
+132^|^user10^|^pass10^|^200^|^Scenario10
