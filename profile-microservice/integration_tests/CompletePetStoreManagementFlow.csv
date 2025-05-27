@@ -1,0 +1,11 @@
+username^|^email^|^firstName^|^lastName^|^password^|^phone^|^name^|^category^|^status^|^quantity^|^shipDate^|^status^|^statusCode^|^scenario
+user1^|^user1@email.com^|^John^|^Doe^|^pass1234^|^1234567890^|^Fido^|^Dog^|^available^|^2^|^2022-09-05^|^placed^|^200^|^CreateUserAndOrder
+user2^|^user2@email.com^|^Jane^|^Smith^|^password^|^0987654321^|^Milo^|^Cat^|^pending^|^1^|^2022-09-06^|^delivered^|^404^|^CreateUserAndOrder
+user3^|^user3@email.com^|^Emily^|^Johnson^|^123456^|^1122334455^|^Bella^|^Dog^|^sold^|^3^|^2022-09-07^|^approved^|^400^|^InvalidUser
+user4^|^user4@email.com^|^Michael^|^Williams^|^qwerty^|^2233445566^|^Daisy^|^Cat^|^available^|^4^|^2022-09-08^|^delivered^|^200^|^CreateUserAndOrder
+user5^|^user5@email.com^|^Sarah^|^Jones^|^abcdef^|^3344556677^|^Max^|^Dog^|^pending^|^1^|^2022-09-09^|^placed^|^404^|^InvalidOrder
+user6^|^user6@email.com^|^David^|^Brown^|^123abc^|^4455667788^|^Oscar^|^Cat^|^sold^|^5^|^2022-09-10^|^approved^|^400^|^CreateUserAndOrder
+user7^|^user7@email.com^|^Jessica^|^Davis^|^password1^|^5566778899^|^Lola^|^Dog^|^available^|^2^|^2022-09-11^|^delivered^|^200^|^InvalidUser
+user8^|^user8@email.com^|^Daniel^|^Miller^|^pass123^|^6677889900^|^Toby^|^Cat^|^pending^|^3^|^2022-09-12^|^placed^|^404^|^CreateUserAndOrder
+user9^|^user9@email.com^|^Emma^|^Wilson^|^abc123^|^7788990011^|^Shadow^|^Dog^|^sold^|^4^|^2022-09-13^|^approved^|^400^|^InvalidOrder
+user10^|^user10@email.com^|^Joshua^|^Moore^|^testpass^|^8899001122^|^Lucky^|^Cat^|^available^|^1^|^2022-09-14^|^delivered^|^200^|^CreateUserAndOrder
