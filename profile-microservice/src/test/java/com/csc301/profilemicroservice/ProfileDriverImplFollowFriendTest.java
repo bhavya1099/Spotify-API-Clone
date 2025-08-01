@@ -1,5 +1,3 @@
-//This test file is marked invalid as it contains compilation errors. Change the extension to of this file to .java, to manually edit its contents
-
 
 // ********RoostGPT********
 /*
@@ -119,115 +117,130 @@ Execution:
 Validation:  
   Confirms robust error handling in case of unexpected exceptions during database operations, ensuring application stability.
 
+
+roost_feedback [01/08/2025, 10:36:41 AM]:remove compilation errors if any\n
 */
 
 // ********RoostGPT********
-package com.csc301.profilemicroservice;import org.junit.*;
-import org.mockito.*;
-import org.neo4j.driver.v1.*;
-import static org.mockito.Mockito.*;
-import static org.junit.Assert.*;
-import org.junit.experimental.categories.Category;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+
+package com.csc301.profilemicroservice;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.StatementResult;
 import org.neo4j.driver.v1.Transaction;
-import org.springframework.stereotype.Repository;
 
-@org.junit.experimental.categories.Category(Categories.integration.class)
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
+
+import org.junit.experimental.categories.Category;
+
+@Category(Categories.integration.class)
 public class ProfileDriverImplFollowFriendTest {
     private ProfileDriverImpl profileDriverImpl;
+
     @Mock
     private Driver mockDriver;
+
     @Mock
     private Session mockSession;
+
     @Mock
     private Transaction mockTransaction;
+
     @Mock
     private StatementResult mockStatementResult;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        profileDriverImpl = new ProfileDriverImpl(); // Adjusted constructor usage to match the business logic
-        profileDriverImpl.setDriver(mockDriver); // Ensure the driver object is set correctly
+        profileDriverImpl = new ProfileDriverImpl();
+        profileDriverImpl.setDriver(mockDriver);
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void followFriendWithNullUserName() {
         DbQueryStatus result = profileDriverImpl.followFriend(null, "validFrndUserName");
-        assertEquals("Expected QUERY_ERROR_GENERIC for null userName", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_ERROR_GENERIC for null userName", DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void followFriendWithNullFrndUserName() {
         DbQueryStatus result = profileDriverImpl.followFriend("validUserName", null);
-        assertEquals("Expected QUERY_ERROR_GENERIC for null frndUserName", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_ERROR_GENERIC for null frndUserName", DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void followFriendWithEqualUserNameAndFrndUserName() {
         DbQueryStatus result = profileDriverImpl.followFriend("sameUserName", "sameUserName");
-        assertEquals("Expected QUERY_ERROR_GENERIC when userName equals frndUserName", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_ERROR_GENERIC when userName equals frndUserName", DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void followFriendWithNonExistentUserName() {
         when(mockDriver.session()).thenReturn(mockSession);
         when(mockSession.beginTransaction()).thenReturn(mockTransaction);
         when(mockTransaction.run(anyString(), anyMap())).thenReturn(mockStatementResult);
-        when(mockStatementResult.hasNext()).thenReturn(false); // Simulate non-existent userName
+        when(mockStatementResult.hasNext()).thenReturn(false);
         DbQueryStatus result = profileDriverImpl.followFriend("nonExistentUserName", "validFrndUserName");
-        assertEquals("Expected QUERY_ERROR_GENERIC for non-existent userName", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_ERROR_GENERIC for non-existent userName", DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void followFriendWithNonExistentFrndUserName() {
         when(mockDriver.session()).thenReturn(mockSession);
         when(mockSession.beginTransaction()).thenReturn(mockTransaction);
-        when(mockTransaction.run(anyString(), anyMap()))
-                .thenReturn(mockStatementResult)
-                .thenReturn(mockStatementResult);
-        when(mockStatementResult.hasNext()).thenReturn(true).thenReturn(false); // Simulate valid userName and non-existent frndUserName
+        when(mockTransaction.run(anyString(), anyMap())).thenReturn(mockStatementResult).thenReturn(mockStatementResult);
+        when(mockStatementResult.hasNext()).thenReturn(true).thenReturn(false);
         DbQueryStatus result = profileDriverImpl.followFriend("validUserName", "nonExistentFrndUserName");
-        assertEquals("Expected QUERY_ERROR_GENERIC for non-existent frndUserName", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_ERROR_GENERIC for non-existent frndUserName", DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void followFriendWithExistingFollowRelationship() {
         when(mockDriver.session()).thenReturn(mockSession);
         when(mockSession.beginTransaction()).thenReturn(mockTransaction);
         when(mockTransaction.run(anyString(), anyMap())).thenReturn(mockStatementResult);
-        when(mockStatementResult.hasNext()).thenReturn(true); // Simulate userName and frndUserName exist
+        when(mockStatementResult.hasNext()).thenReturn(true);
         Record mockRecord = mock(Record.class);
         when(mockStatementResult.next()).thenReturn(mockRecord);
-        when(mockRecord.get("bool").asBoolean()).thenReturn(true); // Simulate already existing follow relationship
+        when(mockRecord.get("bool").asBoolean()).thenReturn(true);
         DbQueryStatus result = profileDriverImpl.followFriend("validUserName", "validFrndUserName");
-        assertEquals("Expected QUERY_ERROR_GENERIC for already existing follow relationship", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_ERROR_GENERIC for already existing follow relationship", DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
     }
+
     @Test
     @Category(Categories.valid.class)
     public void followFriendWithValidFollowOperation() {
         when(mockDriver.session()).thenReturn(mockSession);
         when(mockSession.beginTransaction()).thenReturn(mockTransaction);
         when(mockTransaction.run(anyString(), anyMap())).thenReturn(mockStatementResult);
-        when(mockStatementResult.hasNext()).thenReturn(true); // Simulate userName and frndUserName exist
+        when(mockStatementResult.hasNext()).thenReturn(true);
         Record mockRecord = mock(Record.class);
         when(mockStatementResult.next()).thenReturn(mockRecord);
-        when(mockRecord.get("bool").asBoolean()).thenReturn(false); // Simulate no existing follow relationship
+        when(mockRecord.get("bool").asBoolean()).thenReturn(false);
         DbQueryStatus result = profileDriverImpl.followFriend("validUserName", "validFrndUserName");
-        assertEquals("Expected QUERY_OK for valid follow operation", DbQueryExecResult.QUERY_OK, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_OK for valid follow operation", DbQueryExecResult.QUERY_OK, result.getDbQueryExecResult());
     }
+
     @Test
     @Category(Categories.integration.class)
     public void followFriendWithDatabaseException() {
         when(mockDriver.session()).thenReturn(mockSession);
-        when(mockSession.beginTransaction()).thenThrow(new RuntimeException()); // Simulate exception during database operation
+        when(mockSession.beginTransaction()).thenThrow(new RuntimeException());
         DbQueryStatus result = profileDriverImpl.followFriend("validUserName", "validFrndUserName");
-        assertEquals("Expected QUERY_ERROR_GENERIC for database exception", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
+        assertEquals("Expected QUERY_ERROR_GENERIC for database exception", DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
     }
 }
