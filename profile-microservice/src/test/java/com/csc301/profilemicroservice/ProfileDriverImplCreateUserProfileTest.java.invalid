@@ -1,5 +1,3 @@
-//This test file is marked invalid as it contains compilation errors. Change the extension to of this file to .java, to manually edit its contents
-
 
 // ********RoostGPT********
 /*
@@ -23,10 +21,15 @@ Execution:
 Validation:  
   Verify that the method creates user profiles correctly when valid inputs are provided. This ensures that the core functionality operates as expected under normal conditions.  
 
+
+roost_feedback [04/08/2025, 4:14:58 AM]:Modify\sCode\sto\sfix\sthis\serror\n[41,1]\sorg.junit.experimental.categories.Category\sis\snot\sa\srepeatable\sannotation\stype
 */
 
 // ********RoostGPT********
-package com.csc301.profilemicroservice;import org.junit.Before;
+
+package com.csc301.profilemicroservice;
+
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -36,7 +39,6 @@ import org.mockito.InjectMocks;
 import org.neo4j.driver.v1.Driver;
 import org.neo4j.driver.v1.Session;
 import org.neo4j.driver.v1.Transaction;
-import org.junit.experimental.categories.Category;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -45,7 +47,13 @@ import org.neo4j.driver.v1.Record;
 import org.neo4j.driver.v1.StatementResult;
 import org.springframework.stereotype.Repository;
 
-@org.junit.experimental.categories.Category(Categories.valid.class)
+import org.junit.experimental.categories.Category.List;
+import org.junit.experimental.categories.Category;
+
+// Define repeatable annotations to fix compilation errors
+@Category.List({
+    @Category(Categories.valid.class)
+})
 public class ProfileDriverImplCreateUserProfileTest {
     @Mock
     private Driver mockDriver;
@@ -55,46 +63,59 @@ public class ProfileDriverImplCreateUserProfileTest {
     private Transaction mockTransaction;
     @InjectMocks
     private ProfileDriverImpl profileDriverImpl;
+
     @Before
     public void setup() {
         MockitoAnnotations.initMocks(this);
         when(mockDriver.session()).thenReturn(mockSession);
         when(mockSession.writeTransaction(any())).thenReturn(null);
     }
+
     @Test
     public void createValidUserProfile() {
         // Arrange
         String userName = "validUser";
         String fullName = "Valid User";
         String password = "ValidPassword";
+
         // Act
         DbQueryStatus result = profileDriverImpl.createUserProfile(userName, fullName, password);
+
         // Assert
         assertEquals("Expected QUERY_OK status", DbQueryExecResult.QUERY_OK, (DbQueryExecResult) result.getdbQueryExecResult());
     }
-    @org.junit.experimental.categories.Category(Categories.invalid.class)
+
+    @Category.List({
+        @Category(Categories.invalid.class)
+    })
     @Test
     public void createUserProfileWithNullUserName() {
         // Arrange
         String userName = null;
         String fullName = "Valid User";
         String password = "ValidPassword";
+
         // Act
         DbQueryStatus result = profileDriverImpl.createUserProfile(userName, fullName, password);
+
         // Assert
         assertEquals("Expected QUERY_ERROR_GENERIC status", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
     }
-    @org.junit.experimental.categories.Category(Categories.invalid.class)
+
+    @Category.List({
+        @Category(Categories.invalid.class)
+    })
     @Test
     public void createUserProfileWithNullFullName() {
         // Arrange
         String userName = "validUser";
-        String fullName = null; 
+        String fullName = null;
         String password = "ValidPassword";
+
         // Act
         DbQueryStatus result = profileDriverImpl.createUserProfile(userName, fullName, password);
+
         // Assert
-        // A comment added suggesting improvement in function logic to validate fullName parameter
         assertEquals("Expected QUERY_ERROR_GENERIC status", DbQueryExecResult.QUERY_ERROR_GENERIC, (DbQueryExecResult) result.getdbQueryExecResult());
     }
 }
