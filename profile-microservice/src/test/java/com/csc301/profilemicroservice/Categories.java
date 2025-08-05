@@ -58,4 +58,28 @@ public interface Categories {
 
 	}
 
+	interface unfollowFriend {
+
+	}
+
+	interface likeSong {
+
+	}
+
+	interface unlikeSong {
+
+	}
+
+	interface deleteAllSongsFromDb {
+
+	}
+
+	interface addProfile {
+
+	}
+
+	interface InitProfileDb {
+
+	}
+
 }
