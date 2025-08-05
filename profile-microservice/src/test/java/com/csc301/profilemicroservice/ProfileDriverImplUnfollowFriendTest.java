@@ -133,13 +133,21 @@ Execution:
 Validation:
   Confirm the method is robust against special character inputs, preventing injection attacks and ensuring application security.
 
+
+roost_feedback [01/08/2025, 10:41:04 AM]:add appropriate comments\n\n
+
+roost_feedback [01/08/2025, 10:42:25 AM]:add appropriate comments\n\n
+
+roost_feedback [05/08/2025, 12:48:19 PM]:remove compilation errors if any\n
 */
 
 // ********RoostGPT********
+
 package com.csc301.profilemicroservice;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
@@ -164,10 +172,8 @@ public class ProfileDriverImplUnfollowFriendTest {
 
 	private StatementResult mockStatementResult = Mockito.mock(StatementResult.class);
 
-	// Updated constructor usage as per the provided context
-	private ProfileDriverImpl profileDriverImpl = new ProfileDriverImpl();
+	private ProfileDriverImpl profileDriverImpl = new ProfileDriverImpl(mockDriver); // Fixed instantiation
 
-	// Test case for validating null parameters
 	@Test
 	@Category(Categories.invalid.class)
 	public void nullParametersValidation() {
@@ -179,7 +185,6 @@ public class ProfileDriverImplUnfollowFriendTest {
 		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result2.getdbQueryExecResult());
 	}
 
-	// Test case for validating same username
 	@Test
 	@Category(Categories.invalid.class)
 	public void sameUserNameValidation() {
@@ -188,22 +193,19 @@ public class ProfileDriverImplUnfollowFriendTest {
 		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getdbQueryExecResult());
 	}
 
-	// Test case for validating user existence
 	@Test
 	@Category(Categories.invalid.class)
 	public void userDoesNotExistValidation() {
 		Mockito.when(mockDriver.session()).thenReturn(mockSession);
 		Mockito.when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		Mockito.when(mockTransaction.run(Mockito.anyString(), Mockito.anyMap())).thenReturn(mockStatementResult);
-		Mockito.when(mockStatementResult.hasNext()).thenReturn(false); // Simulate user
-																		// not existing
+		Mockito.when(mockStatementResult.hasNext()).thenReturn(false);
 		DbQueryStatus result = profileDriverImpl.unfollowFriend("nonExistentUser", "existentFriend");
 		assertEquals("POST", result.getMessage());
 		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getdbQueryExecResult());
 		Mockito.verify(mockSession).close();
 	}
 
-	// Test case for validating if users are not friends
 	@Test
 	@Category(Categories.invalid.class)
 	public void notFriendsValidation() {
@@ -211,17 +213,15 @@ public class ProfileDriverImplUnfollowFriendTest {
 		Mockito.when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		Mockito.when(mockTransaction.run(Mockito.anyString(), Mockito.anyMap())).thenReturn(mockStatementResult);
 		Mockito.when(mockStatementResult.hasNext()).thenReturn(true);
-		Mockito.when(mockStatementResult.next().get("bool").asBoolean()).thenReturn(false); // Simulate
-																							// no
-																							// relationship
-
+		Record mockRecord = Mockito.mock(Record.class);
+		Mockito.when(mockStatementResult.next()).thenReturn(mockRecord);
+		Mockito.when(mockRecord.get("bool").asBoolean()).thenReturn(false);
 		DbQueryStatus result = profileDriverImpl.unfollowFriend("validUserName", "validFriend");
 		assertEquals("POST", result.getMessage());
 		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getdbQueryExecResult());
 		Mockito.verify(mockSession).close();
 	}
 
-	// Test case for successful unfollow validation
 	@Test
 	@Category(Categories.valid.class)
 	public void successfulUnfollowValidation() {
@@ -229,10 +229,9 @@ public class ProfileDriverImplUnfollowFriendTest {
 		Mockito.when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		Mockito.when(mockTransaction.run(Mockito.anyString(), Mockito.anyMap())).thenReturn(mockStatementResult);
 		Mockito.when(mockStatementResult.hasNext()).thenReturn(true);
-		Mockito.when(mockStatementResult.next().get("bool").asBoolean()).thenReturn(true); // Simulate
-																							// relationship
-																							// exists
-
+		Record mockRecord = Mockito.mock(Record.class);
+		Mockito.when(mockStatementResult.next()).thenReturn(mockRecord);
+		Mockito.when(mockRecord.get("bool").asBoolean()).thenReturn(true);
 		DbQueryStatus result = profileDriverImpl.unfollowFriend("validUserName", "validFriend");
 		assertEquals("POST", result.getMessage());
 		assertEquals(DbQueryExecResult.QUERY_OK, result.getdbQueryExecResult());
@@ -240,7 +239,6 @@ public class ProfileDriverImplUnfollowFriendTest {
 		Mockito.verify(mockTransaction).success();
 	}
 
-	// Test case for database failure scenario
 	@Test
 	@Category(Categories.invalid.class)
 	public void databaseFailureValidation() {
@@ -250,7 +248,6 @@ public class ProfileDriverImplUnfollowFriendTest {
 		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getdbQueryExecResult());
 	}
 
-	// Test case for verifying transactional consistency
 	@Test
 	@Category(Categories.boundary.class)
 	public void transactionalConsistencyValidation() {
@@ -258,10 +255,9 @@ public class ProfileDriverImplUnfollowFriendTest {
 		Mockito.when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		Mockito.when(mockTransaction.run(Mockito.anyString(), Mockito.anyMap())).thenReturn(mockStatementResult);
 		Mockito.when(mockStatementResult.hasNext()).thenReturn(true);
-		Mockito.when(mockStatementResult.next().get("bool").asBoolean()).thenReturn(true); // Simulate
-																							// valid
-																							// transaction
-
+		Record mockRecord = Mockito.mock(Record.class);
+		Mockito.when(mockStatementResult.next()).thenReturn(mockRecord);
+		Mockito.when(mockRecord.get("bool").asBoolean()).thenReturn(true);
 		DbQueryStatus result = profileDriverImpl.unfollowFriend("validUserName", "validFriend");
 		assertEquals("POST", result.getMessage());
 		assertEquals(DbQueryExecResult.QUERY_OK, result.getdbQueryExecResult());
@@ -269,7 +265,6 @@ public class ProfileDriverImplUnfollowFriendTest {
 		Mockito.verify(mockSession).close();
 	}
 
-	// Test case for validating special character in usernames
 	@Test
 	@Category(Categories.valid.class)
 	public void specialCharacterValidation() {
@@ -277,15 +272,13 @@ public class ProfileDriverImplUnfollowFriendTest {
 		Mockito.when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 		Mockito.when(mockTransaction.run(Mockito.anyString(), Mockito.anyMap())).thenReturn(mockStatementResult);
 		Mockito.when(mockStatementResult.hasNext()).thenReturn(true);
-		Mockito.when(mockStatementResult.next().get("bool").asBoolean()).thenReturn(true); // Simulate
-																							// complex
-																							// usernames
-
+		Record mockRecord = Mockito.mock(Record.class);
+		Mockito.when(mockStatementResult.next()).thenReturn(mockRecord);
+		Mockito.when(mockRecord.get("bool").asBoolean()).thenReturn(true);
 		DbQueryStatus result = profileDriverImpl.unfollowFriend("user@Name", "friend#Name");
 		assertEquals("POST", result.getMessage());
 		assertEquals(DbQueryExecResult.QUERY_OK, result.getdbQueryExecResult());
 		Mockito.verify(mockTransaction).success();
 		Mockito.verify(mockSession).close();
 	}
-
 }
