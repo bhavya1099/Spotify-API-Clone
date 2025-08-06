@@ -15,236 +15,233 @@ import org.springframework.stereotype.Repository;
 @Repository
 <span class="nc" id="L16">public class ProfileDriverImpl implements ProfileDriver {</span>
 
-<span class="nc" id="L18">	Driver driver = ProfileMicroserviceApplication.driver;</span>
+<span class="nc" id="L18">  Driver driver = ProfileMicroserviceApplication.driver;</span>
 
-	public static void InitProfileDb() {
-		String queryStr;
+  public static void InitProfileDb() {
+    String queryStr;
 
-<span class="nc" id="L23">		try (Session session = ProfileMicroserviceApplication.driver.session()) {</span>
-<span class="nc" id="L24">			try (Transaction trans = session.beginTransaction()) {</span>
-<span class="nc" id="L25">				queryStr = &quot;CREATE CONSTRAINT ON (nProfile:profile) ASSERT exists(nProfile.userName)&quot;;</span>
-<span class="nc" id="L26">				trans.run(queryStr);</span>
+<span class="nc" id="L23">    try (Session session = ProfileMicroserviceApplication.driver.session()) {</span>
+<span class="nc" id="L24">      try (Transaction trans = session.beginTransaction()) {</span>
+<span class="nc" id="L25">        queryStr = &quot;CREATE CONSTRAINT ON (nProfile:profile) ASSERT exists(nProfile.userName)&quot;;</span>
+<span class="nc" id="L26">        trans.run(queryStr);</span>
 
-<span class="nc" id="L28">				queryStr = &quot;CREATE CONSTRAINT ON (nProfile:profile) ASSERT exists(nProfile.password)&quot;;</span>
-<span class="nc" id="L29">				trans.run(queryStr);</span>
+<span class="nc" id="L28">        queryStr = &quot;CREATE CONSTRAINT ON (nProfile:profile) ASSERT exists(nProfile.password)&quot;;</span>
+<span class="nc" id="L29">        trans.run(queryStr);</span>
 
-<span class="nc" id="L31">				queryStr = &quot;CREATE CONSTRAINT ON (nProfile:profile) ASSERT nProfile.userName IS UNIQUE&quot;;</span>
-<span class="nc" id="L32">				trans.run(queryStr);</span>
+<span class="nc" id="L31">        queryStr = &quot;CREATE CONSTRAINT ON (nProfile:profile) ASSERT nProfile.userName IS UNIQUE&quot;;</span>
+<span class="nc" id="L32">        trans.run(queryStr);</span>
 
-<span class="nc" id="L34">				trans.success();</span>
-			}
-<span class="nc" id="L36">			session.close();</span>
-		}
-<span class="nc" id="L38">	}</span>
+<span class="nc" id="L34">        trans.success();</span>
+      }
+<span class="nc" id="L36">      session.close();</span>
+    }
+<span class="nc" id="L38">  }</span>
 
-	/**
-	 * Creates a user profile on the Neo4j DB with a unique userName, and fullName and
-	 * password
-	 * @param userName
-	 * @param fullName
-	 * @param password
-	 * @return DbQueryStatus
-	 */
-	@Override
-	public DbQueryStatus createUserProfile(String userName, String fullName, String password) {
-<span class="nc bnc" id="L50" title="All 6 branches missed.">		boolean valid = userName != null &amp;&amp; fullName != null &amp;&amp; password != null;</span>
-<span class="nc bnc" id="L51" title="All 2 branches missed.">		if (!valid)</span>
-<span class="nc" id="L52">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+  /**
+   * Creates a user profile on the Neo4j DB with a unique userName, and fullName
+   * and password
+   * 
+   * @param userName
+   * @param fullName
+   * @param password
+   * @return DbQueryStatus
+   */
+  @Override
+  public DbQueryStatus createUserProfile(String userName, String fullName, String password) {
+<span class="nc bnc" id="L51" title="All 6 branches missed.">    boolean valid = userName != null &amp;&amp; fullName != null &amp;&amp; password != null;</span>
+<span class="nc bnc" id="L52" title="All 2 branches missed.">    if (!valid)</span>
+<span class="nc" id="L53">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-<span class="nc" id="L54">		try (Session session = driver.session()) {</span>
-<span class="nc" id="L55">			Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L56">			params.put(&quot;userName&quot;, userName);</span>
-<span class="nc" id="L57">			params.put(&quot;fullName&quot;, fullName);</span>
-<span class="nc" id="L58">			params.put(&quot;password&quot;, password);</span>
-<span class="nc" id="L59">			params.put(&quot;plName&quot;, userName + &quot;-favourites&quot;);</span>
+<span class="nc" id="L55">    try (Session session = driver.session()) {</span>
+<span class="nc" id="L56">      Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L57">      params.put(&quot;userName&quot;, userName);</span>
+<span class="nc" id="L58">      params.put(&quot;fullName&quot;, fullName);</span>
+<span class="nc" id="L59">      params.put(&quot;password&quot;, password);</span>
+<span class="nc" id="L60">      params.put(&quot;plName&quot;, userName + &quot;-favourites&quot;);</span>
 
-<span class="nc" id="L61">			session.writeTransaction((Transaction tx) -&gt; tx.run(</span>
-					&quot;CREATE (m:profile {userName: $userName, fullName: $fullName, password: $password})-[r:created]-&gt;(n:playlist {plName: $plName})&quot;,
-					params));
+<span class="nc" id="L62">      session.writeTransaction((Transaction tx) -&gt; tx.run(</span>
+          &quot;CREATE (m:profile {userName: $userName, fullName: $fullName, password: $password})-[r:created]-&gt;(n:playlist {plName: $plName})&quot;,
+          params));
 
-<span class="nc" id="L65">			session.close();</span>
-<span class="nc" id="L66">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_OK);</span>
-		}
-<span class="nc" id="L68">		catch (Exception e) {</span>
-<span class="nc" id="L69">			System.out.println(e);</span>
-<span class="nc" id="L70">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
-		}
-	}
+<span class="nc" id="L66">      session.close();</span>
+<span class="nc" id="L67">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_OK);</span>
+<span class="nc" id="L68">    } catch (Exception e) {</span>
+<span class="nc" id="L69">      System.out.println(e);</span>
+<span class="nc" id="L70">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+    }
+  }
 
-	/**
-	 * Creates a relationship userName-[:follows]-&gt;frndUserName
-	 * @param userName
-	 * @param frndUserName
-	 * @return DbQueryStatus
-	 */
-	@Override
-	public DbQueryStatus followFriend(String userName, String frndUserName) {
-<span class="nc bnc" id="L82" title="All 4 branches missed.">		boolean valid = userName != null &amp;&amp; frndUserName != null;</span>
+  /**
+   * Creates a relationship userName-[:follows]-&gt;frndUserName
+   * 
+   * @param userName
+   * @param frndUserName
+   * @return DbQueryStatus
+   */
+  @Override
+  public DbQueryStatus followFriend(String userName, String frndUserName) {
+<span class="nc bnc" id="L83" title="All 4 branches missed.">    boolean valid = userName != null &amp;&amp; frndUserName != null;</span>
 
-<span class="nc bnc" id="L84" title="All 2 branches missed.">		if (!valid)</span>
-<span class="nc" id="L85">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
-<span class="nc bnc" id="L86" title="All 2 branches missed.">		if (userName.equals(frndUserName))</span>
-<span class="nc" id="L87">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc bnc" id="L85" title="All 2 branches missed.">    if (!valid)</span>
+<span class="nc" id="L86">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc bnc" id="L87" title="All 2 branches missed.">    if (userName.equals(frndUserName))</span>
+<span class="nc" id="L88">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-<span class="nc" id="L89">		try (Session session = driver.session()) {</span>
-<span class="nc" id="L90">			Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L91">			params.put(&quot;userName&quot;, userName);</span>
-<span class="nc" id="L92">			params.put(&quot;frndUserName&quot;, frndUserName);</span>
+<span class="nc" id="L90">    try (Session session = driver.session()) {</span>
+<span class="nc" id="L91">      Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L92">      params.put(&quot;userName&quot;, userName);</span>
+<span class="nc" id="L93">      params.put(&quot;frndUserName&quot;, frndUserName);</span>
 
-<span class="nc" id="L94">			boolean followed = false;</span>
+<span class="nc" id="L95">      boolean followed = false;</span>
 
-<span class="nc" id="L96">			try (Transaction trans = session.beginTransaction()) {</span>
-<span class="nc" id="L97">				StatementResult existUserRes = trans</span>
-<span class="nc" id="L98">					.run(&quot;MATCH (n:profile {userName: $userName}) RETURN n.userName as u&quot;, params);</span>
-<span class="nc" id="L99">				StatementResult existFrndRes = trans</span>
-<span class="nc" id="L100">					.run(&quot;MATCH (n:profile {userName: $frndUserName}) RETURN n.userName as f&quot;, params);</span>
+<span class="nc" id="L97">      try (Transaction trans = session.beginTransaction()) {</span>
+<span class="nc" id="L98">        StatementResult existUserRes = trans.run(&quot;MATCH (n:profile {userName: $userName}) RETURN n.userName as u&quot;,</span>
+            params);
+<span class="nc" id="L100">        StatementResult existFrndRes = trans.run(&quot;MATCH (n:profile {userName: $frndUserName}) RETURN n.userName as f&quot;,</span>
+            params);
 
-				// CASE: at least one user doesn't exist
-<span class="nc bnc" id="L103" title="All 4 branches missed.">				if (!existUserRes.hasNext() || !existFrndRes.hasNext())</span>
-<span class="nc" id="L104">					return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+        // CASE: at least one user doesn't exist
+<span class="nc bnc" id="L104" title="All 4 branches missed.">        if (!existUserRes.hasNext() || !existFrndRes.hasNext())</span>
+<span class="nc" id="L105">          return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-				// CASE: user already follows frnd
-<span class="nc" id="L107">				StatementResult result = trans.run(</span>
-						&quot;RETURN EXISTS( (:profile {userName: $userName})-[:follows]-&gt;(:profile {userName: $frndUserName}) ) as bool&quot;,
-						params);
+        // CASE: user already follows frnd
+<span class="nc" id="L108">        StatementResult result = trans.run(</span>
+            &quot;RETURN EXISTS( (:profile {userName: $userName})-[:follows]-&gt;(:profile {userName: $frndUserName}) ) as bool&quot;,
+            params);
 
-<span class="nc bnc" id="L111" title="All 2 branches missed.">				if (result.hasNext()) {</span>
-<span class="nc" id="L112">					Record record = result.next();</span>
-<span class="nc" id="L113">					followed = record.get(&quot;bool&quot;).asBoolean();</span>
+<span class="nc bnc" id="L112" title="All 2 branches missed.">        if (result.hasNext()) {</span>
+<span class="nc" id="L113">          Record record = result.next();</span>
+<span class="nc" id="L114">          followed = record.get(&quot;bool&quot;).asBoolean();</span>
 
-<span class="nc bnc" id="L115" title="All 2 branches missed.">					if (followed)</span>
-<span class="nc" id="L116">						return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">          if (followed)</span>
+<span class="nc" id="L117">            return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-<span class="nc" id="L118">					trans.run(</span>
-							&quot;MATCH (a:profile),(b:profile) \n WHERE a.userName = $userName AND b.userName = $frndUserName \nCREATE (a)-[r:follows]-&gt;(b)&quot;,
-							params);
+<span class="nc" id="L119">          trans.run(</span>
+              &quot;MATCH (a:profile),(b:profile) \n WHERE a.userName = $userName AND b.userName = $frndUserName \nCREATE (a)-[r:follows]-&gt;(b)&quot;,
+              params);
 
-<span class="nc" id="L122">					trans.success();</span>
-				}
-<span class="nc bnc" id="L124" title="All 4 branches missed.">			}</span>
-<span class="nc" id="L125">			session.close();</span>
+<span class="nc" id="L123">          trans.success();</span>
+        }
+<span class="nc bnc" id="L125" title="All 4 branches missed.">      }</span>
+<span class="nc" id="L126">      session.close();</span>
 
-<span class="nc" id="L127">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_OK);</span>
+<span class="nc" id="L128">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_OK);</span>
 
-<span class="nc bnc" id="L129" title="All 4 branches missed.">		}</span>
-<span class="nc" id="L130">		catch (Exception e) {</span>
-<span class="nc" id="L131">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
-		}
-	}
+<span class="nc bnc" id="L130" title="All 4 branches missed.">    } catch (Exception e) {</span>
+<span class="nc" id="L131">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+    }
+  }
 
-	/**
-	 * Removes a relationship userName-[:follows]-&gt;frndUserName
-	 * @param userName
-	 * @param frndUserName
-	 * @return DbQueryStatus
-	 */
-	@Override
-	public DbQueryStatus unfollowFriend(String userName, String frndUserName) {
-<span class="nc bnc" id="L143" title="All 4 branches missed.">		boolean valid = userName != null &amp;&amp; frndUserName != null;</span>
+  /**
+   * Removes a relationship userName-[:follows]-&gt;frndUserName
+   * 
+   * @param userName
+   * @param frndUserName
+   * @return DbQueryStatus
+   */
+  @Override
+  public DbQueryStatus unfollowFriend(String userName, String frndUserName) {
+<span class="nc bnc" id="L144" title="All 4 branches missed.">    boolean valid = userName != null &amp;&amp; frndUserName != null;</span>
 
-<span class="nc bnc" id="L145" title="All 2 branches missed.">		if (!valid)</span>
-<span class="nc" id="L146">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc bnc" id="L146" title="All 2 branches missed.">    if (!valid)</span>
+<span class="nc" id="L147">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-<span class="nc bnc" id="L148" title="All 2 branches missed.">		if (userName.equals(frndUserName))</span>
-<span class="nc" id="L149">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc bnc" id="L149" title="All 2 branches missed.">    if (userName.equals(frndUserName))</span>
+<span class="nc" id="L150">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-<span class="nc" id="L151">		boolean followed = false;</span>
+<span class="nc" id="L152">    boolean followed = false;</span>
 
-<span class="nc" id="L153">		try (Session session = driver.session()) {</span>
-<span class="nc" id="L154">			Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L155">			params.put(&quot;userName&quot;, userName);</span>
-<span class="nc" id="L156">			params.put(&quot;frndUserName&quot;, frndUserName);</span>
+<span class="nc" id="L154">    try (Session session = driver.session()) {</span>
+<span class="nc" id="L155">      Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L156">      params.put(&quot;userName&quot;, userName);</span>
+<span class="nc" id="L157">      params.put(&quot;frndUserName&quot;, frndUserName);</span>
 
-<span class="nc" id="L158">			try (Transaction trans = session.beginTransaction()) {</span>
-<span class="nc" id="L159">				StatementResult existUserRes = trans</span>
-<span class="nc" id="L160">					.run(&quot;MATCH (n:profile {userName: $userName}) RETURN n.userName as u&quot;, params);</span>
-<span class="nc" id="L161">				StatementResult existFrndRes = trans</span>
-<span class="nc" id="L162">					.run(&quot;MATCH (n:profile {userName: $frndUserName}) RETURN n.userName as f&quot;, params);</span>
+<span class="nc" id="L159">      try (Transaction trans = session.beginTransaction()) {</span>
+<span class="nc" id="L160">        StatementResult existUserRes = trans.run(&quot;MATCH (n:profile {userName: $userName}) RETURN n.userName as u&quot;,</span>
+            params);
+<span class="nc" id="L162">        StatementResult existFrndRes = trans.run(&quot;MATCH (n:profile {userName: $frndUserName}) RETURN n.userName as f&quot;,</span>
+            params);
 
-				// CASE: at least one user doesn't exist
-<span class="nc bnc" id="L165" title="All 4 branches missed.">				if (!existUserRes.hasNext() || !existFrndRes.hasNext())</span>
-<span class="nc" id="L166">					return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+        // CASE: at least one user doesn't exist
+<span class="nc bnc" id="L166" title="All 4 branches missed.">        if (!existUserRes.hasNext() || !existFrndRes.hasNext())</span>
+<span class="nc" id="L167">          return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-				// CASE: user doesn't follows frnd
-<span class="nc" id="L169">				StatementResult result = trans.run(</span>
-						&quot;RETURN EXISTS( (:profile {userName: $userName})-[:follows]-&gt;(:profile {userName: $frndUserName}) ) as bool&quot;,
-						params);
+        // CASE: user doesn't follows frnd
+<span class="nc" id="L170">        StatementResult result = trans.run(</span>
+            &quot;RETURN EXISTS( (:profile {userName: $userName})-[:follows]-&gt;(:profile {userName: $frndUserName}) ) as bool&quot;,
+            params);
 
-<span class="nc bnc" id="L173" title="All 2 branches missed.">				if (result.hasNext()) {</span>
-<span class="nc" id="L174">					Record record = result.next();</span>
-<span class="nc" id="L175">					followed = record.get(&quot;bool&quot;).asBoolean();</span>
+<span class="nc bnc" id="L174" title="All 2 branches missed.">        if (result.hasNext()) {</span>
+<span class="nc" id="L175">          Record record = result.next();</span>
+<span class="nc" id="L176">          followed = record.get(&quot;bool&quot;).asBoolean();</span>
 
-<span class="nc bnc" id="L177" title="All 2 branches missed.">					if (!followed)</span>
-<span class="nc" id="L178">						return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc bnc" id="L178" title="All 2 branches missed.">          if (!followed)</span>
+<span class="nc" id="L179">            return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-<span class="nc" id="L180">					trans.run(</span>
-							&quot;MATCH (n:profile { userName: $userName })-[r:follows]-&gt;(m:profile { userName: $frndUserName }) DELETE r&quot;,
-							params);
+<span class="nc" id="L181">          trans.run(</span>
+              &quot;MATCH (n:profile { userName: $userName })-[r:follows]-&gt;(m:profile { userName: $frndUserName }) DELETE r&quot;,
+              params);
 
-<span class="nc" id="L184">					trans.success();</span>
-				}
-<span class="nc bnc" id="L186" title="All 4 branches missed.">			}</span>
+<span class="nc" id="L185">          trans.success();</span>
+        }
+<span class="nc bnc" id="L187" title="All 4 branches missed.">      }</span>
 
-<span class="nc" id="L188">			session.close();</span>
+<span class="nc" id="L189">      session.close();</span>
 
-<span class="nc" id="L190">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_OK);</span>
+<span class="nc" id="L191">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_OK);</span>
 
-<span class="nc bnc" id="L192" title="All 4 branches missed.">		}</span>
-<span class="nc" id="L193">		catch (Exception e) {</span>
-<span class="nc" id="L194">			return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
-		}
-	}
+<span class="nc bnc" id="L193" title="All 4 branches missed.">    } catch (Exception e) {</span>
+<span class="nc" id="L194">      return new DbQueryStatus(&quot;POST&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+    }
+  }
 
-	/**
-	 * Get's the liked songs of friends of userName
-	 * @param userName
-	 * @return DbQueryStatus
-	 */
-	@Override
-	public DbQueryStatus getAllSongFriendsLike(String userName) {
-<span class="nc bnc" id="L205" title="All 2 branches missed.">		boolean valid = userName != null;</span>
-		String queryStr;
-		StatementResult userResult, songResult;
+  /**
+   * Get's the liked songs of friends of userName
+   * 
+   * @param userName
+   * @return DbQueryStatus
+   */
+  @Override
+  public DbQueryStatus getAllSongFriendsLike(String userName) {
+<span class="nc bnc" id="L206" title="All 2 branches missed.">    boolean valid = userName != null;</span>
+    String queryStr;
+    StatementResult userResult, songResult;
 
-<span class="nc" id="L209">		DbQueryStatus dbQueryStatus = new DbQueryStatus(&quot;GET&quot;, DbQueryExecResult.QUERY_OK);</span>
+<span class="nc" id="L210">    DbQueryStatus dbQueryStatus = new DbQueryStatus(&quot;GET&quot;, DbQueryExecResult.QUERY_OK);</span>
 
-<span class="nc bnc" id="L211" title="All 2 branches missed.">		if (!valid)</span>
-<span class="nc" id="L212">			new DbQueryStatus(&quot;GET&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc bnc" id="L212" title="All 2 branches missed.">    if (!valid)</span>
+<span class="nc" id="L213">      new DbQueryStatus(&quot;GET&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
 
-<span class="nc" id="L214">		try (Session session = driver.session()) {</span>
-<span class="nc" id="L215">			Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
-<span class="nc" id="L216">			params.put(&quot;userName&quot;, userName);</span>
+<span class="nc" id="L215">    try (Session session = driver.session()) {</span>
+<span class="nc" id="L216">      Map&lt;String, Object&gt; params = new HashMap&lt;&gt;();</span>
+<span class="nc" id="L217">      params.put(&quot;userName&quot;, userName);</span>
 
-<span class="nc" id="L218">			try (Transaction trans = session.beginTransaction()) {</span>
-				// returns a list of usernames of user nodes that the given username
-				// follows
-<span class="nc" id="L221">				queryStr = &quot;MATCH (a:profile {userName: $userName})-[:follows]-&gt;(b:profile) RETURN collect(b.userName) as userName&quot;;</span>
-<span class="nc" id="L222">				userResult = trans.run(queryStr, params);</span>
-<span class="nc" id="L223">				Map&lt;String, Object&gt; data = new HashMap&lt;&gt;();</span>
-				// finds all the songs a given username has liked
-<span class="nc" id="L225">				queryStr = &quot;MATCH (c:playlist {plName: $userName + '-favourites'})-[:includes]-&gt;(s:song) RETURN collect(s.songName) as songs&quot;;</span>
-<span class="nc bnc" id="L226" title="All 2 branches missed.">				if (!userResult.hasNext())</span>
-<span class="nc" id="L227">					return new DbQueryStatus(&quot;GET&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
-<span class="nc" id="L228">				List&lt;Object&gt; followers = userResult.next().get(&quot;userName&quot;).asList();</span>
-<span class="nc bnc" id="L229" title="All 2 branches missed.">				for (Object follower : followers) {</span>
-<span class="nc" id="L230">					params.put(&quot;userName&quot;, (String) follower);</span>
-<span class="nc" id="L231">					songResult = trans.run(queryStr, params);</span>
-					// only for a sanity check, for the most part, the query returns [],
-					// i.e. songResult.hasNext() == true
-<span class="nc" id="L234">					data.put((String) follower,</span>
-<span class="nc bnc" id="L235" title="All 2 branches missed.">							!songResult.hasNext() ? new ArrayList&lt;String&gt;() : songResult.next().get(&quot;songs&quot;).asList());</span>
-<span class="nc" id="L236">				}</span>
-<span class="nc" id="L237">				dbQueryStatus.setData(data);</span>
-<span class="nc" id="L238">				trans.success();</span>
-<span class="nc bnc" id="L239" title="All 2 branches missed.">			}</span>
-<span class="nc" id="L240">			session.close();</span>
-<span class="nc" id="L241">			return dbQueryStatus;</span>
-<span class="nc bnc" id="L242" title="All 2 branches missed.">		}</span>
-<span class="nc" id="L243">		catch (Exception e) {</span>
-<span class="nc" id="L244">			e.printStackTrace();</span>
-<span class="nc" id="L245">			return new DbQueryStatus(e.getMessage(), DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
-		}
-	}
-
+<span class="nc" id="L219">      try (Transaction trans = session.beginTransaction()) {</span>
+        // returns a list of usernames of user nodes that the given username follows
+<span class="nc" id="L221">        queryStr = &quot;MATCH (a:profile {userName: $userName})-[:follows]-&gt;(b:profile) RETURN collect(b.userName) as userName&quot;;</span>
+<span class="nc" id="L222">        userResult = trans.run(queryStr, params);</span>
+<span class="nc" id="L223">        Map&lt;String, Object&gt; data = new HashMap&lt;&gt;();</span>
+        // finds all the songs a given username has liked
+<span class="nc" id="L225">        queryStr = &quot;MATCH (c:playlist {plName: $userName + '-favourites'})-[:includes]-&gt;(s:song) RETURN collect(s.songName) as songs&quot;;</span>
+<span class="nc bnc" id="L226" title="All 2 branches missed.">        if (!userResult.hasNext())</span>
+<span class="nc" id="L227">          return new DbQueryStatus(&quot;GET&quot;, DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+<span class="nc" id="L228">        List&lt;Object&gt; followers = userResult.next().get(&quot;userName&quot;).asList();</span>
+<span class="nc bnc" id="L229" title="All 2 branches missed.">        for (Object follower : followers) {</span>
+<span class="nc" id="L230">          params.put(&quot;userName&quot;, (String) follower);</span>
+<span class="nc" id="L231">          songResult = trans.run(queryStr, params);</span>
+          // only for a sanity check, for the most part, the query returns [], i.e. songResult.hasNext() == true
+<span class="nc" id="L233">          data.put((String) follower,</span>
+<span class="nc bnc" id="L234" title="All 2 branches missed.">              !songResult.hasNext() ? new ArrayList&lt;String&gt;() : songResult.next().get(&quot;songs&quot;).asList());</span>
+<span class="nc" id="L235">        }</span>
+<span class="nc" id="L236">        dbQueryStatus.setData(data);</span>
+<span class="nc" id="L237">        trans.success();</span>
+<span class="nc bnc" id="L238" title="All 2 branches missed.">      }</span>
+<span class="nc" id="L239">      session.close();</span>
+<span class="nc" id="L240">      return dbQueryStatus;</span>
+<span class="nc bnc" id="L241" title="All 2 branches missed.">    } catch (Exception e) {</span>
+<span class="nc" id="L242">      e.printStackTrace();</span>
+<span class="nc" id="L243">      return new DbQueryStatus(e.getMessage(), DbQueryExecResult.QUERY_ERROR_GENERIC);</span>
+    }
+  }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
