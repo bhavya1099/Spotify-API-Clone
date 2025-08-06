@@ -41,6 +41,12 @@
       <version>0.0.40</version>
       <!--Dependency added by RoostGPT-->
     </dependency>
+    <dependency>
+      <groupId>org.junit.vintage</groupId>
+      <artifactId>junit-vintage-engine</artifactId>
+      <version>5.2.0</version>
+      <!--Dependency added by RoostGPT-->
+    </dependency>
     <!-- https://mvnrepository.com/artifact/com.squareup.okhttp3/okhttp -->
     <dependency>
       <groupId>com.squareup.okhttp3</groupId>
