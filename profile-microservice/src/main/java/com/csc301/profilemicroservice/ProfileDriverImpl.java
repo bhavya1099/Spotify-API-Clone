@@ -49,6 +49,7 @@ public class ProfileDriverImpl implements ProfileDriver {
   @Override
   public DbQueryStatus createUserProfile(String userName, String fullName, String password) {
     boolean valid = userName != null && fullName != null && password != null;
+    System.out.println("Inside the create user profile function.");
     if (!valid)
       return new DbQueryStatus("POST", DbQueryExecResult.QUERY_ERROR_GENERIC);
 
