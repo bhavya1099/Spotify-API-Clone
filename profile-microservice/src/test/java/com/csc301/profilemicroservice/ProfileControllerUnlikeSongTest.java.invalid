@@ -1,5 +1,3 @@
-//This test file is marked invalid as it contains compilation errors. Change the extension to of this file to .java, to manually edit its contents
-
 
 // ********RoostGPT********
 /*
@@ -23,126 +21,138 @@ Execution:
 Validation:  
   Verify the method processes valid inputs correctly, handles external client calls, and integrates well with the playlistDriver functionality. Validate that the success path is correctly executed and corresponding messages are returned.  
 
+
+roost_feedback [06/08/2025, 2:48:01 PM]:remove compilation errors\n\n
 */
 
 // ********RoostGPT********
 
 package com.csc301.profilemicroservice;
+
 import static org.mockito.Mockito.*;
 import static org.junit.jupiter.api.Assertions.*;
+
+import okhttp3.*;
+import org.json.JSONObject;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-import okhttp3.*;
-import org.json.JSONObject;
+
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.jupiter.api.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import okhttp3.FormBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 
 @SpringBootTest
 public class ProfileControllerUnlikeSongTest {
+
     @Mock
     PlaylistDriverImpl playlistDriver;
+
     @Mock
     OkHttpClient client;
+
     @Mock
     HttpServletRequest request;
+
     @InjectMocks
     ProfileController profileController;
+
     @Test
     @Tag("valid")
     public void unlikeSongWithValidInputs() throws Exception {
         // Arrange
-        String userName = "testUser"; // TODO: Replace with test userName
-        String songId = "testSongId"; // TODO: Replace with test songId
+        String userName = "testUser";
+        String songId = "testSongId";
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
         when(playlistDriver.unlikeSong(userName, songId)).thenReturn(mockDbQueryStatus);
+
+        ResponseBody mockResponseBody = ResponseBody.create("{\"status\":\"OK\"}", MediaType.get("application/json"));
         Response mockResponse = mock(Response.class);
-        when(client.newCall(any(Request.class))).thenAnswer(invocation -> {
-            JSONObject mockResponseBody = new JSONObject();
-            mockResponseBody.put("status", "OK");
-            Response res = mock(Response.class);
-            when(res.body()).thenReturn(ResponseBody.create(mockResponseBody.toString(), MediaType.get("application/json")));
-            return res;
-        });
+        when(mockResponse.body()).thenReturn(mockResponseBody);
+
+        Call mockCall = mock(Call.class);
+        when(mockCall.execute()).thenReturn(mockResponse);
+        when(client.newCall(any(Request.class))).thenReturn(mockCall);
+
         when(request.getRequestURI()).thenReturn("/profile/unlikeSong/" + userName + "/" + songId);
         when(request.getContextPath()).thenReturn("");
+
         // Act
         Map<String, Object> response = profileController.unlikeSong(userName, songId, request);
+
         // Assert
         assertNotNull(response);
         assertEquals("Success", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_OK.toString(), response.get("status"));
     }
+
     @Test
     @Tag("integration")
     public void unlikeSongClientError() throws Exception {
         // Arrange
-        String userName = "testUser"; // TODO: Replace with test userName
-        String songId = "testSongId"; // TODO: Replace with test songId
+        String userName = "testUser";
+        String songId = "testSongId";
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
         when(playlistDriver.unlikeSong(userName, songId)).thenReturn(mockDbQueryStatus);
+
+        ResponseBody mockResponseBody = ResponseBody.create("{\"status\":\"ERROR\"}", MediaType.get("application/json"));
         Response mockResponse = mock(Response.class);
-        when(client.newCall(any(Request.class))).thenAnswer(invocation -> {
-            JSONObject mockResponseBody = new JSONObject();
-            mockResponseBody.put("status", "ERROR");
-            Response res = mock(Response.class);
-            when(res.body()).thenReturn(ResponseBody.create(mockResponseBody.toString(), MediaType.get("application/json")));
-            return res;
-        });
+        when(mockResponse.body()).thenReturn(mockResponseBody);
+
+        Call mockCall = mock(Call.class);
+        when(mockCall.execute()).thenReturn(mockResponse);
+        when(client.newCall(any(Request.class))).thenReturn(mockCall);
+
         when(request.getRequestURI()).thenReturn("/profile/unlikeSong/" + userName + "/" + songId);
         when(request.getContextPath()).thenReturn("");
+
         // Act
         Map<String, Object> response = profileController.unlikeSong(userName, songId, request);
+
         // Assert
         assertNotNull(response);
         assertEquals("Success", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), response.get("status"));
     }
+
     @Test
     @Tag("invalid")
     public void unlikeSongWithInvalidInputs() {
         // Arrange
-        String userName = ""; // Invalid userName
-        String songId = ""; // Invalid songId
+        String userName = "";
+        String songId = "";
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Invalid parameters", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
         when(playlistDriver.unlikeSong(userName, songId)).thenReturn(mockDbQueryStatus);
+
         when(request.getRequestURI()).thenReturn("/profile/unlikeSong/" + userName + "/" + songId);
         when(request.getContextPath()).thenReturn("");
+
         // Act
         Map<String, Object> response = profileController.unlikeSong(userName, songId, request);
+
         // Assert
         assertNotNull(response);
         assertEquals("Invalid parameters", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND.toString(), response.get("status"));
     }
+
     @Test
     @Tag("error")
     public void unlikeSongServiceException() {
         // Arrange
-        String userName = "testUser"; // TODO: Replace with test userName
-        String songId = "testSongId"; // TODO: Replace with test songId
+        String userName = "testUser";
+        String songId = "testSongId";
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Service exception", DbQueryExecResult.QUERY_ERROR_GENERIC);
         when(playlistDriver.unlikeSong(userName, songId)).thenReturn(mockDbQueryStatus);
+
         when(request.getRequestURI()).thenReturn("/profile/unlikeSong/" + userName + "/" + songId);
         when(request.getContextPath()).thenReturn("");
+
         // Act
         Map<String, Object> response = profileController.unlikeSong(userName, songId, request);
+
         // Assert
         assertNotNull(response);
         assertEquals("Service exception", response.get("message"));
