@@ -1,5 +1,3 @@
-//This test file is marked invalid as it contains compilation errors. Change the extension to of this file to .java, to manually edit its contents
-
 
 // ********RoostGPT********
 /*
@@ -119,10 +117,15 @@ Execution:
 Validation:  
   Ensuring response structure correctness guarantees compatibility with external services and frontend applications that consume this data.
 
+
+roost_feedback [06/08/2025, 10:53:35 AM]:Modify\sCode\sto\sfix\sthis\serror\n[147,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(okhttp3.MediaType,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[148,34]\sno\ssuitable\smethod\sfound\sfor\sthenReturn(org.springframework.web.bind.annotation.ResponseBody)\n[166,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(okhttp3.MediaType,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[167,34]\sno\ssuitable\smethod\sfound\sfor\sthenReturn(org.springframework.web.bind.annotation.ResponseBody)\n[222,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(okhttp3.MediaType,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[223,34]\sno\ssuitable\smethod\sfound\sfor\sthenReturn(org.springframework.web.bind.annotation.ResponseBody)
 */
 
 // ********RoostGPT********
-package com.csc301.profilemicroservice;import org.junit.*;
+
+package com.csc301.profilemicroservice;
+
+import org.junit.*;
 import org.junit.experimental.categories.Category;
 import org.mockito.*;
 import javax.servlet.http.HttpServletRequest;
@@ -154,11 +157,13 @@ public class ProfileControllerUnlikeSongTest {
     private OkHttpClient client;
     @InjectMocks
     private ProfileController profileController;
+
     @Before
     public void setup() {
         profileController = new ProfileController(null, playlistDriver); // Properly initialize profileController using constructor
         MockitoAnnotations.initMocks(this);
     }
+
     @Test
     @Category(Categories.valid.class)
     public void successfulUnlikingOfSong() throws Exception {
@@ -169,7 +174,7 @@ public class ProfileControllerUnlikeSongTest {
         Response mockResponse = mock(Response.class);
         JSONObject mockJsonObject = new JSONObject();
         mockJsonObject.put("status", "OK");
-        ResponseBody mockResponseBody = ResponseBody.create(MediaType.parse("application/json"), mockJsonObject.toString());
+        ResponseBody mockResponseBody = ResponseBody.create(MediaType.get("application/json"), mockJsonObject.toString());
         when(mockResponse.body()).thenReturn(mockResponseBody);
         when(client.newCall(any(Request.class))).thenReturn(mock(Call.class));
         when(client.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
@@ -178,6 +183,7 @@ public class ProfileControllerUnlikeSongTest {
         assertEquals(DbQueryExecResult.QUERY_OK, response.get("status"));
         assertTrue(response.containsKey("path"));
     }
+
     @Test
     @Category(Categories.integration.class)
     public void handleGenericErrorForNonOkApiResponse() throws Exception {
@@ -188,7 +194,7 @@ public class ProfileControllerUnlikeSongTest {
         Response mockResponse = mock(Response.class);
         JSONObject mockJsonObject = new JSONObject();
         mockJsonObject.put("status", "NOT_OK");
-        ResponseBody mockResponseBody = ResponseBody.create(MediaType.parse("application/json"), mockJsonObject.toString());
+        ResponseBody mockResponseBody = ResponseBody.create(MediaType.get("application/json"), mockJsonObject.toString());
         when(mockResponse.body()).thenReturn(mockResponseBody);
         when(client.newCall(any(Request.class))).thenReturn(mock(Call.class));
         when(client.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
@@ -197,6 +203,7 @@ public class ProfileControllerUnlikeSongTest {
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
         assertTrue(response.containsKey("path"));
     }
+
     @Test
     @Category(Categories.integration.class)
     public void handleExceptionDuringApiCall() throws Exception {
@@ -210,6 +217,7 @@ public class ProfileControllerUnlikeSongTest {
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
         assertTrue(response.containsKey("path"));
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void handleInvalidEmptyOrNullUserName() {
@@ -222,6 +230,7 @@ public class ProfileControllerUnlikeSongTest {
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
         assertTrue(response.containsKey("path"));
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void handleInvalidEmptyOrNullSongId() {
@@ -234,6 +243,7 @@ public class ProfileControllerUnlikeSongTest {
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
         assertTrue(response.containsKey("path"));
     }
+
     @Test
     @Category(Categories.valid.class)
     public void validateResponseStructureForSuccessfulRequest() throws Exception {
@@ -244,7 +254,7 @@ public class ProfileControllerUnlikeSongTest {
         Response mockResponse = mock(Response.class);
         JSONObject mockJsonObject = new JSONObject();
         mockJsonObject.put("status", "OK");
-        ResponseBody mockResponseBody = ResponseBody.create(MediaType.parse("application/json"), mockJsonObject.toString());
+        ResponseBody mockResponseBody = ResponseBody.create(MediaType.get("application/json"), mockJsonObject.toString());
         when(mockResponse.body()).thenReturn(mockResponseBody);
         when(client.newCall(any(Request.class))).thenReturn(mock(Call.class));
         when(client.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
