@@ -1,0 +1,126 @@
+
+// ********RoostGPT********
+/*
+
+roost_feedback [07/08/2025, 6:46:11 AM]:Modify\sCode\sto\sfix\sthis\serror\n[287,86]\sunclosed\sstring\sliteral\n[309,86]\sunclosed\sstring\sliteral\n[402,86]\sunclosed\sstring\sliteral\n[422,86]\sunclosed\sstring\sliteral\n[449,63]\sunclosed\sstring\sliteral\n[493,63]\sunclosed\sstring\sliteral
+*/
+
+// ********RoostGPT********
+
+package com.csc301.profilemicroservice;
+
+import org.junit.Assert.assertEquals;
+import org.mockito.Mockito;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.http.HttpServletRequest;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.junit.Assert.assertNotNull;
+import org.junit.Before;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import okhttp3.ResponseBody;
+import org.junit.Assert;
+
+public class ProfileControllerTest {
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_18110d8470 ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
+	 *
+	 */public void testUnlikeSongSuccessfully() throws Exception {
+
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    when(mockRequest.getRequestURI()).thenReturn("/test/url");
+    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Song unliked successfully", DbQueryExecResult.QUERY_OK);
+    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+    OkHttpClient mockClient = mock(OkHttpClient.class);
+    ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"OK\"}");
+    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http://example.com").build()).protocol(Protocol.HTTP_1_1).code(200).message("OK").body(mockResponseBody).build();
+    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
+    profileController.client = mockClient;
+
+    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
+
+    assertEquals("PUT /test/url", response.get("path"));
+    assertEquals("Song unliked successfully", response.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_OK.toString(), (String) ((Map<?, ?>) response.get("status")).get("code"));
+}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_18110d8470 ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
+	 *
+	 */public void testUnlikeSongServiceError() throws Exception {
+
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    when(mockRequest.getRequestURI()).thenReturn("/test/url");
+    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Service Error", DbQueryExecResult.QUERY_ERROR_GENERIC);
+    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+    OkHttpClient mockClient = mock(OkHttpClient.class);
+    ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"ERROR\"}");
+    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http://example.com").build()).protocol(Protocol.HTTP_1_1).code(500).message("Internal Server Error").body(mockResponseBody).build();
+    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
+    profileController.client = mockClient;
+
+    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
+
+    assertEquals("PUT /test/url", response.get("path"));
+    assertEquals("Service Error", response.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), (String) ((Map<?, ?>) response.get("status")).get("code"));
+}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_18110d8470 ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
+	 *
+	 */public void testUnlikeSongResponsePathFormat() {
+
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    when(mockRequest.getRequestURI()).thenReturn("/test/url");
+    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Path format validated", DbQueryExecResult.QUERY_OK);
+    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+    OkHttpClient mockClient = mock(OkHttpClient.class);
+    ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"OK\"}");
+    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http://example.com").build()).protocol(Protocol.HTTP_1_1).code(200).message("OK").body(mockResponseBody).build();
+    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
+    profileController.client = mockClient;
+
+    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
+
+    assertEquals("PUT /test/url", response.get("path"));
+}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_18110d8470 ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
+	 *
+	 */public void testUnlikeSongEmptyResponseData() throws Exception {
+
+    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
+    when(mockRequest.getRequestURI()).thenReturn("/test/url");
+    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Empty response data", DbQueryExecResult.QUERY_ERROR_GENERIC);
+    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+    OkHttpClient mockClient = mock(OkHttpClient.class);
+    ResponseBody mockResponseBody = ResponseBody.create(null, "");
+    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http://example.com").build()).protocol(Protocol.HTTP_1_1).code(200).message("OK").body(mockResponseBody).build();
+    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
+    profileController.client = mockClient;
+
+    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
+
+    assertEquals("PUT /test/url", response.get("path"));
+    assertEquals("Empty response data", response.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), (String) ((Map<?, ?>) response.get("status")).get("code"));
+}
+}
