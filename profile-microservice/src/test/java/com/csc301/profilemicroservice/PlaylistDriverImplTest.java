@@ -1,0 +1,324 @@
+package com.csc301.profilemicroservice;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
+import org.neo4j.driver.v1;
+import java.util.HashMap;
+import java.util.Map;
+import org.junit.Assert.assertEquals;
+import org.neo4j.driver.v1.Driver;
+import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.StatementResult;
+import org.neo4j.driver.v1.Transaction;
+import org.springframework.stereotype.Repository;
+import org.junit.Assert;
+import org.mockito.Mock;
+import org.mockito.InjectMocks;
+import org.mockito.MockitoAnnotations;
+
+public class PlaylistDriverImplTest {
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void setup() {
+		mockDriver = Mockito.mock(Driver.class);
+		mockSession = Mockito.mock(Session.class);
+		mockTransaction = Mockito.mock(Transaction.class);
+		mockStatementResult = Mockito.mock(StatementResult.class);
+		playlistDriver = new PlaylistDriverImpl(mockDriver);
+		when(mockDriver.session()).thenReturn(mockSession);
+		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void addSongToPlaylistSuccess() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> validParams = new HashMap<>();
+		validParams.put("plName", userName + "-favourites");
+		validParams.put("songId", songId);
+
+		when(mockTransaction.run(Mockito.anyString(), eq(validParams))).thenReturn(mockStatementResult);
+		when(mockStatementResult.hasNext()).thenReturn(true);
+
+		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
+
+		assertEquals(DbQueryExecResult.QUERY_OK, status.getDbQueryExecResult());
+		verify(mockTransaction, times(4)).run(anyString(), eq(validParams));
+		verify(mockTransaction).success();
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void nullUserNameInput() {
+		String userName = null;
+		String songId = "testSongId";
+
+		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
+
+		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, status.getDbQueryExecResult());
+		verify(mockSession, never()).beginTransaction();
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void nullSongIdInput() {
+		String userName = "testUser";
+		String songId = null;
+
+		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
+
+		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, status.getDbQueryExecResult());
+		verify(mockSession, never()).beginTransaction();
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void playlistDoesNotExist() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> validParams = new HashMap<>();
+		validParams.put("plName", userName + "-favourites");
+		validParams.put("songId", songId);
+
+		when(mockTransaction.run(anyString(), eq(validParams))).thenReturn(mockStatementResult);
+		when(mockStatementResult.hasNext()).thenReturn(false);
+
+		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
+
+		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, status.getDbQueryExecResult());
+		verify(mockTransaction).run(anyString(), eq(validParams));
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void songDoesNotExist() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> validParams = new HashMap<>();
+		validParams.put("plName", userName + "-favourites");
+		validParams.put("songId", songId);
+
+		when(mockTransaction.run(anyString(), eq(validParams))).thenReturn(mockStatementResult)
+			.thenReturn(mockStatementResult);
+		when(mockStatementResult.hasNext()).thenReturn(true).thenReturn(false);
+
+		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
+
+		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, status.getDbQueryExecResult());
+		verify(mockTransaction, times(2)).run(anyString(), eq(validParams));
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void songAlreadyIncluded() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> validParams = new HashMap<>();
+		validParams.put("plName", userName + "-favourites");
+		validParams.put("songId", songId);
+
+		when(mockTransaction.run(anyString(), eq(validParams))).thenReturn(mockStatementResult);
+		when(mockStatementResult.hasNext()).thenReturn(true);
+
+		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
+
+		assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND, status.getDbQueryExecResult());
+		verify(mockTransaction).run(anyString(), eq(validParams));
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void unexpectedExceptionHandling() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> validParams = new HashMap<>();
+		validParams.put("plName", userName + "-favourites");
+		validParams.put("songId", songId);
+
+		when(mockTransaction.run(anyString(), eq(validParams))).thenThrow(new RuntimeException());
+
+		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
+
+		assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, status.getDbQueryExecResult());
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
+	 *
+	 */public void sessionClosureVerification() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> validParams = new HashMap<>();
+		validParams.put("plName", userName + "-favourites");
+		validParams.put("songId", songId);
+
+		when(mockTransaction.run(anyString(), eq(validParams))).thenReturn(mockStatementResult);
+		when(mockStatementResult.hasNext()).thenReturn(true);
+
+		playlistDriver.likeSong(userName, songId);
+
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void validInputsSuccessfullyRemoveSong() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> params = new HashMap<>();
+		params.put("plName", userName + "-favourites");
+		params.put("songId", songId);
+		StatementResult mockResult = mock(StatementResult.class);
+		when(mockDriver.session()).thenReturn(mockSession);
+		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
+		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
+		when(mockResult.hasNext()).thenReturn(true).thenReturn(true).thenReturn(true);
+		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_OK);
+		verify(mockTransaction).success();
+		verify(mockSession).close();
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void invalidUserNameTriggersError() {
+
+		String userName = null;
+		String songId = "testSongId";
+		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void invalidSongIdTriggersError() {
+		String userName = "testUser";
+
+		String songId = null;
+		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void nonexistentPlaylistOrSongTriggersError() {
+		String userName = "nonExistentUser";
+		String songId = "nonExistentSongId";
+		Map<String, Object> params = new HashMap<>();
+		params.put("plName", userName + "-favourites");
+		params.put("songId", songId);
+		StatementResult mockResult = mock(StatementResult.class);
+		when(mockDriver.session()).thenReturn(mockSession);
+		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
+		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
+		when(mockResult.hasNext()).thenReturn(false);
+		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void songNotInPlaylistTriggersError() {
+		String userName = "testUser";
+		String songId = "notInPlaylistSongId";
+		Map<String, Object> params = new HashMap<>();
+		params.put("plName", userName + "-favourites");
+		params.put("songId", songId);
+		StatementResult mockResult = mock(StatementResult.class);
+		when(mockDriver.session()).thenReturn(mockSession);
+		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
+		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
+
+		when(mockResult.hasNext()).thenReturn(false);
+		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void ioExceptionDuringDatabaseReturnsError() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		when(mockDriver.session()).thenThrow(new RuntimeException());
+		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void nullDatabaseDriverTriggersError() {
+		PlaylistDriverImpl playlistDriverImplWithNullDriver = new PlaylistDriverImpl();
+
+		playlistDriverImplWithNullDriver.driver = null;
+		String userName = "testUser";
+		String songId = "testSongId";
+		DbQueryStatus result = playlistDriverImplWithNullDriver.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void consecutiveCallsToUnlikeSong() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> params = new HashMap<>();
+		params.put("plName", userName + "-favourites");
+		params.put("songId", songId);
+		StatementResult mockResult = mock(StatementResult.class);
+		when(mockDriver.session()).thenReturn(mockSession);
+		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
+		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
+		when(mockResult.hasNext()).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(false);
+		DbQueryStatus firstCallResult = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) firstCallResult.getData(), DbQueryExecResult.QUERY_OK);
+		DbQueryStatus secondCallResult = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) secondCallResult.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
+	}
+
+	/*
+	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+	 *
+	 */public void transactionCommitEnsuresSuccess() {
+		String userName = "testUser";
+		String songId = "testSongId";
+		Map<String, Object> params = new HashMap<>();
+		params.put("plName", userName + "-favourites");
+		params.put("songId", songId);
+		StatementResult mockResult = mock(StatementResult.class);
+		when(mockDriver.session()).thenReturn(mockSession);
+		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
+		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
+		when(mockResult.hasNext()).thenReturn(true).thenReturn(true).thenReturn(true);
+		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_OK);
+		verify(mockTransaction).success();
+	}
+
+}
