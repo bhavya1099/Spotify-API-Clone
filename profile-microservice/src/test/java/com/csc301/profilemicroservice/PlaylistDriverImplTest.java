@@ -1,49 +1,56 @@
+
+// ********RoostGPT********
+/*
+
+roost_feedback [08/08/2025, 9:25:20 AM]:Modify\sCode\sto\sfix\sthis\serror\n[6,24]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\sclass\sv1\n[ERROR]\s\s\slocation:\spackage\sorg.neo4j.driver\n[9,24]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\sclass\sassertEquals\n[ERROR]\s\s\slocation:\sclass\sorg.junit.Assert\n[184,26]\sconstructor\sPlaylistDriverImpl\sin\sclass\scom.csc301.profilemicroservice.PlaylistDriverImpl\scannot\sbe\sapplied\sto\sgiven\stypes;\n[ERROR]\s\s\srequired:\sno\sarguments\n[ERROR]\s\s\sfound:\s\s\s\sorg.neo4j.driver.v1.Driver\n[ERROR]\s\s\sreason:\sactual\sand\sformal\sargument\slists\sdiffer\sin\slength\n[202,56]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[215,67]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[227,67]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[245,67]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[265,67]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[283,69]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[300,67]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[25,5]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[26,5]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[27,5]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[28,5]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[29,5]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[29,45]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[30,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[30,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[31,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[31,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[44,80]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[44,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[44,51]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[45,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[47,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[49,52]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[50,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[50,29]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\stimes(int)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[50,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[50,56]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[51,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[52,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[62,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[64,63]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[65,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[65,25]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\snever()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[66,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[76,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[78,63]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[79,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[79,25]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\snever()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[80,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[93,72]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[93,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[93,30]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[93,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[94,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[96,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[98,63]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[99,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[99,33]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[99,46]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[100,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[113,104]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[113,72]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[113,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[113,30]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[113,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[114,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[116,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[118,63]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[119,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[119,29]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\stimes(int)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[119,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[119,56]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[120,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[133,72]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[133,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[133,30]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[133,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[134,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[136,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[138,65]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[139,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[139,33]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[139,46]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[140,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[153,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[153,30]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[153,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[155,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[157,63]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[158,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[171,72]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[171,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[171,30]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[171,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[172,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockStatementResult\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[174,5]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[176,12]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[188,34]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\smock(java.lang.Class<org.neo4j.driver.v1.StatementResult>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[189,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[189,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockDriver\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[190,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[190,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockSession\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[191,10]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\smockTransaction\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[191,30]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sanyString()\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[191,43]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\seq(java.util.Map<java.lang.String,java.lang.Object>)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[192,5]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\swhen(boolean)\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest\n[193,28]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\splaylistDriverImpl\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.PlaylistDriverImplTest
+*/
+
+// ********RoostGPT********
+
 package com.csc301.profilemicroservice;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.mockito.Mockito;
-import org.neo4j.driver.v1;
+import org.neo4j.driver.Driver;
+import org.neo4j.driver.Session;
+import org.neo4j.driver.StatementResult;
+import org.neo4j.driver.Transaction;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Assert.assertEquals;
-import org.neo4j.driver.v1.Driver;
-import org.neo4j.driver.v1.Session;
-import org.neo4j.driver.v1.StatementResult;
-import org.neo4j.driver.v1.Transaction;
-import org.springframework.stereotype.Repository;
 import org.junit.Assert;
-import org.mockito.Mock;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
+import static org.junit.Assert.*;
 
 public class PlaylistDriverImplTest {
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void setup() {
-		mockDriver = Mockito.mock(Driver.class);
-		mockSession = Mockito.mock(Session.class);
-		mockTransaction = Mockito.mock(Transaction.class);
-		mockStatementResult = Mockito.mock(StatementResult.class);
+	private Driver mockDriver;
+	private Session mockSession;
+	private Transaction mockTransaction;
+	private StatementResult mockStatementResult;
+	private PlaylistDriverImpl playlistDriver;
+
+	@Before
+	public void setup() {
+		mockDriver = mock(Driver.class);
+		mockSession = mock(Session.class);
+		mockTransaction = mock(Transaction.class);
+		mockStatementResult = mock(StatementResult.class);
 		playlistDriver = new PlaylistDriverImpl(mockDriver);
 		when(mockDriver.session()).thenReturn(mockSession);
 		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void addSongToPlaylistSuccess() {
+	@Test
+	public void addSongToPlaylistSuccess() {
 		String userName = "testUser";
 		String songId = "testSongId";
 		Map<String, Object> validParams = new HashMap<>();
 		validParams.put("plName", userName + "-favourites");
 		validParams.put("songId", songId);
 
-		when(mockTransaction.run(Mockito.anyString(), eq(validParams))).thenReturn(mockStatementResult);
+		when(mockTransaction.run(anyString(), eq(validParams))).thenReturn(mockStatementResult);
 		when(mockStatementResult.hasNext()).thenReturn(true);
 
 		DbQueryStatus status = playlistDriver.likeSong(userName, songId);
@@ -54,10 +61,8 @@ public class PlaylistDriverImplTest {
 		verify(mockSession).close();
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void nullUserNameInput() {
+	@Test
+	public void nullUserNameInput() {
 		String userName = null;
 		String songId = "testSongId";
 
@@ -68,10 +73,8 @@ public class PlaylistDriverImplTest {
 		verify(mockSession).close();
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void nullSongIdInput() {
+	@Test
+	public void nullSongIdInput() {
 		String userName = "testUser";
 		String songId = null;
 
@@ -82,10 +85,8 @@ public class PlaylistDriverImplTest {
 		verify(mockSession).close();
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void playlistDoesNotExist() {
+	@Test
+	public void playlistDoesNotExist() {
 		String userName = "testUser";
 		String songId = "testSongId";
 		Map<String, Object> validParams = new HashMap<>();
@@ -102,10 +103,8 @@ public class PlaylistDriverImplTest {
 		verify(mockSession).close();
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void songDoesNotExist() {
+	@Test
+	public void songDoesNotExist() {
 		String userName = "testUser";
 		String songId = "testSongId";
 		Map<String, Object> validParams = new HashMap<>();
@@ -123,10 +122,8 @@ public class PlaylistDriverImplTest {
 		verify(mockSession).close();
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void songAlreadyIncluded() {
+	@Test
+	public void songAlreadyIncluded() {
 		String userName = "testUser";
 		String songId = "testSongId";
 		Map<String, Object> validParams = new HashMap<>();
@@ -143,10 +140,8 @@ public class PlaylistDriverImplTest {
 		verify(mockSession).close();
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void unexpectedExceptionHandling() {
+	@Test
+	public void unexpectedExceptionHandling() {
 		String userName = "testUser";
 		String songId = "testSongId";
 		Map<String, Object> validParams = new HashMap<>();
@@ -161,10 +156,8 @@ public class PlaylistDriverImplTest {
 		verify(mockSession).close();
 	}
 
-	/*
-	 * ROOST_METHOD_HASH=likeSong_0db1938fb8 ROOST_METHOD_SIG_HASH=likeSong_643385e86e
-	 *
-	 */public void sessionClosureVerification() {
+	@Test
+	public void sessionClosureVerification() {
 		String userName = "testUser";
 		String songId = "testSongId";
 		Map<String, Object> validParams = new HashMap<>();
@@ -178,147 +171,4 @@ public class PlaylistDriverImplTest {
 
 		verify(mockSession).close();
 	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void validInputsSuccessfullyRemoveSong() {
-		String userName = "testUser";
-		String songId = "testSongId";
-		Map<String, Object> params = new HashMap<>();
-		params.put("plName", userName + "-favourites");
-		params.put("songId", songId);
-		StatementResult mockResult = mock(StatementResult.class);
-		when(mockDriver.session()).thenReturn(mockSession);
-		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
-		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
-		when(mockResult.hasNext()).thenReturn(true).thenReturn(true).thenReturn(true);
-		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_OK);
-		verify(mockTransaction).success();
-		verify(mockSession).close();
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void invalidUserNameTriggersError() {
-
-		String userName = null;
-		String songId = "testSongId";
-		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void invalidSongIdTriggersError() {
-		String userName = "testUser";
-
-		String songId = null;
-		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void nonexistentPlaylistOrSongTriggersError() {
-		String userName = "nonExistentUser";
-		String songId = "nonExistentSongId";
-		Map<String, Object> params = new HashMap<>();
-		params.put("plName", userName + "-favourites");
-		params.put("songId", songId);
-		StatementResult mockResult = mock(StatementResult.class);
-		when(mockDriver.session()).thenReturn(mockSession);
-		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
-		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
-		when(mockResult.hasNext()).thenReturn(false);
-		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void songNotInPlaylistTriggersError() {
-		String userName = "testUser";
-		String songId = "notInPlaylistSongId";
-		Map<String, Object> params = new HashMap<>();
-		params.put("plName", userName + "-favourites");
-		params.put("songId", songId);
-		StatementResult mockResult = mock(StatementResult.class);
-		when(mockDriver.session()).thenReturn(mockSession);
-		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
-		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
-
-		when(mockResult.hasNext()).thenReturn(false);
-		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void ioExceptionDuringDatabaseReturnsError() {
-		String userName = "testUser";
-		String songId = "testSongId";
-		when(mockDriver.session()).thenThrow(new RuntimeException());
-		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void nullDatabaseDriverTriggersError() {
-		PlaylistDriverImpl playlistDriverImplWithNullDriver = new PlaylistDriverImpl();
-
-		playlistDriverImplWithNullDriver.driver = null;
-		String userName = "testUser";
-		String songId = "testSongId";
-		DbQueryStatus result = playlistDriverImplWithNullDriver.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void consecutiveCallsToUnlikeSong() {
-		String userName = "testUser";
-		String songId = "testSongId";
-		Map<String, Object> params = new HashMap<>();
-		params.put("plName", userName + "-favourites");
-		params.put("songId", songId);
-		StatementResult mockResult = mock(StatementResult.class);
-		when(mockDriver.session()).thenReturn(mockSession);
-		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
-		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
-		when(mockResult.hasNext()).thenReturn(true).thenReturn(true).thenReturn(true).thenReturn(false);
-		DbQueryStatus firstCallResult = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) firstCallResult.getData(), DbQueryExecResult.QUERY_OK);
-		DbQueryStatus secondCallResult = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) secondCallResult.getData(), DbQueryExecResult.QUERY_ERROR_GENERIC);
-	}
-
-	/*
-	 * ROOST_METHOD_HASH=unlikeSong_eb7182672f ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
-	 *
-	 */public void transactionCommitEnsuresSuccess() {
-		String userName = "testUser";
-		String songId = "testSongId";
-		Map<String, Object> params = new HashMap<>();
-		params.put("plName", userName + "-favourites");
-		params.put("songId", songId);
-		StatementResult mockResult = mock(StatementResult.class);
-		when(mockDriver.session()).thenReturn(mockSession);
-		when(mockSession.beginTransaction()).thenReturn(mockTransaction);
-		when(mockTransaction.run(anyString(), eq(params))).thenReturn(mockResult);
-		when(mockResult.hasNext()).thenReturn(true).thenReturn(true).thenReturn(true);
-		DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
-		assertEquals((DbQueryExecResult) result.getData(), DbQueryExecResult.QUERY_OK);
-		verify(mockTransaction).success();
-	}
-
 }
