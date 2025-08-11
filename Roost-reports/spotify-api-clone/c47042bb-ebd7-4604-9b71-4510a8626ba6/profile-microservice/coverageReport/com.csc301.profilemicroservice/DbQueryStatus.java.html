@@ -2,40 +2,38 @@
 
 public class DbQueryStatus {
 
-	private String message;
+  private String message;
+  private DbQueryExecResult dbQueryExecResult;
+<span class="nc" id="L7">  private Object data = null; // Data can be anything returned to the Db</span>
 
-	private DbQueryExecResult dbQueryExecResult;
+<span class="nc" id="L9">  public DbQueryStatus(String message, DbQueryExecResult dbQueryExecResult) {</span>
+<span class="nc" id="L10">    this.message = message;</span>
+<span class="nc" id="L11">    this.dbQueryExecResult = dbQueryExecResult;</span>
+<span class="nc" id="L12">  }</span>
 
-<span class="nc" id="L9">	private Object data = null; // Data can be anything returned to the Db</span>
+  public String getMessage() {
+<span class="nc" id="L15">    return message;</span>
+  }
 
-<span class="nc" id="L11">	public DbQueryStatus(String message, DbQueryExecResult dbQueryExecResult) {</span>
-<span class="nc" id="L12">		this.message = message;</span>
-<span class="nc" id="L13">		this.dbQueryExecResult = dbQueryExecResult;</span>
-<span class="nc" id="L14">	}</span>
+  public void setMessage(String message) {
+<span class="nc" id="L19">    this.message = message;</span>
+<span class="nc" id="L20">  }</span>
 
-	public String getMessage() {
-<span class="nc" id="L17">		return message;</span>
-	}
+  public DbQueryExecResult getdbQueryExecResult() {
+<span class="nc" id="L23">    return dbQueryExecResult;</span>
+  }
 
-	public void setMessage(String message) {
-<span class="nc" id="L21">		this.message = message;</span>
-<span class="nc" id="L22">	}</span>
+  public void setdbQueryExecResult(DbQueryExecResult dbQueryExecResult) {
+<span class="nc" id="L27">    this.dbQueryExecResult = dbQueryExecResult;</span>
+<span class="nc" id="L28">  }</span>
 
-	public DbQueryExecResult getdbQueryExecResult() {
-<span class="nc" id="L25">		return dbQueryExecResult;</span>
-	}
+  public Object getData() {
+<span class="nc" id="L31">    return data;</span>
+  }
 
-	public void setdbQueryExecResult(DbQueryExecResult dbQueryExecResult) {
-<span class="nc" id="L29">		this.dbQueryExecResult = dbQueryExecResult;</span>
-<span class="nc" id="L30">	}</span>
-
-	public Object getData() {
-<span class="nc" id="L33">		return data;</span>
-	}
-
-	public void setData(Object obj) {
-<span class="nc" id="L37">		this.data = obj;</span>
-<span class="nc" id="L38">	}</span>
+  public void setData(Object obj) {
+<span class="nc" id="L35">    this.data = obj;</span>
+<span class="nc" id="L36">  }</span>
 
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
