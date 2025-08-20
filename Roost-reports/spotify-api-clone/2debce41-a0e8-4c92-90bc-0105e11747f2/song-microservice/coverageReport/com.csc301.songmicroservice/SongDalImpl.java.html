@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SongDalImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">song-microservice</a> &gt; <a href="index.source.html" class="el_package">com.csc301.songmicroservice</a> &gt; <span class="el_source">SongDalImpl.java</span></div><h1>SongDalImpl.java</h1><pre class="source lang-java linenums">package com.csc301.songmicroservice;
+
+import com.mongodb.client.result.DeleteResult;
+
+import org.bson.types.ObjectId;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class SongDalImpl implements SongDal {
+
+  private final MongoTemplate db;
+
+  /**
+   * readability
+   */
+<span class="fc" id="L18">  private final DbQueryExecResult OK = DbQueryExecResult.QUERY_OK;</span>
+<span class="fc" id="L19">  private final DbQueryExecResult ERR = DbQueryExecResult.QUERY_ERROR_GENERIC;</span>
+<span class="fc" id="L20">  private final DbQueryExecResult ERR404 = DbQueryExecResult.QUERY_ERROR_NOT_FOUND;</span>
+
+  @Autowired
+<span class="fc" id="L23">  public SongDalImpl(MongoTemplate mongoTemplate) {</span>
+<span class="fc" id="L24">    this.db = mongoTemplate;</span>
+<span class="fc" id="L25">  }</span>
+
+  /**
+   * Add new song to mongo db
+   * 
+   * @param songToAdd Song instance to be added
+   */
+  @Override
+  public DbQueryStatus addSong(Song songToAdd) {
+    // null check
+<span class="nc bnc" id="L35" title="All 4 branches missed.">    boolean valid = songToAdd.getSongName() != null &amp;&amp; songToAdd.getSongAlbum() != null</span>
+<span class="nc bnc" id="L36" title="All 2 branches missed.">        &amp;&amp; songToAdd.getSongArtistFullName() != null;</span>
+
+<span class="nc bnc" id="L38" title="All 2 branches missed.">    Song inserted = valid ? db.insert(songToAdd, &quot;songs&quot;) : null;</span>
+<span class="nc bnc" id="L39" title="All 2 branches missed.">    DbQueryStatus status = new DbQueryStatus(&quot;POST&quot;, inserted != null ? this.OK : this.ERR);</span>
+<span class="nc bnc" id="L40" title="All 2 branches missed.">    if (inserted != null)</span>
+<span class="nc" id="L41">      status.setData(inserted.getJsonRepresentation());</span>
+<span class="nc" id="L42">    return status;</span>
+  }
+
+  /**
+   * find song by id
+   * 
+   * @param songId id of the song
+   */
+  @Override
+  public DbQueryStatus findSongById(String songId) {
+    try {
+<span class="nc" id="L53">      ObjectId _id = new ObjectId(songId);</span>
+<span class="nc" id="L54">      Song found = db.findById(_id, Song.class);</span>
+<span class="nc bnc" id="L55" title="All 2 branches missed.">      DbQueryStatus status = new DbQueryStatus(&quot;GET&quot;, found != null ? this.OK : this.ERR404);</span>
+<span class="nc" id="L56">      status.setData(found.getJsonRepresentation());</span>
+<span class="nc" id="L57">      return status;</span>
+<span class="nc" id="L58">    } catch (Exception e) {</span>
+<span class="nc" id="L59">      return new DbQueryStatus(&quot;GET&quot;, this.ERR);</span>
+    }
+  }
+
+  /**
+   * find song title by id
+   * 
+   * @param songId id of the song
+   */
+  @Override
+  public DbQueryStatus getSongTitleById(String songId) {
+    try {
+<span class="nc" id="L71">      ObjectId _id = new ObjectId(songId);</span>
+<span class="nc" id="L72">      Song found = db.findById(_id, Song.class);</span>
+<span class="nc bnc" id="L73" title="All 2 branches missed.">      DbQueryStatus status = new DbQueryStatus(&quot;GET&quot;, found != null ? this.OK : this.ERR404);</span>
+<span class="nc bnc" id="L74" title="All 2 branches missed.">      if (found != null)</span>
+<span class="nc" id="L75">        status.setData(found.getSongName());</span>
+<span class="nc" id="L76">      return status;</span>
+<span class="nc" id="L77">    } catch (Exception e) {</span>
+<span class="nc" id="L78">      return new DbQueryStatus(&quot;GET&quot;, this.ERR);</span>
+    }
+  }
+
+  /**
+   * delete song by id
+   * 
+   * @param songId id of the song to be deleted
+   */
+  @Override
+  public DbQueryStatus deleteSongById(String songId) {
+    try {
+<span class="fc" id="L90">      ObjectId _id = new ObjectId(songId);</span>
+<span class="fc" id="L91">      Song found = db.findById(_id, Song.class);</span>
+<span class="fc" id="L92">      DbQueryStatus status = new DbQueryStatus(&quot;DELETE&quot;, this.ERR404);</span>
+<span class="fc bfc" id="L93" title="All 2 branches covered.">      if (found != null) {</span>
+<span class="fc" id="L94">        DeleteResult res = db.remove(found, &quot;songs&quot;);</span>
+<span class="fc bfc" id="L95" title="All 2 branches covered.">        if (res.wasAcknowledged()) // if delete was successful</span>
+<span class="fc" id="L96">          status.setdbQueryExecResult(this.OK);</span>
+      }
+<span class="fc" id="L98">      return status;</span>
+<span class="fc" id="L99">    } catch (Exception e) {</span>
+<span class="fc" id="L100">      return new DbQueryStatus(&quot;DELETE&quot;, this.ERR);</span>
+    }
+  }
+
+  /**
+   * update song fav count
+   * 
+   * @param songId          id of the song
+   * @param shouldDecrement if true then count--; else count++
+   */
+  @Override
+  public DbQueryStatus updateSongFavouritesCount(String songId, boolean shouldDecrement) {
+    try {
+<span class="nc" id="L113">      ObjectId _id = new ObjectId(songId);</span>
+<span class="nc" id="L114">      Song found = db.findById(_id, Song.class);</span>
+<span class="nc bnc" id="L115" title="All 2 branches missed.">      if (found != null) {</span>
+<span class="nc bnc" id="L116" title="All 2 branches missed.">        long count = found.getSongAmountFavourites() + (shouldDecrement ? -1 : 1);</span>
+<span class="nc" id="L117">        found.setSongAmountFavourites(count);</span>
+<span class="nc" id="L118">        found = db.save(found);</span>
+      }
+<span class="nc bnc" id="L120" title="All 2 branches missed.">      DbQueryStatus status = new DbQueryStatus(&quot;PUT&quot;, found == null ? this.ERR404 : this.OK);</span>
+<span class="nc" id="L121">      return status;</span>
+<span class="nc" id="L122">    } catch (Exception e) {</span>
+<span class="nc" id="L123">      return new DbQueryStatus(&quot;PUT&quot;, this.ERR);</span>
+    }
+  }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

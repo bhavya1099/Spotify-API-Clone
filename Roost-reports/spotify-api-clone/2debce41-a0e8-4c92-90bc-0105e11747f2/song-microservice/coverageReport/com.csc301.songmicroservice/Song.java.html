@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Song.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">song-microservice</a> &gt; <a href="index.source.html" class="el_package">com.csc301.songmicroservice</a> &gt; <span class="el_source">Song.java</span></div><h1>Song.java</h1><pre class="source lang-java linenums">package com.csc301.songmicroservice;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.bson.types.ObjectId;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+@Document(collection=&quot;songs&quot;)
+public class Song {
+	@Id
+	@JsonIgnore
+	public ObjectId _id;
+	
+	private String songName;
+	private String songArtistFullName;
+	private String songAlbum;
+	private long songAmountFavourites;
+	
+	public static final String KEY_SONG_NAME = &quot;songName&quot;;
+	public static final String KEY_SONG_ARTIST_FULL_NAME = &quot;songArtistFullName&quot;;
+	public static final String KEY_SONG_ALBUM = &quot;songAlbum&quot;;	
+
+
+<span class="nc" id="L28">	public Song(String songName, String songArtistFullName, String songAlbum) {</span>
+<span class="nc" id="L29">		this.songName = songName;</span>
+<span class="nc" id="L30">		this.songArtistFullName = songArtistFullName;</span>
+<span class="nc" id="L31">		this.songAlbum = songAlbum;</span>
+<span class="nc" id="L32">		this.songAmountFavourites = 0;</span>
+<span class="nc" id="L33">	}</span>
+
+	public String getSongName() {
+<span class="nc" id="L36">		return songName;</span>
+	}
+
+	public void setSongName(String songName) {
+<span class="nc" id="L40">		this.songName = songName;</span>
+<span class="nc" id="L41">	}</span>
+
+	public String getSongArtistFullName() {
+<span class="nc" id="L44">		return songArtistFullName;</span>
+	}
+
+	public void setSongArtistFullName(String songArtistFullName) {
+<span class="nc" id="L48">		this.songArtistFullName = songArtistFullName;</span>
+<span class="nc" id="L49">	}</span>
+
+	public String getSongAlbum() {
+<span class="nc" id="L52">		return songAlbum;</span>
+	}
+
+	public void setSongAlbum(String songAlbum) {
+<span class="nc" id="L56">		this.songAlbum = songAlbum;</span>
+<span class="nc" id="L57">	}</span>
+
+	public long getSongAmountFavourites() {
+<span class="nc" id="L60">		return songAmountFavourites;</span>
+	}
+
+	public void setSongAmountFavourites(long songAmountFavourites) {
+<span class="nc" id="L64">		this.songAmountFavourites = songAmountFavourites;</span>
+<span class="nc" id="L65">	}</span>
+
+	// ObjectId needs to be converted to string
+	public String getId() {
+<span class="nc" id="L69">		return _id.toHexString();</span>
+	}
+
+	public void setId(ObjectId _id) {
+<span class="nc" id="L73">		this._id = _id;</span>
+<span class="nc" id="L74">	}</span>
+	
+	@Override
+	public String toString() {
+<span class="nc" id="L78">		return this.getJsonRepresentation().toString();</span>
+	}
+	
+	@JsonIgnore
+	public Map&lt;String, String&gt; getJsonRepresentation() {
+<span class="nc" id="L83">		HashMap&lt;String, String&gt; jsonRepresentation = new HashMap&lt;String, String&gt;();</span>
+<span class="nc" id="L84">		jsonRepresentation.put(&quot;id&quot;, this.getId());</span>
+<span class="nc" id="L85">		jsonRepresentation.put(&quot;songName&quot;, this.songName);</span>
+<span class="nc" id="L86">		jsonRepresentation.put(&quot;songArtistFullName&quot;, this.songArtistFullName);</span>
+<span class="nc" id="L87">		jsonRepresentation.put(&quot;songAlbum&quot;, this.songAlbum);</span>
+<span class="nc" id="L88">		jsonRepresentation.put(&quot;songAmountFavourites&quot;, String.valueOf(this.songAmountFavourites));</span>
+		
+<span class="nc" id="L90">		return jsonRepresentation;</span>
+	}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
