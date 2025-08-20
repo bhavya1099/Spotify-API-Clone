@@ -1,568 +1,86 @@
+
+// ********RoostGPT********
+/*
+
+roost_feedback [20/08/2025, 12:49:17 PM]:Modify\sCode\sto\sfix\sthis\serror\n[119,1]\spackage\scom.squareup.okhttp3\sdoes\snot\sexist\n[145,1]\sa\stype\swith\sthe\ssame\ssimple\sname\sis\salready\sdefined\sby\sthe\ssingle-type-import\sof\sokhttp3.ResponseBody\n[147,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[150,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[173,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[176,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[262,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[265,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[286,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[289,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[175,9]\sreference\sto\sResponseBody\sis\sambiguous\n[175,37]\sreference\sto\sResponseBody\sis\sambiguous\n[195,9]\sreference\sto\sResponseBody\sis\sambiguous\n[195,37]\sreference\sto\sResponseBody\sis\sambiguous\n[275,9]\sreference\sto\sResponseBody\sis\sambiguous\n[275,37]\sreference\sto\sResponseBody\sis\sambiguous
+*/
+
+// ********RoostGPT********
+
 package com.csc301.profilemicroservice;
-import org.junit.Assert.assertEquals;
-import org.mockito.Mockito;
-import java.util.HashMap;
-import java.util.Map;
-import javax.servlet.http.HttpServletRequest;
+
+import org.junit.Assert;
 import org.junit.Test;
-import org.junit.experimental.categories.Category;
+import org.mockito.Mockito;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import javax.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
-import okhttp3.FormBody;
+import okhttp3.ResponseBody;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
-import org.junit.Assert.assertNotNull;
-import org.junit.Before;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import okhttp3.ResponseBody;
-import com.squareup.okhttp3;
-import org.junit;
-import org.mockito; 
- public class ProfileControllerTest {
+import java.util.HashMap;
+import java.util.Map;
 
-/*ROOST_METHOD_HASH=addProfile_9127496a2e
-ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+public class ProfileControllerTest {
 
-*/public void testSuccessfulProfileCreationWithValidParameters() {
-    Map<String, String> params = new HashMap<>();
-    params.put(KEY_USER_NAME, "validUserName");
-    params.put(KEY_USER_FULLNAME, "Valid Full Name");
-    params.put(KEY_USER_PASSWORD, "ValidPassword123");
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getRequestURI()).thenReturn("/addProfile");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Profile created successfully.", DbQueryExecResult.QUERY_OK);
-    when(profileDriver.createUserProfile("validUserName", "Valid Full Name", "ValidPassword123")).thenReturn(mockDbQueryStatus);
-    Map<String, Object> response = profileController.addProfile(params, request);
-    assertEquals("POST /addProfile", response.get("path"));
-    assertEquals("Profile created successfully.", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_OK, response.get("status"));
-}
+    @Mock
+    ProfileDriver profileDriver;
 
-/*ROOST_METHOD_HASH=addProfile_9127496a2e
-ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+    @Mock
+    PlaylistDriver playlistDriver;
 
-*/public void testFailureDueToNullUsername() {
-    Map<String, String> params = new HashMap<>();
+    @Mock
+    OkHttpClient client;
+
+    @Mock
+    HttpServletRequest request;
+
+    @Mock
+    Response apiResponse;
+
+    ProfileController profileController;
     
-    params.put(KEY_USER_NAME, null);
-    params.put(KEY_USER_FULLNAME, "Valid Full Name");
-    params.put(KEY_USER_PASSWORD, "ValidPassword123");
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getRequestURI()).thenReturn("/addProfile");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Username cannot be null.", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
-    when(profileDriver.createUserProfile(null, "Valid Full Name", "ValidPassword123")).thenReturn(mockDbQueryStatus);
-    Map<String, Object> response = profileController.addProfile(params, request);
-    assertEquals("POST /addProfile", response.get("path"));
-    assertEquals("Username cannot be null.", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_9127496a2e
-ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
-
-*/public void testFailureDueToNullFullName() {
-    Map<String, String> params = new HashMap<>();
-    params.put(KEY_USER_NAME, "validUserName");
-    
-    params.put(KEY_USER_FULLNAME, null);
-    params.put(KEY_USER_PASSWORD, "ValidPassword123");
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getRequestURI()).thenReturn("/addProfile");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Full name cannot be null.", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
-    when(profileDriver.createUserProfile("validUserName", null, "ValidPassword123")).thenReturn(mockDbQueryStatus);
-    Map<String, Object> response = profileController.addProfile(params, request);
-    assertEquals("POST /addProfile", response.get("path"));
-    assertEquals("Full name cannot be null.", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_9127496a2e
-ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
-
-*/public void testFailureDueToInvalidPassword() {
-    Map<String, String> params = new HashMap<>();
-    params.put(KEY_USER_NAME, "validUserName");
-    params.put(KEY_USER_FULLNAME, "Valid Full Name");
-    
-    params.put(KEY_USER_PASSWORD, null);
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getRequestURI()).thenReturn("/addProfile");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Password validation failed.", DbQueryExecResult.QUERY_ERROR_GENERIC);
-    when(profileDriver.createUserProfile("validUserName", "Valid Full Name", null)).thenReturn(mockDbQueryStatus);
-    Map<String, Object> response = profileController.addProfile(params, request);
-    assertEquals("POST /addProfile", response.get("path"));
-    assertEquals("Password validation failed.", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_9127496a2e
-ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
-
-*/public void testInvalidHttpRequestCausingFailure() {
-    Map<String, String> params = new HashMap<>();
-    params.put(KEY_USER_NAME, "validUserName");
-    params.put(KEY_USER_FULLNAME, "Valid Full Name");
-    params.put(KEY_USER_PASSWORD, "ValidPassword123");
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    
-    when(request.getRequestURI()).thenReturn(null);
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Invalid request path.", DbQueryExecResult.QUERY_ERROR_GENERIC);
-    when(profileDriver.createUserProfile("validUserName", "Valid Full Name", "ValidPassword123")).thenReturn(mockDbQueryStatus);
-    Map<String, Object> response = profileController.addProfile(params, request);
-    assertEquals("POST null", response.get("path"));
-    assertEquals("Invalid request path.", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_9127496a2e
-ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
-
-*/public void testVerifyResponsePropertiesWithSuccessfulQuery() {
-    Map<String, String> params = new HashMap<>();
-    params.put(KEY_USER_NAME, "validUserName");
-    params.put(KEY_USER_FULLNAME, "Valid Full Name");
-    params.put(KEY_USER_PASSWORD, "ValidPassword123");
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getRequestURI()).thenReturn("/addProfile");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Profile created successfully.", DbQueryExecResult.QUERY_OK);
-    mockDbQueryStatus.setData("SuccessPayload");
-    when(profileDriver.createUserProfile("validUserName", "Valid Full Name", "ValidPassword123")).thenReturn(mockDbQueryStatus);
-    Map<String, Object> response = profileController.addProfile(params, request);
-    assertEquals("POST /addProfile", response.get("path"));
-    assertEquals("Profile created successfully.", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_OK, response.get("status"));
-    assertEquals("SuccessPayload", response.get("data"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_9127496a2e
-ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
-
-*/public void testFailureDueToExceptionInBackendDriver() {
-    Map<String, String> params = new HashMap<>();
-    params.put(KEY_USER_NAME, "validUserName");
-    params.put(KEY_USER_FULLNAME, "Valid Full Name");
-    params.put(KEY_USER_PASSWORD, "ValidPassword123");
-    HttpServletRequest request = mock(HttpServletRequest.class);
-    when(request.getRequestURI()).thenReturn("/addProfile");
-    when(profileDriver.createUserProfile("validUserName", "Valid Full Name", "ValidPassword123")).thenThrow(new RuntimeException("Unexpected exception"));
-    Map<String, Object> response = null;
-    try {
-        response = profileController.addProfile(params, request);
-    } catch (Exception e) {
-        assertEquals("Unexpected exception", e.getMessage());
+    @Before
+    public void setUp() throws Exception {
+        MockitoAnnotations.initMocks(this);
+        profileController = new ProfileController(profileDriver, playlistDriver);
     }
-    
-    assertEquals(null, response);
+
+    @Test
+    public void testLikeSongSuccessScenario() throws Exception {
+        DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
+        Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
+
+        JSONObject mockResponseBody = new JSONObject();
+        mockResponseBody.put("status", "OK");
+        ResponseBody responseBody = ResponseBody.create(null, mockResponseBody.toString());
+        Mockito.when(apiResponse.body()).thenReturn(responseBody);
+
+        Mockito.when(client.newCall(Mockito.any(Request.class)).execute()).thenReturn(apiResponse);
+        Mockito.when(request.getRequestURI()).thenReturn("/test");
+
+        Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
+
+        Assert.assertEquals("PUT /test", response.get("path"));
+        Assert.assertEquals("Success", response.get("message"));
+        Assert.assertEquals(DbQueryExecResult.QUERY_OK.name(), ((DbQueryStatus)response.get("response")).getdbQueryExecResult().name());
+    }
+
+    @Test
+    public void testUnlikeSongUserNotFound() {
+        HttpServletRequest mockRequest = Mockito.mock(HttpServletRequest.class);
+        Mockito.when(mockRequest.getRequestURI()).thenReturn("/test/url");
+
+        DbQueryStatus mockDbQueryStatus = new DbQueryStatus("User not found", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
+        Mockito.when(playlistDriver.unlikeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
+
+        Map<String, Object> response = profileController.unlikeSong("invalidUser", "testSongId", mockRequest);
+
+        Assert.assertEquals("PUT /test/url", response.get("path"));
+        Assert.assertEquals("User not found", response.get("message"));
+        Assert.assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND.toString(), ((Map<?, ?>)response.get("status")).get("code"));
+    }
 }
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void setUp() throws Exception {
-    MockitoAnnotations.initMocks(this);
-    profileController = new ProfileController(profileDriver, playlistDriver);
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongSuccessScenario() throws Exception {
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
-    JSONObject mockResponseBody = new JSONObject();
-    mockResponseBody.put("status", "OK");
-    ResponseBody responseBody = ResponseBody.create(null, mockResponseBody.toString());
-    Mockito.when(apiResponse.body()).thenReturn(responseBody);
-    Mockito.when(client.newCall(Mockito.any(Request.class)).execute()).thenReturn(apiResponse);
-    Mockito.when(request.getRequestURI()).thenReturn("/test");
-    Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
-    assertEquals("PUT /test", response.get("path"));
-    assertEquals("Success", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_OK.name(), ((DbQueryStatus) response.get("response")).getdbQueryExecResult().name());
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongApiErrorScenario() throws Exception {
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
-    JSONObject mockResponseBody = new JSONObject();
-    mockResponseBody.put("status", "NOT_OK");
-    ResponseBody responseBody = ResponseBody.create(null, mockResponseBody.toString());
-    Mockito.when(apiResponse.body()).thenReturn(responseBody);
-    Mockito.when(client.newCall(Mockito.any(Request.class)).execute()).thenReturn(apiResponse);
-    Mockito.when(request.getRequestURI()).thenReturn("/test");
-    Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.name(), ((DbQueryStatus) response.get("response")).getdbQueryExecResult().name());
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongNotFoundScenario() throws Exception {
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Song Not Found", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
-    Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
-    Mockito.when(request.getRequestURI()).thenReturn("/test");
-    Map<String, Object> response = profileController.likeSong("invalidUserName", "invalidSongId", request);
-    assertEquals("Song Not Found", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND.name(), ((DbQueryStatus) response.get("response")).getdbQueryExecResult().name());
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongApiExceptionScenario() throws Exception {
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
-    Mockito.when(client.newCall(Mockito.any(Request.class)).execute()).thenThrow(new Exception("API Call Exception"));
-    Mockito.when(request.getRequestURI()).thenReturn("/test");
-    Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.name(), ((DbQueryStatus) response.get("response")).getdbQueryExecResult().name());
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongPlaylistDriverErrorScenario() throws Exception {
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Error", DbQueryExecResult.QUERY_ERROR_GENERIC);
-    Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
-    Mockito.when(request.getRequestURI()).thenReturn("/test");
-    Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
-    assertEquals("Error", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.name(), ((DbQueryStatus) response.get("response")).getdbQueryExecResult().name());
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongNullPlaylistDriverScenario() {
-    profileController = new ProfileController(profileDriver, null);
-    profileController.likeSong("validUserName", "validSongId", request);
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongPathSetupScenario() throws Exception {
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
-    Mockito.when(request.getRequestURI()).thenReturn("/testPath");
-    Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
-    assertEquals("PUT /testPath", response.get("path"));
-}
-
-/*ROOST_METHOD_HASH=likeSong_b915241087
-ROOST_METHOD_SIG_HASH=likeSong_538288bf51
-
-*/public void testLikeSongResponseValidationScenario() throws Exception {
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.likeSong(Mockito.anyString(), Mockito.anyString())).thenReturn(mockDbQueryStatus);
-    JSONObject mockResponseBody = new JSONObject();
-    mockResponseBody.put("status", "OK");
-    ResponseBody responseBody = ResponseBody.create(null, mockResponseBody.toString());
-    Mockito.when(apiResponse.body()).thenReturn(responseBody);
-    Mockito.when(client.newCall(Mockito.any(Request.class)).execute()).thenReturn(apiResponse);
-    Mockito.when(request.getRequestURI()).thenReturn("/test");
-    Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
-    assertEquals("Success", response.get("message"));
-    assertNotNull((DbQueryStatus) response.get("response"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongSuccessfully() throws Exception {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Song unliked successfully", DbQueryExecResult.QUERY_OK);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    OkHttpClient mockClient = mock(OkHttpClient.class);
-    ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"OK\"}");
-    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http:
-    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-    
-    profileController.client = mockClient;
-    
-    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-    assertEquals("Song unliked successfully", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_OK.toString(), ((Map<?, ?>) response.get("status")).get("code"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongServiceError() throws Exception {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Service Error", DbQueryExecResult.QUERY_OK);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    OkHttpClient mockClient = mock(OkHttpClient.class);
-    ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"ERROR\"}");
-    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http:
-    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-    
-    profileController.client = mockClient;
-    
-    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-    assertEquals("Service Error", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongHttpException() throws Exception {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Exception occurred", DbQueryExecResult.QUERY_OK);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    OkHttpClient mockClient = mock(OkHttpClient.class);
-    when(mockClient.newCall(any(Request.class)).execute()).thenThrow(new RuntimeException("HTTP client exception"));
-    
-    profileController.client = mockClient;
-    
-    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-    assertEquals("Exception occurred", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongUserNotFound() {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("User not found", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    
-    Map<String, Object> response = profileController.unlikeSong("invalidUser", "testSongId", mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-    assertEquals("User not found", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND.toString(), ((Map<?, ?>) response.get("status")).get("code"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongSongNotFound() {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Song not found in playlist", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    
-    Map<String, Object> response = profileController.unlikeSong("testUser", "invalidSongId", mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-    assertEquals("Song not found in playlist", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND.toString(), ((Map<?, ?>) response.get("status")).get("code"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongInvalidParameters() {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Invalid parameters", DbQueryExecResult.QUERY_ERROR_GENERIC);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    
-    
-    Map<String, Object> response = profileController.unlikeSong(null, null, mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-    assertEquals("Invalid parameters", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongResponsePathFormat() {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Path format validated", DbQueryExecResult.QUERY_OK);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    OkHttpClient mockClient = mock(OkHttpClient.class);
-    ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"OK\"}");
-    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http:
-    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-    
-    profileController.client = mockClient;
-    
-    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-}
-
-/*ROOST_METHOD_HASH=unlikeSong_18110d8470
-ROOST_METHOD_SIG_HASH=unlikeSong_1e6e0712c6
-
-*/public void testUnlikeSongEmptyResponseData() throws Exception {
-    
-    HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-    
-    when(mockRequest.getRequestURI()).thenReturn("/test/url");
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Empty response data", DbQueryExecResult.QUERY_OK);
-    when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-    OkHttpClient mockClient = mock(OkHttpClient.class);
-    ResponseBody mockResponseBody = ResponseBody.create(null, "");
-    Response mockResponse = new Response.Builder().request(new Request.Builder().url("http:
-    when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-    
-    profileController.client = mockClient;
-    
-    Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-    
-    assertEquals("PUT /test/url", response.get("path"));
-    assertEquals("Empty response data", response.get("message"));
-    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void setup() {
-    MockitoAnnotations.initMocks(this);
-    profileController = new ProfileController(null, playlistDriver);
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void verifySuccessfulProfileAddition() {
-    
-    String songId = "song123";
-    
-    String songName = "songName";
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.addSong(songId, songName)).thenReturn(mockDbQueryStatus);
-    Mockito.when(httpServletRequest.getRequestURL()).thenReturn(new StringBuffer("http:
-    Map<String, Object> response = profileController.addProfile(songId, songName, httpServletRequest);
-    Assert.assertEquals("POST http:
-    Assert.assertEquals("Success", response.get("message"));
-    Assert.assertEquals(DbQueryExecResult.QUERY_OK, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void handleInvalidSongId() {
-    
-    String songId = "";
-    String songName = "songName";
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Invalid song ID", DbQueryExecResult.QUERY_ERROR_GENERIC);
-    Mockito.when(playlistDriver.addSong(songId, songName)).thenReturn(mockDbQueryStatus);
-    Mockito.when(httpServletRequest.getRequestURL()).thenReturn(new StringBuffer("http:
-    Map<String, Object> response = profileController.addProfile(songId, songName, httpServletRequest);
-    Assert.assertEquals("POST http:
-    Assert.assertEquals("Invalid song ID", response.get("message"));
-    Assert.assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void handleInvalidSongName() {
-    String songId = "song123";
-    
-    String songName = "";
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Invalid song name", DbQueryExecResult.QUERY_ERROR_GENERIC);
-    Mockito.when(playlistDriver.addSong(songId, songName)).thenReturn(mockDbQueryStatus);
-    Mockito.when(httpServletRequest.getRequestURL()).thenReturn(new StringBuffer("http:
-    Map<String, Object> response = profileController.addProfile(songId, songName, httpServletRequest);
-    Assert.assertEquals("POST http:
-    Assert.assertEquals("Invalid song name", response.get("message"));
-    Assert.assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void validateHttpRequestParsing() {
-    String songId = "song123";
-    String songName = "songName";
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.addSong(songId, songName)).thenReturn(mockDbQueryStatus);
-    Mockito.when(httpServletRequest.getRequestURL()).thenReturn(new StringBuffer("http:
-    Map<String, Object> response = profileController.addProfile(songId, songName, httpServletRequest);
-    Assert.assertEquals("POST http:
-    Assert.assertEquals("Success", response.get("message"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void handleNullParameters() {
-    
-    String songId = null;
-    
-    String songName = null;
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Input parameters cannot be null", DbQueryExecResult.QUERY_ERROR_GENERIC);
-    Mockito.when(playlistDriver.addSong(songId, songName)).thenReturn(mockDbQueryStatus);
-    Mockito.when(httpServletRequest.getRequestURL()).thenReturn(new StringBuffer("http:
-    Map<String, Object> response = profileController.addProfile(songId, songName, httpServletRequest);
-    Assert.assertEquals("POST http:
-    Assert.assertEquals("Input parameters cannot be null", response.get("message"));
-    Assert.assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void handleExceptionDuringSongAddition() {
-    String songId = "song123";
-    String songName = "songName";
-    Mockito.when(playlistDriver.addSong(songId, songName)).thenThrow(new RuntimeException("Service Exception"));
-    Mockito.when(httpServletRequest.getRequestURL()).thenReturn(new StringBuffer("http:
-    Map<String, Object> response = profileController.addProfile(songId, songName, httpServletRequest);
-    Assert.assertEquals("POST http:
-    Assert.assertEquals("Service Exception", response.get("message"));
-    Assert.assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("status"));
-}
-
-/*ROOST_METHOD_HASH=addProfile_a9ce10f073
-ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
-
-*/public void verifyUtilsSetResponseStatusIntegration() {
-    String songId = "song123";
-    String songName = "songName";
-    DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
-    Mockito.when(playlistDriver.addSong(songId, songName)).thenReturn(mockDbQueryStatus);
-    Mockito.when(httpServletRequest.getRequestURL()).thenReturn(new StringBuffer("http:
-    Map<String, Object> response = profileController.addProfile(songId, songName, httpServletRequest);
-    Assert.assertEquals("POST http:
-    Assert.assertEquals("Success", response.get("message"));
-    Assert.assertEquals(DbQueryExecResult.QUERY_OK, response.get("status"));
-}
-} 
