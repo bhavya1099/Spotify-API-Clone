@@ -1,5 +1,3 @@
-//This test file is marked invalid as it contains compilation errors. Change the extension to of this file to .java, to manually edit its contents
-
 
 // ********RoostGPT********
 /*
@@ -104,45 +102,47 @@ Execution:
 Validation:  
   Ensures the application's robustness against incomplete or invalid responses from external services.
 
+
+roost_feedback [22/08/2025, 9:04:18 AM]:Modify\sCode\sto\sfix\sthis\serror\n[96,1]\spackage\scom.squareup.okhttp3\sdoes\snot\sexist\n[126,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[129,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[152,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[155,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[241,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[244,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[265,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[268,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest
 */
 
 // ********RoostGPT********
 
 package com.csc301.profilemicroservice;
+
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
+
 import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
-import org.json.JSONObject;
-import org.junit.Test;
-import org.junit.experimental.categories.Category;
-import com.squareup.okhttp3.*;
-import java.util.HashMap;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+
 import okhttp3.FormBody;
 import okhttp3.OkHttpClient;
+import okhttp3.Protocol;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
+import okhttp3.ResponseBody;
+
+import org.json.JSONObject;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 public class ProfileControllerUnlikeSongTest {
     PlaylistDriverImpl mockPlaylistDriver = mock(PlaylistDriverImpl.class);
     ProfileDriverImpl mockProfileDriver = mock(ProfileDriverImpl.class);
     ProfileController profileController = new ProfileController(mockProfileDriver, mockPlaylistDriver);
+
     @Category(Categories.valid.class)
     @Test
     public void testUnlikeSongSuccessfully() throws Exception {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Song unliked successfully", DbQueryExecResult.QUERY_OK);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+        
         OkHttpClient mockClient = mock(OkHttpClient.class);
         ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"OK\"}");
         Response mockResponse = new Response.Builder()
@@ -153,22 +153,24 @@ public class ProfileControllerUnlikeSongTest {
                 .body(mockResponseBody)
                 .build();
         when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-        profileController.client = mockClient; // Inject the mocked client into the controller
-        // Act
+        
+        profileController.client = mockClient;
+        
         Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-        // Assert
         assertEquals("PUT /test/url", response.get("path"));
         assertEquals("Song unliked successfully", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_OK.toString(), ((Map<?, ?>) response.get("status")).get("code"));
     }
+
     @Category(Categories.integration.class)
     @Test
     public void testUnlikeSongServiceError() throws Exception {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Service Error", DbQueryExecResult.QUERY_OK);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+        
         OkHttpClient mockClient = mock(OkHttpClient.class);
         ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"ERROR\"}");
         Response mockResponse = new Response.Builder()
@@ -179,85 +181,89 @@ public class ProfileControllerUnlikeSongTest {
                 .body(mockResponseBody)
                 .build();
         when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-        profileController.client = mockClient; // Inject the mocked client into the controller
-        // Act
+        
+        profileController.client = mockClient;
+        
         Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-        // Assert
         assertEquals("PUT /test/url", response.get("path"));
         assertEquals("Service Error", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
     }
+
     @Category(Categories.invalid.class)
     @Test
     public void testUnlikeSongHttpException() throws Exception {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Exception occurred", DbQueryExecResult.QUERY_OK);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+        
         OkHttpClient mockClient = mock(OkHttpClient.class);
         when(mockClient.newCall(any(Request.class)).execute()).thenThrow(new RuntimeException("HTTP client exception"));
-        profileController.client = mockClient; // Inject the mocked client into the controller
-        // Act
+        
+        profileController.client = mockClient;
+        
         Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-        // Assert
         assertEquals("PUT /test/url", response.get("path"));
         assertEquals("Exception occurred", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
     }
+
     @Category(Categories.invalid.class)
     @Test
     public void testUnlikeSongUserNotFound() {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("User not found", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-        // Act
+        
         Map<String, Object> response = profileController.unlikeSong("invalidUser", "testSongId", mockRequest);
-        // Assert
         assertEquals("PUT /test/url", response.get("path"));
         assertEquals("User not found", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND.toString(), ((Map<?, ?>) response.get("status")).get("code"));
     }
+
     @Category(Categories.boundary.class)
     @Test
     public void testUnlikeSongSongNotFound() {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Song not found in playlist", DbQueryExecResult.QUERY_ERROR_NOT_FOUND);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-        // Act
+        
         Map<String, Object> response = profileController.unlikeSong("testUser", "invalidSongId", mockRequest);
-        // Assert
         assertEquals("PUT /test/url", response.get("path"));
         assertEquals("Song not found in playlist", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND.toString(), ((Map<?, ?>) response.get("status")).get("code"));
     }
+
     @Category(Categories.invalid.class)
     @Test
     public void testUnlikeSongInvalidParameters() {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Invalid parameters", DbQueryExecResult.QUERY_ERROR_GENERIC);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
-        // Act
-        Map<String, Object> response = profileController.unlikeSong(null, null, mockRequest); // TODO: Replace null values with actual invalid parameters for specific cases
-        // Assert
+        
+        Map<String, Object> response = profileController.unlikeSong(null, null, mockRequest);
         assertEquals("PUT /test/url", response.get("path"));
         assertEquals("Invalid parameters", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
     }
+
     @Category(Categories.boundary.class)
     @Test
     public void testUnlikeSongResponsePathFormat() {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Path format validated", DbQueryExecResult.QUERY_OK);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+        
         OkHttpClient mockClient = mock(OkHttpClient.class);
         ResponseBody mockResponseBody = ResponseBody.create(null, "{\"status\":\"OK\"}");
         Response mockResponse = new Response.Builder()
@@ -268,20 +274,22 @@ public class ProfileControllerUnlikeSongTest {
                 .body(mockResponseBody)
                 .build();
         when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-        profileController.client = mockClient; // Inject the mocked client into the controller
-        // Act
+        
+        profileController.client = mockClient;
+        
         Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-        // Assert
         assertEquals("PUT /test/url", response.get("path"));
     }
+
     @Category(Categories.invalid.class)
     @Test
     public void testUnlikeSongEmptyResponseData() throws Exception {
-        // Arrange
         HttpServletRequest mockRequest = mock(HttpServletRequest.class);
-        when(mockRequest.getRequestURI()).thenReturn("/test/url"); // Mock Utils.getUrl equivalent value
+        when(mockRequest.getRequestURI()).thenReturn("/test/url");
+        
         DbQueryStatus mockDbQueryStatus = new DbQueryStatus("Empty response data", DbQueryExecResult.QUERY_OK);
         when(mockPlaylistDriver.unlikeSong(anyString(), anyString())).thenReturn(mockDbQueryStatus);
+        
         OkHttpClient mockClient = mock(OkHttpClient.class);
         ResponseBody mockResponseBody = ResponseBody.create(null, "");
         Response mockResponse = new Response.Builder()
@@ -292,10 +300,10 @@ public class ProfileControllerUnlikeSongTest {
                 .body(mockResponseBody)
                 .build();
         when(mockClient.newCall(any(Request.class)).execute()).thenReturn(mockResponse);
-        profileController.client = mockClient; // Inject the mocked client into the controller
-        // Act
+        
+        profileController.client = mockClient;
+        
         Map<String, Object> response = profileController.unlikeSong("testUser", "testSongId", mockRequest);
-        // Assert
         assertEquals("PUT /test/url", response.get("path"));
         assertEquals("Empty response data", response.get("message"));
         assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC.toString(), ((Map<?, ?>) response.get("status")).get("code"));
