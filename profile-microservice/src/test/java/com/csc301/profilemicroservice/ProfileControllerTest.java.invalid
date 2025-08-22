@@ -3,6 +3,8 @@
 /*
 
 roost_feedback [20/08/2025, 12:49:17 PM]:Modify\sCode\sto\sfix\sthis\serror\n[119,1]\spackage\scom.squareup.okhttp3\sdoes\snot\sexist\n[145,1]\sa\stype\swith\sthe\ssame\ssimple\sname\sis\salready\sdefined\sby\sthe\ssingle-type-import\sof\sokhttp3.ResponseBody\n[147,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[150,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[173,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[176,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[262,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[265,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[286,53]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[289,27]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[175,9]\sreference\sto\sResponseBody\sis\sambiguous\n[175,37]\sreference\sto\sResponseBody\sis\sambiguous\n[195,9]\sreference\sto\sResponseBody\sis\sambiguous\n[195,37]\sreference\sto\sResponseBody\sis\sambiguous\n[275,9]\sreference\sto\sResponseBody\sis\sambiguous\n[275,37]\sreference\sto\sResponseBody\sis\sambiguous
+
+roost_feedback [22/08/2025, 10:11:24 AM]:Modify\sCode\sto\sfix\sthis\serror\n[119,1]\spackage\scom.squareup.okhttp3\sdoes\snot\sexist\n[146,1]\sa\stype\swith\sthe\ssame\ssimple\sname\sis\salready\sdefined\sby\sthe\ssingle-type-import\sof\sokhttp3.ResponseBody\n[192,34]\sconstructor\sPlaylistDriverImpl\sin\sclass\scom.csc301.profilemicroservice.PlaylistDriverImpl\scannot\sbe\sapplied\sto\sgiven\stypes;\n[ERROR]\s\s\srequired:\sno\sarguments\n[ERROR]\s\s\sfound:\s\s\s\sorg.neo4j.driver.v1.Driver\n[ERROR]\s\s\sreason:\sactual\sand\sformal\sargument\slists\sdiffer\sin\slength\n[211,64]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[225,75]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[238,75]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[257,75]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[277,75]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[296,77]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[314,75]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\sgetDbQueryExecResult()\n[ERROR]\s\s\slocation:\svariable\sstatus\sof\stype\scom.csc301.profilemicroservice.DbQueryStatus\n[152,61]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[154,35]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[180,61]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[182,35]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[297,61]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[299,35]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[323,61]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\smethod\screate(<nulltype>,java.lang.String)\n[ERROR]\s\s\slocation:\s@interface\sorg.springframework.web.bind.annotation.ResponseBody\n[325,35]\scannot\sfind\ssymbol\n[ERROR]\s\s\ssymbol:\s\s\svariable\sProtocol\n[ERROR]\s\s\slocation:\sclass\scom.csc301.profilemicroservice.ProfileControllerUnlikeSongTest\n[184,17]\sreference\sto\sResponseBody\sis\sambiguous\n[184,45]\sreference\sto\sResponseBody\sis\sambiguous\n[203,17]\sreference\sto\sResponseBody\sis\sambiguous\n[203,45]\sreference\sto\sResponseBody\sis\sambiguous\n[282,17]\sreference\sto\sResponseBody\sis\sambiguous\n[282,45]\sreference\sto\sResponseBody\sis\sambiguous
 */
 
 // ********RoostGPT********
@@ -10,17 +12,13 @@ roost_feedback [20/08/2025, 12:49:17 PM]:Modify\sCode\sto\sfix\sthis\serror\n[11
 package com.csc301.profilemicroservice;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import javax.servlet.http.HttpServletRequest;
 import org.json.JSONObject;
-import okhttp3.ResponseBody;
-import okhttp3.OkHttpClient;
-import okhttp3.Request;
-import okhttp3.RequestBody;
-import okhttp3.Response;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -33,16 +31,10 @@ public class ProfileControllerTest {
     PlaylistDriver playlistDriver;
 
     @Mock
-    OkHttpClient client;
-
-    @Mock
     HttpServletRequest request;
 
-    @Mock
-    Response apiResponse;
-
     ProfileController profileController;
-    
+
     @Before
     public void setUp() throws Exception {
         MockitoAnnotations.initMocks(this);
@@ -56,10 +48,7 @@ public class ProfileControllerTest {
 
         JSONObject mockResponseBody = new JSONObject();
         mockResponseBody.put("status", "OK");
-        ResponseBody responseBody = ResponseBody.create(null, mockResponseBody.toString());
-        Mockito.when(apiResponse.body()).thenReturn(responseBody);
 
-        Mockito.when(client.newCall(Mockito.any(Request.class)).execute()).thenReturn(apiResponse);
         Mockito.when(request.getRequestURI()).thenReturn("/test");
 
         Map<String, Object> response = profileController.likeSong("validUserName", "validSongId", request);
