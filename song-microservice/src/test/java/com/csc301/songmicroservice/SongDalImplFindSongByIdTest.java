@@ -1,5 +1,3 @@
-//This test file is marked invalid as it contains compilation errors. Change the extension to of this file to .java, to manually edit its contents
-
 
 // ********RoostGPT********
 /*
@@ -115,11 +113,17 @@ Execution:
 Validation:  
   This test confirms the application's resilience to handle internal errors originating from the database or other dependencies, ensuring system stability in case of unexpected issues.  
 
+
+roost_feedback [22/08/2025, 8:48:43 AM]:Modify\sCode\sto\sfix\sthis\serror\n[118,29]\sOK\shas\sprivate\saccess\sin\scom.csc301.songmicroservice.SongDalImpl\n[129,29]\sERR404\shas\sprivate\saccess\sin\scom.csc301.songmicroservice.SongDalImpl\n[138,29]\sERR\shas\sprivate\saccess\sin\scom.csc301.songmicroservice.SongDalImpl\n[145,29]\sERR\shas\sprivate\saccess\sin\scom.csc301.songmicroservice.SongDalImpl\n[154,29]\sERR\shas\sprivate\saccess\sin\scom.csc301.songmicroservice.SongDalImpl
 */
 
 // ********RoostGPT********
-package com.csc301.songmicroservice;import static org.mockito.Mockito.*;
+
+package com.csc301.songmicroservice;
+
+import static org.mockito.Mockito.*;
 import static org.junit.Assert.*;
+
 import org.bson.types.ObjectId;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
@@ -129,19 +133,21 @@ import org.junit.Before;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import java.util.Map;
+
 import com.mongodb.client.result.DeleteResult;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 public class SongDalImplFindSongByIdTest {
     @Mock
     private MongoTemplate mongoTemplate;
+
     @InjectMocks
     private SongDalImpl songDal;
+
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
     }
+
     @Test
     @Category(Categories.valid.class)
     public void validSongIdReturnsSongSuccessfully() {
@@ -152,10 +158,11 @@ public class SongDalImplFindSongByIdTest {
         when(mongoTemplate.findById(validSongId, Song.class)).thenReturn(mockSong);
         DbQueryStatus status = songDal.findSongById(validSongId.toString());
         assertEquals("GET", (String) status.getMessage());
-        assertEquals(songDal.OK, status.getdbQueryExecResult());
+        assertEquals(DbQueryExecResult.OK, status.getdbQueryExecResult());
         assertNotNull((Map<String, String>) status.getData());
         assertEquals(mockJsonRepresentation, (Map<String, String>) status.getData());
     }
+
     @Test
     @Category(Categories.valid.class)
     public void validSongIdDoesNotExistInDatabase() {
@@ -163,24 +170,27 @@ public class SongDalImplFindSongByIdTest {
         when(mongoTemplate.findById(validSongId, Song.class)).thenReturn(null);
         DbQueryStatus status = songDal.findSongById(validSongId.toString());
         assertEquals("GET", (String) status.getMessage());
-        assertEquals(songDal.ERR404, status.getdbQueryExecResult());
+        assertEquals(DbQueryExecResult.ERR404, status.getdbQueryExecResult());
         assertNull(status.getData());
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void invalidSongIdFormat() {
         String invalidSongId = "invalid_id";
         DbQueryStatus status = songDal.findSongById(invalidSongId);
         assertEquals("GET", (String) status.getMessage());
-        assertEquals(songDal.ERR, status.getdbQueryExecResult());
+        assertEquals(DbQueryExecResult.ERR, status.getdbQueryExecResult());
     }
+
     @Test
     @Category(Categories.invalid.class)
     public void nullSongIdArgumentPassed() {
         DbQueryStatus status = songDal.findSongById(null);
         assertEquals("GET", (String) status.getMessage());
-        assertEquals(songDal.ERR, status.getdbQueryExecResult());
+        assertEquals(DbQueryExecResult.ERR, status.getdbQueryExecResult());
     }
+
     @Test
     @Category(Categories.integration.class)
     public void databaseThrowsExceptionDuringQuery() {
@@ -188,6 +198,6 @@ public class SongDalImplFindSongByIdTest {
         when(mongoTemplate.findById(validSongId, Song.class)).thenThrow(new RuntimeException());
         DbQueryStatus status = songDal.findSongById(validSongId.toString());
         assertEquals("GET", (String) status.getMessage());
-        assertEquals(songDal.ERR, status.getdbQueryExecResult());
+        assertEquals(DbQueryExecResult.ERR, status.getdbQueryExecResult());
     }
 }
