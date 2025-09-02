@@ -1,0 +1,298 @@
+//This single test file is marked invalid as it contains compilation errors.
+package com.csc301.profilemicroservice;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
+import javax.servlet.http.HttpServletRequest;
+import java.util.HashMap;
+import java.util.Map;
+import org.mockito.Mockito;
+import org.junit.Assert;
+import org.json.JSONObject;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import okhttp3.FormBody;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import org.junit.Before;
+import org.junit.Assert.assertEquals;
+
+public class ProfileControllerTest {
+
+  // Merged class fields
+  private ProfileController profileController;
+  private ProfileDriverImpl profileDriver;
+  private HttpServletRequest request;
+  private PlaylistDriverImpl playlistDriver;
+  private HttpServletRequest mockRequest;
+
+  // Merged constructors
+  public ProfileControllerAddProfileTest() {
+    MockitoAnnotations.initMocks(this);
+    profileController = new ProfileController(profileDriver, null);
+}
+
+  // Merged test methods
+/*ROOST_METHOD_HASH=addProfile_9127496a2e
+ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+
+*/
+@Category(Categories.valid.class)
+@Test
+public void addProfileSuccessful() {
+    
+    Map<String, String> params = new HashMap<>();
+    params.put("KEY_USER_NAME", "testUser");
+    params.put("KEY_USER_FULLNAME", "Test User");
+    params.put("KEY_USER_PASSWORD", "password123");
+    when(request.getRequestURL()).thenReturn(new StringBuffer("http:
+    DbQueryStatus dbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
+    when(profileDriver.createUserProfile("testUser", "Test User", "password123")).thenReturn(dbQueryStatus);
+    
+    Map<String, Object> response = profileController.addProfile(params, request);
+    
+    assertEquals("POST http:
+    assertEquals("Success", response.get("message").toString());
+    assertEquals(DbQueryExecResult.QUERY_OK, response.get("dbQueryExecResult"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_9127496a2e
+ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+
+*/
+@Category(Categories.invalid.class)
+@Test
+public void addProfileMissingUsername() {
+    
+    Map<String, String> params = new HashMap<>();
+    params.put("KEY_USER_FULLNAME", "Test User");
+    params.put("KEY_USER_PASSWORD", "password123");
+    when(request.getRequestURL()).thenReturn(new StringBuffer("http:
+    DbQueryStatus dbQueryStatus = new DbQueryStatus("Username is missing", DbQueryExecResult.QUERY_ERROR_GENERIC);
+    when(profileDriver.createUserProfile(null, "Test User", "password123")).thenReturn(dbQueryStatus);
+    
+    Map<String, Object> response = profileController.addProfile(params, request);
+    
+    assertEquals("POST http:
+    assertEquals("Username is missing", response.get("message").toString());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("dbQueryExecResult"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_9127496a2e
+ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+
+*/
+@Category(Categories.invalid.class)
+@Test
+public void addProfileMissingFullname() {
+    
+    Map<String, String> params = new HashMap<>();
+    params.put("KEY_USER_NAME", "testUser");
+    params.put("KEY_USER_PASSWORD", "password123");
+    when(request.getRequestURL()).thenReturn(new StringBuffer("http:
+    DbQueryStatus dbQueryStatus = new DbQueryStatus("Fullname is missing", DbQueryExecResult.QUERY_ERROR_GENERIC);
+    when(profileDriver.createUserProfile("testUser", null, "password123")).thenReturn(dbQueryStatus);
+    
+    Map<String, Object> response = profileController.addProfile(params, request);
+    
+    assertEquals("POST http:
+    assertEquals("Fullname is missing", response.get("message").toString());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("dbQueryExecResult"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_9127496a2e
+ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+
+*/
+@Category(Categories.invalid.class)
+@Test
+public void addProfileMissingPassword() {
+    
+    Map<String, String> params = new HashMap<>();
+    params.put("KEY_USER_NAME", "testUser");
+    params.put("KEY_USER_FULLNAME", "Test User");
+    when(request.getRequestURL()).thenReturn(new StringBuffer("http:
+    DbQueryStatus dbQueryStatus = new DbQueryStatus("Password is missing", DbQueryExecResult.QUERY_ERROR_GENERIC);
+    when(profileDriver.createUserProfile("testUser", "Test User", null)).thenReturn(dbQueryStatus);
+    
+    Map<String, Object> response = profileController.addProfile(params, request);
+    
+    assertEquals("POST http:
+    assertEquals("Password is missing", response.get("message").toString());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("dbQueryExecResult"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_9127496a2e
+ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+
+*/
+@Category(Categories.invalid.class)
+@Test
+public void addProfileDatabaseError() {
+    
+    Map<String, String> params = new HashMap<>();
+    params.put("KEY_USER_NAME", "testUser");
+    params.put("KEY_USER_FULLNAME", "Test User");
+    params.put("KEY_USER_PASSWORD", "password123");
+    when(request.getRequestURL()).thenReturn(new StringBuffer("http:
+    DbQueryStatus dbQueryStatus = new DbQueryStatus("Database error", DbQueryExecResult.QUERY_ERROR_GENERIC);
+    when(profileDriver.createUserProfile("testUser", "Test User", "password123")).thenReturn(dbQueryStatus);
+    
+    Map<String, Object> response = profileController.addProfile(params, request);
+    
+    assertEquals("POST http:
+    assertEquals("Database error", response.get("message").toString());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, response.get("dbQueryExecResult"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_9127496a2e
+ROOST_METHOD_SIG_HASH=addProfile_65c91e0252
+
+*/
+@Category(Categories.boundary.class)
+@Test
+public void addProfileEdgeCaseValues() {
+    
+    Map<String, String> params = new HashMap<>();
+    
+    params.put("KEY_USER_NAME", "a".repeat(500));
+    params.put("KEY_USER_FULLNAME", "Test User");
+    params.put("KEY_USER_PASSWORD", "password123");
+    when(request.getRequestURL()).thenReturn(new StringBuffer("http:
+    DbQueryStatus dbQueryStatus = new DbQueryStatus("Success", DbQueryExecResult.QUERY_OK);
+    when(profileDriver.createUserProfile("a".repeat(500), "Test User", "password123")).thenReturn(dbQueryStatus);
+    
+    Map<String, Object> response = profileController.addProfile(params, request);
+    
+    assertEquals("POST http:
+    assertEquals("Success", response.get("message").toString());
+    assertEquals(DbQueryExecResult.QUERY_OK, response.get("dbQueryExecResult"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_a9ce10f073
+ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
+
+*/
+@Before
+public void setUp() {
+    playlistDriver = mock(PlaylistDriverImpl.class);
+    profileController = new ProfileController(null, playlistDriver);
+    mockRequest = mock(HttpServletRequest.class);
+}
+
+/*ROOST_METHOD_HASH=addProfile_a9ce10f073
+ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
+
+*/
+@Category(Categories.valid.class)
+@Test
+public void addSongSuccessfully() {
+    
+    
+    String songId = "12345";
+    
+    String songName = "Test Song";
+    when(mockRequest.getRequestURI()).thenReturn("/api/add");
+    when(playlistDriver.addSong(songId, songName)).thenReturn(new DbQueryStatus("Song added successfully", DbQueryExecResult.QUERY_OK));
+    
+    Map<String, Object> result = profileController.addProfile(songId, songName, mockRequest);
+    
+    assertEquals("POST /api/add", result.get("path"));
+    assertEquals("Song added successfully", (String) result.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_OK, result.get("status"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_a9ce10f073
+ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
+
+*/
+@Category(Categories.invalid.class)
+@Test
+public void addSongWithInvalidSongId() {
+    
+    
+    String songId = null;
+    String songName = "Test Song";
+    when(mockRequest.getRequestURI()).thenReturn("/api/add");
+    when(playlistDriver.addSong(songId, songName)).thenReturn(new DbQueryStatus("Invalid song id", DbQueryExecResult.QUERY_ERROR_GENERIC));
+    
+    Map<String, Object> result = profileController.addProfile(songId, songName, mockRequest);
+    
+    assertEquals("POST /api/add", result.get("path"));
+    assertEquals("Invalid song id", (String) result.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.get("status"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_a9ce10f073
+ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
+
+*/
+@Category(Categories.invalid.class)
+@Test
+public void addSongWithInvalidSongName() {
+    
+    String songId = "12345";
+    
+    String songName = null;
+    when(mockRequest.getRequestURI()).thenReturn("/api/add");
+    when(playlistDriver.addSong(songId, songName)).thenReturn(new DbQueryStatus("Invalid song name", DbQueryExecResult.QUERY_ERROR_GENERIC));
+    
+    Map<String, Object> result = profileController.addProfile(songId, songName, mockRequest);
+    
+    assertEquals("POST /api/add", result.get("path"));
+    assertEquals("Invalid song name", (String) result.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.get("status"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_a9ce10f073
+ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
+
+*/
+@Category(Categories.boundary.class)
+@Test
+public void addSongWithEmptyParams() {
+    
+    
+    String songId = "";
+    
+    String songName = "";
+    when(mockRequest.getRequestURI()).thenReturn("/api/add");
+    when(playlistDriver.addSong(songId, songName)).thenReturn(new DbQueryStatus("Empty parameters", DbQueryExecResult.QUERY_ERROR_GENERIC));
+    
+    Map<String, Object> result = profileController.addProfile(songId, songName, mockRequest);
+    
+    assertEquals("POST /api/add", result.get("path"));
+    assertEquals("Empty parameters", (String) result.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.get("status"));
+}
+
+/*ROOST_METHOD_HASH=addProfile_a9ce10f073
+ROOST_METHOD_SIG_HASH=addProfile_8d923810c2
+
+*/
+@Category(Categories.integration.class)
+@Test
+public void integrationTestWithPlaylistDriver() {
+    
+    
+    String songId = "12345";
+    
+    String songName = "Integration Song";
+    when(mockRequest.getRequestURI()).thenReturn("/api/add");
+    when(playlistDriver.addSong(songId, songName)).thenReturn(new DbQueryStatus("Successfully connected", DbQueryExecResult.QUERY_OK));
+    
+    Map<String, Object> result = profileController.addProfile(songId, songName, mockRequest);
+    
+    assertEquals("POST /api/add", result.get("path"));
+    assertEquals("Successfully connected", (String) result.get("message"));
+    assertEquals(DbQueryExecResult.QUERY_OK, result.get("status"));
+}
+}
