@@ -1,0 +1,159 @@
+//This single test file is marked invalid as it contains compilation errors.
+package com.csc301.profilemicroservice;
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.neo4j.driver.v1.Session;
+import org.neo4j.driver.v1.StatementResult;
+import org.neo4j.driver.v1.Transaction;
+import org.junit.Assert.assertEquals;
+import org.mockito.Mockito;
+import java.util.HashMap;
+import java.util.Map;
+import org.neo4j.driver.v1.Driver;
+import org.springframework.stereotype.Repository;
+
+public class PlaylistDriverImplTest {
+
+  // Merged class fields
+  private Driver driverMock;
+  private Session sessionMock;
+  private Transaction transactionMock;
+  private StatementResult statementResultMock;
+  private PlaylistDriverImpl playlistDriverImpl;
+
+  // Merged test methods
+/*ROOST_METHOD_HASH=unlikeSong_eb7182672f
+ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+
+*/
+@Before
+public void setUp() {
+    MockitoAnnotations.initMocks(this);
+    
+    playlistDriverImpl = new PlaylistDriverImpl();
+    
+    playlistDriverImpl.driver = driverMock;
+}
+
+/*ROOST_METHOD_HASH=unlikeSong_eb7182672f
+ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+
+*/
+@Test
+@Category(Categories.valid.class)
+public void validInputsRemoveSong() {
+    
+    String userName = "testUser";
+    String songId = "testSong";
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(driverMock.session()).thenReturn(sessionMock);
+    when(sessionMock.beginTransaction()).thenReturn(transactionMock);
+    
+    when(transactionMock.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(statementResultMock);
+    when(statementResultMock.hasNext()).thenReturn(true);
+    
+    when(transactionMock.run("MATCH (s:song {songId: $songId}) RETURN s", params)).thenReturn(statementResultMock);
+    when(statementResultMock.hasNext()).thenReturn(true);
+    
+    when(transactionMock.run("MATCH (p:playlist {plName: $plName})-[r:includes]->(s:song {songId: $songId}) RETURN r", params)).thenReturn(statementResultMock);
+    when(statementResultMock.hasNext()).thenReturn(true);
+    
+    DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+    
+    assertEquals((Object) DbQueryExecResult.QUERY_OK, (Object) result.getdbQueryExecResult());
+    verify(transactionMock, times(1)).run("MATCH (p:playlist {plName: $plName})-[r:includes]->(s:song {songId: $songId}) DELETE r", params);
+}
+
+/*ROOST_METHOD_HASH=unlikeSong_eb7182672f
+ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void invalidInputNullUserName() {
+    
+    
+    String userName = null;
+    String songId = "testSong";
+    
+    DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+    
+    assertEquals((Object) DbQueryExecResult.QUERY_ERROR_GENERIC, (Object) result.getdbQueryExecResult());
+}
+
+/*ROOST_METHOD_HASH=unlikeSong_eb7182672f
+ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void invalidInputNullSongId() {
+    
+    String userName = "testUser";
+    
+    String songId = null;
+    
+    DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+    
+    assertEquals((Object) DbQueryExecResult.QUERY_ERROR_GENERIC, (Object) result.getdbQueryExecResult());
+}
+
+/*ROOST_METHOD_HASH=unlikeSong_eb7182672f
+ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void songNotInPlaylist() {
+    
+    String userName = "testUser";
+    String songId = "invalidSong";
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(driverMock.session()).thenReturn(sessionMock);
+    when(sessionMock.beginTransaction()).thenReturn(transactionMock);
+    
+    when(transactionMock.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(statementResultMock);
+    when(statementResultMock.hasNext()).thenReturn(true);
+    
+    when(transactionMock.run("MATCH (s:song {songId: $songId}) RETURN s", params)).thenReturn(statementResultMock);
+    when(statementResultMock.hasNext()).thenReturn(true);
+    
+    when(transactionMock.run("MATCH (p:playlist {plName: $plName})-[r:includes]->(s:song {songId: $songId}) RETURN r", params)).thenReturn(statementResultMock);
+    when(statementResultMock.hasNext()).thenReturn(false);
+    
+    DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+    
+    assertEquals((Object) DbQueryExecResult.QUERY_ERROR_GENERIC, (Object) result.getdbQueryExecResult());
+}
+
+/*ROOST_METHOD_HASH=unlikeSong_eb7182672f
+ROOST_METHOD_SIG_HASH=unlikeSong_04c9cef7dd
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void playlistDoesNotExist() {
+    
+    String userName = "nonexistentUser";
+    String songId = "testSong";
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(driverMock.session()).thenReturn(sessionMock);
+    when(sessionMock.beginTransaction()).thenReturn(transactionMock);
+    
+    when(transactionMock.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(statementResultMock);
+    when(statementResultMock.hasNext()).thenReturn(false);
+    
+    DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
+    
+    assertEquals((Object) DbQueryExecResult.QUERY_ERROR_GENERIC, (Object) result.getdbQueryExecResult());
+}
+}
