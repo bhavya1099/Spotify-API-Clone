@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import org.neo4j.driver.v1.Driver;
 import org.springframework.stereotype.Repository;
+import org.junit.Assert;
 
 public class PlaylistDriverImplTest {
 
@@ -23,6 +24,8 @@ public class PlaylistDriverImplTest {
   private Transaction transactionMock;
   private StatementResult statementResultMock;
   private PlaylistDriverImpl playlistDriverImpl;
+  private Driver driver = mock(Driver.class);
+  private PlaylistDriverImpl playlistDriver = new PlaylistDriverImpl(driver);
 
   // Merged test methods
 /*ROOST_METHOD_HASH=unlikeSong_eb7182672f
@@ -155,5 +158,225 @@ public void playlistDoesNotExist() {
     DbQueryStatus result = playlistDriverImpl.unlikeSong(userName, songId);
     
     assertEquals((Object) DbQueryExecResult.QUERY_ERROR_GENERIC, (Object) result.getdbQueryExecResult());
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.valid.class)
+public void likeSongSuccessfully() {
+    String userName = "testUser";
+    String songId = "testSong";
+    Session session = mock(Session.class);
+    Transaction transaction = mock(Transaction.class);
+    StatementResult playlistResult = mock(StatementResult.class);
+    StatementResult songResult = mock(StatementResult.class);
+    StatementResult relationshipResult = mock(StatementResult.class);
+    when(driver.session()).thenReturn(session);
+    when(session.beginTransaction()).thenReturn(transaction);
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(transaction.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(playlistResult);
+    when(transaction.run("MATCH (s:song {songId: $songId}) RETURN s", params)).thenReturn(songResult);
+    when(transaction.run("MATCH r=(p:playlist {plName: $plName})-[:includes]->(s:song {songId: $songId}) RETURN r", params)).thenReturn(relationshipResult);
+    when(playlistResult.hasNext()).thenReturn(true);
+    when(songResult.hasNext()).thenReturn(true);
+    when(relationshipResult.hasNext()).thenReturn(false);
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    assertEquals("PUT", result.getDbQueryMessage());
+    assertEquals(DbQueryExecResult.QUERY_OK, result.getDbQueryExecResult());
+    verify(transaction, times(1)).success();
+    verify(session, times(1)).close();
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void handleNullUserName() {
+    String userName = null;
+    String songId = "testSong";
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    assertEquals("PUT", result.getDbQueryMessage());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void handleNullSongId() {
+    String userName = "testUser";
+    String songId = null;
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    assertEquals("PUT", result.getDbQueryMessage());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void handleNonExistentNodes() {
+    String userName = "testUser";
+    String songId = "testSong";
+    Session session = mock(Session.class);
+    Transaction transaction = mock(Transaction.class);
+    StatementResult playlistResult = mock(StatementResult.class);
+    StatementResult songResult = mock(StatementResult.class);
+    when(driver.session()).thenReturn(session);
+    when(session.beginTransaction()).thenReturn(transaction);
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(transaction.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(playlistResult);
+    when(transaction.run("MATCH (s:song {songId: $songId}) RETURN s", params)).thenReturn(songResult);
+    when(playlistResult.hasNext()).thenReturn(false);
+    when(songResult.hasNext()).thenReturn(false);
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    assertEquals("PUT", result.getDbQueryMessage());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
+    verify(session, times(1)).close();
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.valid.class)
+public void handleAlreadyLikedSong() {
+    String userName = "testUser";
+    String songId = "testSong";
+    Session session = mock(Session.class);
+    Transaction transaction = mock(Transaction.class);
+    StatementResult playlistResult = mock(StatementResult.class);
+    StatementResult songResult = mock(StatementResult.class);
+    StatementResult relationshipResult = mock(StatementResult.class);
+    when(driver.session()).thenReturn(session);
+    when(session.beginTransaction()).thenReturn(transaction);
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(transaction.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(playlistResult);
+    when(transaction.run("MATCH (s:song {songId: $songId}) RETURN s", params)).thenReturn(songResult);
+    when(transaction.run("MATCH r=(p:playlist {plName: $plName})-[:includes]->(s:song {songId: $songId}) RETURN r", params)).thenReturn(relationshipResult);
+    when(playlistResult.hasNext()).thenReturn(true);
+    when(songResult.hasNext()).thenReturn(true);
+    when(relationshipResult.hasNext()).thenReturn(true);
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    assertEquals("PUT", result.getDbQueryMessage());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_NOT_FOUND, result.getDbQueryExecResult());
+    verify(session, times(1)).close();
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.integration.class)
+public void handleDatabaseException() {
+    String userName = "testUser";
+    String songId = "testSong";
+    Session session = mock(Session.class);
+    when(driver.session()).thenReturn(session);
+    when(session.beginTransaction()).thenThrow(new RuntimeException("Database error"));
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    assertEquals("PUT", result.getDbQueryMessage());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
+    verify(session, times(1)).close();
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.integration.class)
+public void verifyDatabaseConnectionClosure() {
+    String userName = "testUser";
+    String songId = "testSong";
+    Session session = mock(Session.class);
+    Transaction transaction = mock(Transaction.class);
+    StatementResult playlistResult = mock(StatementResult.class);
+    StatementResult songResult = mock(StatementResult.class);
+    StatementResult relationshipResult = mock(StatementResult.class);
+    when(driver.session()).thenReturn(session);
+    when(session.beginTransaction()).thenReturn(transaction);
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(transaction.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(playlistResult);
+    when(transaction.run("MATCH (s:song {songId: $songId}) RETURN s", params)).thenReturn(songResult);
+    when(transaction.run("MATCH r=(p:playlist {plName: $plName})-[:includes]->(s:song {songId: $songId}) RETURN r", params)).thenReturn(relationshipResult);
+    when(playlistResult.hasNext()).thenReturn(true);
+    when(songResult.hasNext()).thenReturn(true);
+    when(relationshipResult.hasNext()).thenReturn(false);
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    verify(session, times(1)).close();
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.valid.class)
+public void verifySuccessfulCommit() {
+    String userName = "testUser";
+    String songId = "testSong";
+    Session session = mock(Session.class);
+    Transaction transaction = mock(Transaction.class);
+    StatementResult playlistResult = mock(StatementResult.class);
+    StatementResult songResult = mock(StatementResult.class);
+    StatementResult relationshipResult = mock(StatementResult.class);
+    when(driver.session()).thenReturn(session);
+    when(session.beginTransaction()).thenReturn(transaction);
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(transaction.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(playlistResult);
+    when(transaction.run("MATCH (s:song {songId: $songId}) RETURN s", params)).thenReturn(songResult);
+    when(transaction.run("MATCH r=(p:playlist {plName: $plName})-[:includes]->(s:song {songId: $songId}) RETURN r", params)).thenReturn(relationshipResult);
+    when(playlistResult.hasNext()).thenReturn(true);
+    when(songResult.hasNext()).thenReturn(true);
+    when(relationshipResult.hasNext()).thenReturn(false);
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    verify(transaction, times(1)).success();
+}
+
+/*ROOST_METHOD_HASH=likeSong_643385e86e
+ROOST_METHOD_SIG_HASH=likeSong_0db1938fb8
+
+*/
+@Test
+@Category(Categories.invalid.class)
+public void handleInvalidPlaylistFormat() {
+    String userName = "invalidUser";
+    String songId = "testSong";
+    Session session = mock(Session.class);
+    Transaction transaction = mock(Transaction.class);
+    StatementResult playlistResult = mock(StatementResult.class);
+    when(driver.session()).thenReturn(session);
+    when(session.beginTransaction()).thenReturn(transaction);
+    Map<String, Object> params = new HashMap<>();
+    params.put("plName", userName + "-favourites");
+    params.put("songId", songId);
+    when(transaction.run("MATCH (p:playlist {plName: $plName}) RETURN p", params)).thenReturn(playlistResult);
+    when(playlistResult.hasNext()).thenReturn(false);
+    DbQueryStatus result = playlistDriver.likeSong(userName, songId);
+    assertEquals("PUT", result.getDbQueryMessage());
+    assertEquals(DbQueryExecResult.QUERY_ERROR_GENERIC, result.getDbQueryExecResult());
+    verify(session, times(1)).close();
 }
 }
